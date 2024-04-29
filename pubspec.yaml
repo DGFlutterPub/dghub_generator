@@ -10,9 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  dghub_cli: 
-    git:
-      url: https://github.com/DGFlutterPub/dghub_cli.git
   dghub_annotation: 
     git:
       url: https://github.com/DGFlutterPub/dghub_annotation.git
