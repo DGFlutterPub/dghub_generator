@@ -1,0 +1,3 @@
+class DGController {
+  const DGController();
+}
