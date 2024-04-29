@@ -10,9 +10,7 @@
 
 ## What is
 
-A flutter package to cache network image fastly without native dependencies, with loader, error builder, and smooth fade transitions. You can also add beautiful loaders and percentage indicators with the total and download size of the image.
-
-See for example this or this answer on previous posted issues.
+Coming soon....
 
 ## Installation
 
