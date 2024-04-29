@@ -33,8 +33,20 @@ import 'package:dghub_generator/dghub_generator.dart';
 dart pub global activate --source git https://github.com/DGFlutterPub/dghub_cli.git
 ```
 
-## Usage
+## Help
 
 ```
 dg -h
+```
+
+## Create
+
+```
+dg -c <write-something>
+```
+
+## Generate
+
+```
+dg -g <write-something>
 ```
