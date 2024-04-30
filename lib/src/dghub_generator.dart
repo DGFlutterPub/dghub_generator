@@ -8,5 +8,7 @@ class DGHubGenerator {
   final DGController? controller;
   final DGSocket? socket;
   final List<DGPage>? pages;
-  const DGHubGenerator({this.models, this.controller, this.socket, this.pages});
+  final DGConfig? config;
+  const DGHubGenerator(
+      {this.config, this.models, this.controller, this.socket, this.pages});
 }
