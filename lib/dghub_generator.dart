@@ -7,3 +7,4 @@ export './src/models/dg_controller.dart';
 export './src/models/dg_validator.dart';
 export './src/models/dg_config.dart';
 export './src/models/dg_page.dart';
+export 'package:provider/provider.dart';
