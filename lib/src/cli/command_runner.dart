@@ -22,9 +22,9 @@ const description = 'DGHub Studio. www.dghub.dev';
 /// $ dg --version
 /// ```
 /// {@endtemplate}
-class DghubCliCommandRunner extends CompletionCommandRunner<int> {
+class DGHubCliCommandRunner extends CompletionCommandRunner<int> {
   /// {@macro dghub_cli_command_runner}
-  DghubCliCommandRunner({
+  DGHubCliCommandRunner({
     Logger? logger,
     PubUpdater? pubUpdater,
   })  : _logger = logger ?? Logger(),
