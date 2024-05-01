@@ -4,15 +4,16 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
 import 'package:dghub_generator/src/bundles/main_bundle.dart';
-import 'package:dghub_generator/src/cli/src/commands/update_command.dart';
-import 'package:dghub_generator/src/cli/src/version.dart';
+import 'package:dghub_generator/src/cli/commands/update_command.dart';
+import 'package:dghub_generator/src/cli/version.dart';
 import 'package:mason/mason.dart' hide packageVersion;
 import 'package:path/path.dart' as p;
 import 'package:pub_updater/pub_updater.dart';
 
 const executableName = 'dg';
-const packageName = 'dghub_cli';
-const description = 'A Very Good Project created by Very Good CLI.';
+const packageName = 'dghub_generator';
+const description = 'DGHub Studio. www.dghub.dev';
+//Created by Very Good CLI.
 
 /// {@template dghub_cli_command_runner}
 /// A [CommandRunner] for the CLI.
