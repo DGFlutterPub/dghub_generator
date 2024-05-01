@@ -15,7 +15,7 @@ const packageName = 'dghub_generator';
 const description = 'DGHub Studio. www.dghub.dev';
 //Created by Very Good CLI.
 
-/// {@template dghub_cli_command_runner}
+/// {@template dghub_generator_command_runner}
 /// A [CommandRunner] for the CLI.
 ///
 /// ```
@@ -23,7 +23,7 @@ const description = 'DGHub Studio. www.dghub.dev';
 /// ```
 /// {@endtemplate}
 class DGHubCliCommandRunner extends CompletionCommandRunner<int> {
-  /// {@macro dghub_cli_command_runner}
+  /// {@macro dghub_generator_command_runner}
   DGHubCliCommandRunner({
     Logger? logger,
     PubUpdater? pubUpdater,
