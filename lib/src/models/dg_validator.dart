@@ -1,3 +1,0 @@
-class DGValidator {
-  const DGValidator();
-}
