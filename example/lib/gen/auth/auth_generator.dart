@@ -1,5 +1,5 @@
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:example/app/auth/validators/auth_validator.dart';
+import 'package:example/gen/auth/validators/auth_validator.dart';
 
 @DGHubGenerator(
   config: DGConfig(createdAt: true, deletedAt: true, updatedAt: true),

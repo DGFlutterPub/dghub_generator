@@ -1,4 +1,4 @@
-import 'package:example/app/auth/auth_generator.dart';
+import 'package:example/gen/auth/auth_generator.dart';
 
 class DGGenerator {
   AuthGenerator auth = AuthGenerator();

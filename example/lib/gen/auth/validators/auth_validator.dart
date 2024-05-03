@@ -1,5 +1,5 @@
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:example/app/auth/models/auth_model.dart';
+import 'package:example/gen/auth/models/auth_model.dart';
 
 //generated
 class AuthValidator {
