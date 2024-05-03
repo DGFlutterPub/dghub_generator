@@ -39,6 +39,12 @@ dart pub global activate --source git https://github.com/DGFlutterPub/dghub_gene
 dg -h
 ```
 
+## Init
+
+```
+dg -i
+```
+
 ## Create
 
 ```
@@ -46,6 +52,10 @@ dg -c <write-something>
 ```
 
 ## Generate
+
+```
+dg -g
+```
 
 ```
 dg -g <write-something>
