@@ -5,7 +5,9 @@ import 'package:example/app/auth/models/auth_model.dart';
 class AuthValidator {
   static authModel(AuthModel data) => DGValidator.validator({
         "name": DGValidator<String>()
-            .transform((value) => value.trim())
-            .minLength(3, "Name must be at least 3 characters long."),
+            //data.isBoolean
+            .boolean()
+            //data.isEmail
+            .email("Invalid email address."),
       }, data.toJson());
 }
