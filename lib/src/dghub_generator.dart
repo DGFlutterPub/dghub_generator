@@ -17,7 +17,7 @@ import 'package:source_gen/source_gen.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
-  final DGController? controller;
+  final DGProvider? provider;
   final DGSocket? socket;
   final List<DGPage>? pages;
   final DGConfig? config;
@@ -25,7 +25,7 @@ class DGHubGenerator {
   const DGHubGenerator({
     this.config,
     this.models,
-    this.controller,
+    this.provider,
     this.socket,
     this.pages,
   });
