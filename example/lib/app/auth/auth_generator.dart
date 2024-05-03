@@ -1,4 +1,5 @@
 import 'package:dghub_generator/dghub_generator.dart';
+import 'package:example/app/auth/validators/auth_validator.dart';
 
 @DGHubGenerator(
   config: DGConfig(createdAt: true, deletedAt: true, updatedAt: true),
@@ -18,4 +19,6 @@ import 'package:dghub_generator/dghub_generator.dart';
   ],
   provider: DGProvider(),
 )
-class AuthGenerator {}
+class AuthGenerator {
+  AuthValidator validator = AuthValidator();
+}
