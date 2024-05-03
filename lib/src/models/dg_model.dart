@@ -5,12 +5,12 @@ class DGModel {
   final dynamic defaultValue;
   final DGValidate? validate;
   final bool form;
+  final bool locationMode;
 
-  const DGModel({
-    required this.key,
-    this.defaultValue,
-    this.validate,
-    this.form = false,
-  });
-
+  const DGModel(
+      {required this.key,
+      this.defaultValue,
+      this.validate,
+      this.form = false,
+      this.locationMode = false});
 }

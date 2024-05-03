@@ -8,4 +8,6 @@ export './src/models/dg_config.dart';
 export './src/models/dg_page.dart';
 export './src/libraries/validator/dghub_validator.dart';
 export './src/models/dg_validate.dart';
+export 'package:provider/provider.dart';
 export 'package:provider/single_child_widget.dart';
+export './src/models/dg_route.dart';

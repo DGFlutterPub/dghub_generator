@@ -4,13 +4,14 @@ import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:dghub_generator/src/generators/controller_generator.dart';
 import 'package:dghub_generator/src/generators/model_generator.dart';
-import 'package:dghub_generator/src/models/dg_socket.dart';
 import 'package:source_gen/source_gen.dart';
+
+import 'models/dg_route.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
   final DGProvider? provider;
-  final DGSocket? socket;
+  final List<DGRoute>? routes;
   final List<DGPage>? pages;
   final DGConfig? config;
 
@@ -18,7 +19,7 @@ class DGHubGenerator {
     this.config,
     this.models,
     this.provider,
-    this.socket,
+    this.routes,
     this.pages,
   });
 }
