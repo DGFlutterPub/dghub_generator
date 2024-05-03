@@ -1,18 +1,10 @@
-import 'dart:io';
-
-import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
-import 'package:code_builder/code_builder.dart';
-import 'package:dart_style/dart_style.dart';
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:dghub_generator/src/builders/model_builder.dart';
-import 'package:dghub_generator/src/bundles/module_bundle.dart';
 import 'package:dghub_generator/src/generators/controller_generator.dart';
 import 'package:dghub_generator/src/generators/model_generator.dart';
 import 'package:dghub_generator/src/models/dg_socket.dart';
-import 'package:mason/mason.dart';
 import 'package:source_gen/source_gen.dart';
 
 class DGHubGenerator {
@@ -53,6 +45,7 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
     if (!models.isNull) {
       ModelGenerator.generate(className, models);
     }
+
     if (!controller.isNull) {
       ControllerGenerator.generator(className, controller);
     }

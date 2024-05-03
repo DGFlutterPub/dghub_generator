@@ -12,4 +12,5 @@ class DGModel {
     this.validate,
     this.form = false,
   });
+
 }
