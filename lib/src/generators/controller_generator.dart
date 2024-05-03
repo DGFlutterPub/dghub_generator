@@ -20,7 +20,7 @@ class ControllerGenerator {
       p.join(
         Directory.current.path,
         'lib',
-        'app',
+        'gen',
         className,
         'controller',
         '${className}_controller.dart',

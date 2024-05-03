@@ -167,7 +167,7 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
 
     progress.update('Dart format');
     await Process.run('dart', ['format', '.']);
-    progress.complete('Created lib/app/$name/${name}_generator.dart');
+    progress.complete('Created lib/gen/$name/${name}_generator.dart');
   }
 
   Future<ExitCode> _genFile(ArgResults topLevelResults) async {
@@ -176,7 +176,7 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
     final path = p.join(
       Directory.current.path,
       'lib',
-      'app',
+      'gen',
       name,
       '${name}_generator.dart',
     );

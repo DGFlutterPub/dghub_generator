@@ -7,7 +7,7 @@ final modelBundle = MasonBundle.fromJson(<String, dynamic>{
   "files": [
     {
       "path":
-          "lib/app/{{name.snakeCase()}}/models/{{name.snakeCase()}}_model.dart",
+          "lib/gen/{{name.snakeCase()}}/models/{{name.snakeCase()}}_model.dart",
       "data": "",
       "type": "text"
     }
@@ -47,7 +47,7 @@ final controllerBundle = MasonBundle.fromJson(<String, dynamic>{
   "files": [
     {
       "path":
-          "lib/app/{{name.snakeCase()}}/controllers/{{name.snakeCase()}}_controller.dart",
+          "lib/gen/{{name.snakeCase()}}/controllers/{{name.snakeCase()}}_controller.dart",
       "data": "",
       "type": "text"
     },

@@ -22,7 +22,7 @@ class ModelGenerator {
       p.join(
         Directory.current.path,
         'lib',
-        'app',
+        'gen',
         className,
         'models',
         '${className}_model.dart',
