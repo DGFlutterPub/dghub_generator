@@ -16,8 +16,10 @@ class DGHubApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: Providers.get(),
-      child: Consumer<ThemeProvider>(builder: (context, state, child) {
-        return Consumer<LanguageProvider>(builder: (context, state, child) {
+      child: Consumer<ThemeProvider>(
+          builder: (themeContext, themeProvider, themeChild) {
+        return Consumer<LanguageProvider>(
+            builder: (languageContext, languageProvider, languageChild) {
           return MaterialApp.router(
             theme: ThemeData(
               colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
