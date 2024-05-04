@@ -6,7 +6,7 @@ import 'package:example/gen/auth/validators/auth_validator.dart';
   models: [
     DGModel(
       form: true,
-      validate: DGValidate(isEmail: true),
+      validate: DGValidate(isEmail: true, isBoolean: true),
       key: 'name',
       defaultValue: 'mg mg',
     ),
