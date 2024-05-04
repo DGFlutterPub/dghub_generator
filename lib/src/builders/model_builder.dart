@@ -15,28 +15,27 @@ class ModelBuilder {
     var toJson = <String>[];
 
     for (var e in models) {
-      var key = e.getField('key')!.toStringValue();
-      var keyVal = key!.toCamelCase();
+      var key = e.getField('key')!.toStringValue()!.toCamelCase();
       var defaultValue = e.getField('defaultValue');
 
       var field = Field(
         (b) => b
-          ..name = keyVal
+          ..name = key
           ..type = Reference(defaultValue?.type.toString() ?? 'dynamic'),
       );
 
       fields.add(field);
 
-      toJson.add('"$key": $keyVal');
+      toJson.add('"$key": $key');
 
       var parameter = Parameter(
         (b) => b
-          ..name = keyVal
+          ..name = key
           ..toThis = true,
       );
 
       if (defaultValue?.isNull ?? true) {
-        fromJson.add('$keyVal: json["$key"]');
+        fromJson.add('$key: json["$key"]');
 
         optionalParameters.add(parameter);
       } else {
