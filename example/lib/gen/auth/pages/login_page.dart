@@ -6,7 +6,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.gen().auth.validator.checkModel();
+    // context.gen().auth.validator.checkModel();
     return Container();
   }
 }

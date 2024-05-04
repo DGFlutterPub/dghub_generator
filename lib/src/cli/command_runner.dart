@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
+import 'package:dghub_generator/src/bundles/init_bundle.dart';
 import 'package:dghub_generator/src/bundles/main_bundle.dart';
 import 'package:dghub_generator/src/cli/commands/update_command.dart';
 import 'package:dghub_generator/src/cli/version.dart';
@@ -39,6 +40,12 @@ class DGHubCliCommandRunner extends CompletionCommandRunner<int> {
         help: 'Print the current version.',
       )
       ..addSeparator('Generator')
+      ..addFlag(
+        'init',
+        abbr: 'i',
+        negatable: false,
+        help: 'Init project.',
+      )
       ..addOption(
         'create',
         abbr: 'c',
@@ -119,6 +126,8 @@ class DGHubCliCommandRunner extends CompletionCommandRunner<int> {
     if (topLevelResults['version'] == true) {
       _logger.info(packageVersion);
       exitCode = ExitCode.success.code;
+    } else if (topLevelResults.wasParsed('init')) {
+      exitCode = (await _init(topLevelResults)).code;
     } else if (topLevelResults.wasParsed('create')) {
       await _createMainFile(topLevelResults);
       exitCode = ExitCode.success.code;
@@ -206,6 +215,20 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
     print('controller: $haveController');
     print('pages: $havePages');
     print('socket: $haveSocket');
+
+    return ExitCode.success;
+  }
+
+  Future<ExitCode> _init(ArgResults topLevelResults) async {
+    final generator = await MasonGenerator.fromBundle(initBundle);
+    final target = DirectoryGeneratorTarget(Directory.current);
+
+    final progress = _logger.progress('Project Initializing');
+    await generator.generate(target);
+
+    progress.update('Dart format');
+    await Process.run('dart', ['format', '.']);
+    progress.complete('Project Initializing Success');
 
     return ExitCode.success;
   }
