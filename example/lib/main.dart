@@ -1,4 +1,5 @@
 import 'package:example/config/providers.dart';
+import 'package:example/routes/routes.dart';
 import 'package:example/system/scroll/scroll_behavior.dart';
 import 'system/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class DGHubApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _routes = Routes();
     return MultiProvider(
       providers: Providers.get(),
       child: Consumer<ThemeProvider>(
@@ -23,6 +25,7 @@ class DGHubApp extends StatelessWidget {
         return Consumer<LanguageProvider>(
             builder: (languageContext, languageProvider, languageChild) {
           return MaterialApp.router(
+            routerConfig: _routes.config(),
             scrollBehavior: DGHubScrollBehavior.scrollBehavior(),
             builder: (context, child) {
               return DGHubScrollBehavior.scrollBuilderWidget(child: child);

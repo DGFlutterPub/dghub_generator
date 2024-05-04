@@ -4,7 +4,7 @@ import 'package:example/gen/auth/models/auth_model.dart';
 //generated
 class AuthValidator {
   ValidateResult checkModel(AuthModel data) => DGValidator.validator({
-        "name": DGValidator()
+        "name": DGValidator<String>()
             //data.isBoolean
             .boolean()
             //data.isEmail

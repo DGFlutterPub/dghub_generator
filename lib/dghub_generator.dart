@@ -11,3 +11,4 @@ export './src/models/dg_validate.dart';
 export 'package:provider/provider.dart';
 export 'package:provider/single_child_widget.dart';
 export './src/models/dg_route.dart';
+export 'package:auto_route/auto_route.dart';

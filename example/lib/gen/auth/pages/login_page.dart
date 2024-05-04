@@ -1,4 +1,5 @@
 import 'package:example/config/extentions.dart';
+import 'package:example/gen/auth/models/auth_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -6,7 +7,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // context.gen().auth.validator.checkModel();
+    // context.gen().auth.validator.checkModel(AuthModel('name', phoneNo));
     return Container();
   }
 }
