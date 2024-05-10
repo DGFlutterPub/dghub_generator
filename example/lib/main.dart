@@ -1,5 +1,6 @@
 import 'package:example/system/scroll/scroll_behavior.dart';
-import 'package:example/system/theme/theme_scope.dart';
+import 'package:example/system/theme/theme_controller.dart';
+import 'package:example/system/theme/theme_controller_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'routes/routes.dart';
@@ -16,8 +17,8 @@ class DGHubApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final _routes = Routes();
     return ProviderScope(
-      child: ThemeScope(builder: (themeProvider, themeData) {
-        print(themeData);
+      child: ThemeControllerWidget(builder: (themeController, themeMode) {
+        print(themeMode);
         return MaterialApp.router(
           routerConfig: _routes.config(),
           scrollBehavior: DGHubScrollBehavior.scrollBehavior(),
@@ -28,7 +29,7 @@ class DGHubApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.black,
             useMaterial3: true,
           ),
-          themeMode: themeData,
+          themeMode: themeMode,
           theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
             useMaterial3: true,

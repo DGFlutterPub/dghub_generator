@@ -1,4 +1,4 @@
-import 'package:example/system/theme/theme_scope.dart';
+import 'package:example/system/theme/theme_controller_widget.dart';
 import 'package:flutter/material.dart';
 
 class ThemeChangerWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class ThemeChangerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeScope(builder: (read, watch) {
+    return ThemeControllerWidget(builder: (read, watch) {
       return Column(
         children: [
           GestureDetector(
