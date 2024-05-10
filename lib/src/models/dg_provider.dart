@@ -1,3 +1,0 @@
-class DGProvider {
-  const DGProvider();
-}

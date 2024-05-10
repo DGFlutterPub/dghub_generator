@@ -6,20 +6,20 @@ import 'package:dghub_generator/src/generators/controller_generator.dart';
 import 'package:dghub_generator/src/generators/model_generator.dart';
 import 'package:source_gen/source_gen.dart';
 
-import 'models/dg_route.dart';
+import 'models/dg_api_service.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
-  final DGProvider? provider;
-  final List<DGRoute>? routes;
+  final DGController? controller;
+  final List<DGApiService>? apiServices;
   final List<DGPage>? pages;
   final DGConfig? config;
 
   const DGHubGenerator({
     this.config,
     this.models,
-    this.provider,
-    this.routes,
+    this.controller,
+    this.apiServices,
     this.pages,
   });
 }

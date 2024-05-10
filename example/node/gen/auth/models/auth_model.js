@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import mongooseSequence from "mongoose-sequence";
 
 const schema = mongoose.Schema(
   {
@@ -30,4 +31,6 @@ const schema = mongoose.Schema(
   }
 );
 
+
+schema.plugin(mongooseSequence(mongoose),{inc_field: 'no'});
 export default mongoose.model("Auth", schema);

@@ -17,7 +17,7 @@ import 'package:example/gen/auth/validators/auth_validator.dart';
       defaultValue: '0975232323',
     ),
   ],
-  provider: DGProvider(),
+  controller: DGController(),
 )
 class AuthGenerator {
   AuthValidator validator = AuthValidator();

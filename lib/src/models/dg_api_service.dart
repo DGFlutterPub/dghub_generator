@@ -13,7 +13,7 @@ enum DGAction {
   update
 }
 
-class DGRoute {
+class DGApiService {
   final String? url;
   final String name;
   final DGMethod method;
@@ -23,7 +23,7 @@ class DGRoute {
   final List<DGModel>? params;
   final List<DGModel>? queries;
 
-  const DGRoute({
+  const DGApiService({
     this.url,
     required this.name,
     required this.method,
