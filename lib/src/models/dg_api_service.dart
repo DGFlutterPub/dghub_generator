@@ -14,8 +14,9 @@ enum DGAction {
 }
 
 class DGApiService {
+  final String? middleware;
   final String? url;
-  final String name;
+  final String route;
   final DGMethod method;
   final DGAction action;
   final bool realTime;
@@ -25,7 +26,8 @@ class DGApiService {
 
   const DGApiService({
     this.url,
-    required this.name,
+    this.middleware,
+    required this.route,
     required this.method,
     required this.action,
     this.realTime = false,
