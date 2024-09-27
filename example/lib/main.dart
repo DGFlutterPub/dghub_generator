@@ -1,14 +1,14 @@
-import 'config/providers.dart';
-import 'system/scroll/scroll_behavior.dart';
-import 'system/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:dghub_generator/dghub_generator.dart';
-
-import 'system/language/language_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'routes/routes.dart';
+import 'system/widgets/scroll/scroll_behavior.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const DGHubApp());
+
+  var ref = ProviderContainer();
+
+  runApp(UncontrolledProviderScope(container: ref, child: const DGHubApp()));
 }
 
 class DGHubApp extends StatelessWidget {
@@ -16,24 +16,24 @@ class DGHubApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: Providers.get(),
-      child: Consumer<ThemeProvider>(
-          builder: (themeContext, themeProvider, themeChild) {
-        return Consumer<LanguageProvider>(
-            builder: (languageContext, languageProvider, languageChild) {
-          return MaterialApp.router(
-            scrollBehavior: DGHubScrollBehavior.scrollBehavior(),
-            builder: (context, child) {
-              return DGHubScrollBehavior.scrollBuilderWidget(child: child);
-            },
-            theme: ThemeData(
-              colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-              useMaterial3: true,
-            ),
-          );
-        });
-      }),
-    );
+    return ProviderScope(child: Consumer(builder: (context, ref, child) {
+      final routes = Routes(ref: ref);
+      return MaterialApp.router(
+        routerConfig: routes.config(),
+        scrollBehavior: DGHubScrollBehavior.scrollBehavior(),
+        builder: (context, child) {
+          return DGHubScrollBehavior.scrollBuilderWidget(child: child);
+        },
+        darkTheme: ThemeData(
+          scaffoldBackgroundColor: Colors.black,
+          useMaterial3: true,
+        ),
+        //themeMode: themeMode,
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          useMaterial3: true,
+        ),
+      );
+    }));
   }
 }
