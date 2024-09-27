@@ -3,12 +3,17 @@ part 'auth_model.g.dart';
 
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
 class AuthModel {
-  String email;
   AuthModel({
-    required this.email,
+    this.name = "mg mg",
+    this.phone = "0975232323",
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) =>
       _$AuthModelFromJson(json);
+
+  String name;
+
+  String phone;
+
   Map<String, dynamic> toJson() => _$AuthModelToJson(this);
 }
