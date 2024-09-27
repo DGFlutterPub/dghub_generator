@@ -9,11 +9,6 @@ class DGValidate {
   final bool isIp;
   final bool isIPv6;
   final bool isUrl;
-  final bool isBoolean;
-  final bool isNumber;
-  final bool isString;
-  final bool isDouble;
-  final bool isInt;
   final bool isUUID;
   final bool isLowerCase;
   final bool isUpperCase;
@@ -32,17 +27,12 @@ class DGValidate {
   const DGValidate({
     this.isEmail = false,
     this.isRequired = false,
-    this.isBoolean = false,
     this.isDate = false,
-    this.isDouble = false,
-    this.isInt = false,
     this.isIPv6 = false,
     this.isIp = false,
     this.isLowerCase = false,
     this.isUpperCase = false,
-    this.isNumber = false,
     this.isPhone = false,
-    this.isString = false,
     this.isTypeOf = false,
     this.isUUID = false,
     this.isUrl = false,
