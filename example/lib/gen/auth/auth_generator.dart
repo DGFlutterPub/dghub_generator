@@ -11,7 +11,7 @@ import 'package:dghub_generator/dghub_generator.dart';
     ),
     DGModel(
       form: true,
-      validate: DGValidate(isEmail: true),
+      validate: DGValidate(isPhone: true),
       key: 'phone',
       defaultValue: '0975232323',
     ),

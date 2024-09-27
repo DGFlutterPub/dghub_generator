@@ -2,6 +2,7 @@ import 'package:analyzer/dart/constant/value.dart';
 import 'package:change_case/change_case.dart';
 import 'package:code_builder/code_builder.dart';
 import 'package:dart_style/dart_style.dart';
+import 'package:mason/mason.dart';
 
 class ModelBuilder {
   static String get({
@@ -9,10 +10,7 @@ class ModelBuilder {
     required List<DartObject> models,
   }) {
     var fields = <Field>[];
-    var requiredParameters = <Parameter>[];
-    var optionalParameters = <Parameter>[];
-    var fromJson = <String>[];
-    var toJson = <String>[];
+    var parameters = <Parameter>[];
 
     for (var e in models) {
       var key = e.getField('key')!.toStringValue()!.toCamelCase();
@@ -26,47 +24,28 @@ class ModelBuilder {
 
       fields.add(field);
 
-      toJson.add('"$key": $key');
+      var parameter = Parameter((b) {
+        b.name = key;
+        b.toThis = true;
+        b.named = true;
 
-      var parameter = Parameter(
-        (b) => b
-          ..name = key
-          ..toThis = true,
-      );
+        if (defaultValue?.isNull ?? true) {
+          b.required = true;
+        } else {
+          b.defaultTo = Code('"${defaultValue!.toStringValue()!}"');
+        }
+      });
 
-      if (defaultValue?.isNull ?? true) {
-        fromJson.add('$key: json["$key"]');
-
-        optionalParameters.add(parameter);
-      } else {
-        fromJson.add('json["$key"]');
-
-        requiredParameters.add(parameter);
-      }
+      parameters.add(parameter);
     }
 
-    var fromJsonBody = Code('''
-return  ${name}Model(
-  ${fromJson.join(',\n')}
-);
-''');
-
-    var toJsonBody = Code('''
-return {
-${toJson.join(',\n')}
-};
-''');
-
     var constructors = [
-      Constructor(
-        (b) => b
-          ..requiredParameters.addAll(requiredParameters)
-          ..optionalParameters.addAll(optionalParameters),
-      ),
+      Constructor((b) => b.optionalParameters.addAll(parameters)),
       Constructor((b) => b
         ..factory = true
+        ..lambda = true
         ..name = 'fromJson'
-        ..body = fromJsonBody
+        ..body = Code('_\$${name}ModelFromJson(json)')
         ..requiredParameters.add(Parameter(
           (b) => b
             ..name = 'json'
@@ -74,22 +53,29 @@ ${toJson.join(',\n')}
         ))),
     ];
 
-    var toJsonMethod = Method(
-      (b) => b
-        ..name = 'toJson'
-        ..body = toJsonBody
-        ..returns = const Reference('Map<String,dynamic>'),
-    );
+    Class model = Class((b) {
+      b.name = '${name}Model';
+      b.annotations.add(const CodeExpression(
+        Code('JsonSerializable(includeIfNull: true, explicitToJson: true)'),
+      ));
+      b.docs.addAll([
+        "import 'package:json_annotation/json_annotation.dart';",
+        "part '${name.snakeCase}_model.g.dart';",
+      ]);
+      b.fields.addAll(fields);
+      b.constructors.addAll(constructors);
+      b.methods.add(
+        Method(
+          (b) => b
+            ..name = 'toJson'
+            ..lambda = true
+            ..body = Code('_\$${name}ModelToJson(this)')
+            ..returns = const Reference('Map<String,dynamic>'),
+        ),
+      );
+    });
 
-    Class model = Class(
-      (b) => b
-        ..name = '${name}Model'
-        ..fields.addAll(fields)
-        ..constructors.addAll(constructors)
-        ..methods.add(toJsonMethod),
-    );
-
-    final emitter = DartEmitter();
+    final emitter = DartEmitter.scoped();
     return DartFormatter().format('${model.accept(emitter)}');
   }
 }

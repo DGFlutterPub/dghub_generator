@@ -4,9 +4,8 @@ import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:dghub_generator/src/generators/controller_generator.dart';
 import 'package:dghub_generator/src/generators/model_generator.dart';
+import 'package:dghub_generator/src/generators/validator_generator.dart';
 import 'package:source_gen/source_gen.dart';
-
-import 'models/dg_api_service.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
@@ -44,11 +43,12 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
     var controller = annotation.read('controller');
 
     if (!models.isNull) {
-      ModelGenerator.generate(className, models);
+      await ModelGenerator.generate(className, models);
+      await ValidatorGenerator.generate(className, models);
     }
 
-    if (!controller.isNull) {
-      ControllerGenerator.generator(className, controller);
-    }
+    // if (!controller.isNull) {
+    //   ControllerGenerator.generator(className, controller);
+    // }
   }
 }
