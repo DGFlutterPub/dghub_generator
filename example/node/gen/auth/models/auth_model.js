@@ -9,9 +9,7 @@ const schema = mongoose.Schema(
       default: 'mg',
       required: false,
       trim: true
-      },
-   
-   
+      }
   },
   {
     timestamps: { createdAt: true, updatedAt: false },
@@ -32,5 +30,5 @@ const schema = mongoose.Schema(
 );
 
 
-schema.plugin(mongooseSequence(mongoose),{inc_field: 'no'});
+schema.plugin(mongooseSequence(mongoose),{inc_field: 'autoIncrement'});
 export default mongoose.model("Auth", schema);
