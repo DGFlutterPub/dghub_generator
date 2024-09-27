@@ -14,7 +14,7 @@ import 'package:pub_updater/pub_updater.dart';
 const executableName = 'dg';
 const packageName = 'dghub_generator';
 const description = 'DGHub Studio. www.dghub.dev';
-//Created by Very Good CLI.
+//Created by DGHub Studio
 
 /// {@template dghub_generator_command_runner}
 /// A [CommandRunner] for the CLI.

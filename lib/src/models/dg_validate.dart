@@ -24,6 +24,10 @@ class DGValidate {
   final dynamic listOf;
   final String? matches;
   final bool isTypeOf;
+  final bool isPassword;
+  final bool isHidden;
+  final bool isLocation;
+  final bool isEncrypt;
   const DGValidate(
       {this.isEmail = false,
       this.isRequired = false,
@@ -49,5 +53,9 @@ class DGValidate {
       this.maxLength,
       this.min,
       this.minDate,
-      this.minLength});
+      this.minLength,
+      this.isHidden = false,
+      this.isLocation = false,
+      this.isPassword = false,
+      this.isEncrypt = false});
 }

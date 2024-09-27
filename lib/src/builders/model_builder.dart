@@ -46,7 +46,7 @@ class ModelBuilder {
     }
 
     var fromJsonBody = Code('''
-return ${name}Model(
+return  ${name}Model(
   ${fromJson.join(',\n')}
 );
 ''');
