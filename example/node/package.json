@@ -3,11 +3,11 @@
   "type": "module",
   "version": "1.0.0",
   "description": "DGHub Studio",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "dev": "NODE_NO_WARNINGS=1 nodemon index.js",
+    "dev": "NODE_NO_WARNINGS=1 nodemon main.js",
     "start": "npm-run-all --parallel dev",
-    "release": "node index.js"
+    "release": "node main.js"
   },
   "author": "DGHub",
   "license": "ISC",
@@ -20,7 +20,6 @@
     "bcryptjs": "^2.4.3",
     "byte-size": "^8.1.1",
     "cacache": "^17.1.3",
-    "node-ansi-logger": "^3.0.0",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "country-state-city": "^3.2.1",
@@ -47,12 +46,12 @@
     "node-cron": "^3.0.2",
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.4",
-    "octoverse-payment": "github:octoverse-mpss-dghub-onextech/octoverse-payment-npm",
     "percentage": "^0.2.0",
     "playwright": "^1.37.0",
     "puppeteer": "^23.2.0",
     "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

@@ -7,7 +7,7 @@ import schedule from "node-schedule";
 import apiRoutes from "./routes/api_routes.js";
 import webRoutes from "./routes/web_routes.js";
 import socketRoutes from "./routes/socket_routes.js";
-import cronRoutes from "./routes/cron/cron_routes.js";
+import cronRoutes from "./routes/cron_routes.js";
 import { Server } from "socket.io";
 import header from "./system/express/header.js";
 import errorHandler from "./system/express/error_handler.js";
@@ -16,12 +16,13 @@ import migration from "./migration/migration.js";
 import route from "./routes/api_routes.js";
 import database from  './system/database/database.js';
 import global from "./config/global.js";
+import tools from "./system/tools/tools.js";
 
 database();
 
 cronRoutes(schedule);
 
-console.log(global.apiUrl);
+tools.log.info('[API] => URL: '+global.apiUrl);
 
 const app = express();
 var server = http.createServer(app);
@@ -63,7 +64,7 @@ socketRoutes(io);
 app.set('io',io);
 
 app.use(header);
-app.use(process.env.API_VERSION, apiRoutes);
+app.use(global.apiVersion, apiRoutes);
 app.use("/", webRoutes);
 route(app);
 
@@ -79,11 +80,11 @@ migration();
 
 //--Listen
 server
-  .listen(process.env.PORT, process.env.HOST, function () {
-    tools.log.info("[HOST] => URL:" + process.env.HOST);
-    tools.log.info("[LISTENING] => PORT: " + process.env.PORT);
+  .listen(global.port, global.host, function () {
+    tools.log.info("[HOST] => URL: " + global.host);
+    tools.log.info("[LISTENING] => PORT: " + global.port);
   })
   .on("error", (e) => {
     tools.log.error(e.message);
-    tools.log.error("[LISTENING] => ERROR:" + process.env.PORT);
+    tools.log.error("[LISTENING] => ERROR: " + global.port);
   });

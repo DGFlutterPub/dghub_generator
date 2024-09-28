@@ -6,7 +6,7 @@ export default () => {
 
 var name = global.packageName.replaceAll('.','_');
 var password = global.secertKey;
-var host =  global.hostUrl;
+var host = 'localhost:27017';
 
 var productionUrl = 'mongodb://'+name+':'+password+'@'+host+ '/'+ name;
 var developmentUrl = 'mongodb://'+host+ '/'+ name;
@@ -23,6 +23,7 @@ mongoose
     tools.log.info("[MONGOOSE_DATABASE] => CONNECTED");
   })
   .catch((e) => {
+    tools.log.error(e);
     tools.log.error("[MONGOOSE_DATABASE] => DISCONNECTED");
     return;
   });
