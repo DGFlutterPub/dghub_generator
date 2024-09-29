@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import populate from "mongoose-autopopulate";
 //import mongooseSequence from "mongoose-sequence";
 
 const schema = mongoose.Schema(
@@ -15,6 +16,11 @@ const schema = mongoose.Schema(
       },
       default: null,
     },
+    token: {
+        autopopulate: true,
+          type: String, ref: 'AuthToken'
+        , default: null, required: false, trim: true
+      },
    
   },
   {
