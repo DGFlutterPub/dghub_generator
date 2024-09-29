@@ -8,15 +8,20 @@ import 'package:path/path.dart' as p;
 import 'package:source_gen/source_gen.dart';
 
 class ModelGenerator {
-  static Future<void> generate(String className, ConstantReader models) async {
+  static Future<void> generate(
+    String className,
+    ConstantReader models,
+    ConstantReader config,
+  ) async {
     final generator = await MasonGenerator.fromBundle(modelBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
     generator.generate(target, vars: {'name': className});
 
-    var result = ModelBuilder.get(
-      name: className.toPascalCase(),
+    var result = ModelBuilder(
       models: models.listValue,
-    );
+      name: className.toPascalCase(),
+      config: config.isNull ? null : config.objectValue,
+    ).get();
 
     var file = File(
       p.join(

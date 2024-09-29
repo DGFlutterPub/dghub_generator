@@ -7,12 +7,13 @@ class DGConfig {
   final bool id;
   final bool autoIncrement;
 
-  const DGConfig(
-      {this.node = true,
-      this.python = true,
-      this.createdAt = true,
-      this.deletedAt = true,
-      this.updatedAt = true,
-      this.id = true,
-      this.autoIncrement = false});
+  const DGConfig({
+    this.node = true,
+    this.python = true,
+    this.createdAt = true,
+    this.deletedAt = true,
+    this.updatedAt = true,
+    this.id = true,
+    this.autoIncrement = false,
+  });
 }

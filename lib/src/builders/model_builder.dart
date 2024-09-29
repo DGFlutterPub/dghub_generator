@@ -5,13 +5,20 @@ import 'package:dart_style/dart_style.dart';
 import 'package:mason/mason.dart';
 
 class ModelBuilder {
-  static String get({
-    required String name,
-    required List<DartObject> models,
-  }) {
-    var fields = <Field>[];
-    var parameters = <Parameter>[];
+  String name;
+  DartObject? config;
+  List<DartObject> models;
 
+  ModelBuilder({
+    required this.name,
+    this.config,
+    required this.models,
+  });
+
+  var fields = <Field>[];
+  var parameters = <Parameter>[];
+
+  String get() {
     for (var e in models) {
       var key = e.getField('key')!.toStringValue()!.toCamelCase();
       var defaultValue = e.getField('defaultValue');
@@ -19,7 +26,11 @@ class ModelBuilder {
       var field = Field(
         (b) => b
           ..name = key
-          ..type = Reference(defaultValue?.type.toString() ?? 'dynamic'),
+          ..type = Reference(
+            (defaultValue?.isNull ?? true)
+                ? 'dynamic'
+                : defaultValue?.type.toString(),
+          ),
       );
 
       fields.add(field);
@@ -38,6 +49,10 @@ class ModelBuilder {
 
       parameters.add(parameter);
     }
+
+    _addDataFromConfig('id', 'int');
+    _addDataFromConfig('createdAt', 'String');
+    _addDataFromConfig('deletedAt', 'String?');
 
     var constructors = [
       Constructor((b) => b.optionalParameters.addAll(parameters)),
@@ -77,5 +92,22 @@ class ModelBuilder {
 
     final emitter = DartEmitter.scoped();
     return DartFormatter().format('${model.accept(emitter)}');
+  }
+
+  void _addDataFromConfig(String name, String type) {
+    var isTrue = config?.getField(name)?.toBoolValue() ?? false;
+    if (!isTrue) return;
+
+    fields.add(Field((b) => b
+      ..name = name
+      ..type = Reference(type)));
+
+    parameters.add(Parameter((b) {
+      b.name = name;
+      b.toThis = true;
+      b.named = true;
+
+      if (!type.contains('?')) b.required = true;
+    }));
   }
 }

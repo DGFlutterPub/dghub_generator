@@ -6,10 +6,11 @@ class DGModel {
   final DGValidate? validate;
   final bool form;
   final dynamic populate;
-  const DGModel(
-      {required this.key,
-      this.populate,
-      this.defaultValue,
-      this.validate,
-      this.form = false});
+  const DGModel({
+    required this.key,
+    this.populate,
+    this.defaultValue,
+    this.validate,
+    this.form = false,
+  });
 }
