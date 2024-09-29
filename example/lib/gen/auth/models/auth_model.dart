@@ -6,6 +6,9 @@ class AuthModel {
   AuthModel({
     this.email = "example@gmail.com",
     required this.token,
+    required this.id,
+    required this.createdAt,
+    this.deletedAt,
   });
 
   factory AuthModel.fromJson(Map<String, dynamic> json) =>
@@ -13,7 +16,13 @@ class AuthModel {
 
   String email;
 
-  Null token;
+  dynamic token;
+
+  int id;
+
+  String createdAt;
+
+  String? deletedAt;
 
   Map<String, dynamic> toJson() => _$AuthModelToJson(this);
 }
