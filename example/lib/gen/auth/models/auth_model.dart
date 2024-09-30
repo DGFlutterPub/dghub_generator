@@ -1,3 +1,4 @@
+import 'package:example/gen/auth_token/models/auth_token_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'auth_model.g.dart';
 
@@ -16,7 +17,7 @@ class AuthModel {
 
   String email;
 
-  dynamic token;
+  AuthTokenModel token;
 
   int id;
 

@@ -8,7 +8,7 @@ part of 'auth_token_model.dart';
 
 AuthTokenModel _$AuthTokenModelFromJson(Map<String, dynamic> json) =>
     AuthTokenModel(
-      bearer: json['bearer'],
+      bearer: json['bearer'] as String,
     );
 
 Map<String, dynamic> _$AuthTokenModelToJson(AuthTokenModel instance) =>

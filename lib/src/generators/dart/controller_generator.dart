@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:dghub_generator/src/builders/controller_builder.dart';
+import 'package:dghub_generator/src/builders/dart/controller_builder.dart';
 import 'package:dghub_generator/src/bundles/module_bundle.dart';
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as p;
