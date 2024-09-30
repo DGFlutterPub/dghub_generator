@@ -7,12 +7,14 @@ import 'package:mason/mason.dart';
 class ModelBuilder {
   String name;
   DartObject? config;
+  List<String> imports;
   List<DartObject> models;
 
   ModelBuilder({
     required this.name,
     this.config,
     required this.models,
+    required this.imports,
   });
 
   var fields = <Field>[];
@@ -22,16 +24,19 @@ class ModelBuilder {
     for (var e in models) {
       var key = e.getField('key')!.toStringValue()!.toCamelCase();
       var defaultValue = e.getField('defaultValue');
+      var type = e.getField('type')?.toTypeValue();
 
-      var field = Field(
-        (b) => b
-          ..name = key
-          ..type = Reference(
-            (defaultValue?.isNull ?? true)
-                ? 'dynamic'
-                : defaultValue?.type.toString(),
-          ),
-      );
+      String? url;
+
+      if (type?.isDartCoreObject == true) {
+        url = imports
+            .where((e) => e.snakeCase.contains('$type'.snakeCase.toLowerCase()))
+            .firstOrNull;
+      }
+
+      var field = Field((b) => b
+        ..name = key
+        ..type = Reference(type == null ? 'dynamic' : '$type', url));
 
       fields.add(field);
 

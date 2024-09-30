@@ -1,7 +1,8 @@
 import 'dart:io';
 
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:change_case/change_case.dart';
-import 'package:dghub_generator/src/builders/model_builder.dart';
+import 'package:dghub_generator/src/builders/dart/model_builder.dart';
 import 'package:dghub_generator/src/bundles/module_bundle.dart';
 import 'package:mason/mason.dart';
 import 'package:path/path.dart' as p;
@@ -11,16 +12,18 @@ class ModelGenerator {
   static Future<void> generate(
     String className,
     ConstantReader models,
-    ConstantReader config,
+    DartObject? config,
+    List<String> imports,
   ) async {
     final generator = await MasonGenerator.fromBundle(modelBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
     generator.generate(target, vars: {'name': className});
 
     var result = ModelBuilder(
+      config: config,
+      imports: imports,
       models: models.listValue,
       name: className.toPascalCase(),
-      config: config.isNull ? null : config.objectValue,
     ).get();
 
     var file = File(

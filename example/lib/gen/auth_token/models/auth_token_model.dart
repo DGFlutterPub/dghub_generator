@@ -8,7 +8,7 @@ class AuthTokenModel {
   factory AuthTokenModel.fromJson(Map<String, dynamic> json) =>
       _$AuthTokenModelFromJson(json);
 
-  dynamic bearer;
+  String bearer;
 
   Map<String, dynamic> toJson() => _$AuthTokenModelToJson(this);
 }
