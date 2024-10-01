@@ -43,4 +43,4 @@ const tempPath = path.join(
 
 
 
-export default {log,tempPath,validator,validate}
+export default {log,tempPath,validator}
