@@ -9,15 +9,6 @@ import 'package:source_gen/source_gen.dart';
 
 class ValidatorGenerator {
   static Future<void> generate(String className, ConstantReader models) async {
-    final generator = await MasonGenerator.fromBundle(validatorBundle);
-    var target = DirectoryGeneratorTarget(Directory.current);
-    generator.generate(target, vars: {'name': className});
-
-    var result = ValidatorBuilder.get(
-      name: className.toPascalCase(),
-      models: models.listValue,
-    );
-
     var file = File(
       p.join(
         Directory.current.path,
@@ -28,8 +19,18 @@ class ValidatorGenerator {
         '${className}_validator.dart',
       ),
     );
-    if (!await file.exists()) await file.create();
 
+    //  final generator = await MasonGenerator.fromBundle(validatorBundle);
+    // var target = DirectoryGeneratorTarget(Directory.current);
+    //generator.generate(target, vars: {'name': className});
+
+    var result = ValidatorBuilder.get(
+      name: className.toPascalCase(),
+      models: models.listValue,
+    );
+    if (!file.existsSync()) {
+      file.createSync();
+    }
     await file.writeAsString(result);
   }
 }

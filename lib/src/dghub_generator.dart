@@ -6,9 +6,8 @@ import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:dghub_generator/src/generators/dart/model_generator.dart';
-import 'package:dghub_generator/src/generators/dart/validator_generator.dart';
 import 'package:dghub_generator/src/generators/node/node.dart' as node;
+import 'package:dghub_generator/src/generators/dart/dart.dart' as dart;
 import 'package:source_gen/source_gen.dart';
 
 class DGHubGenerator {
@@ -52,15 +51,17 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
 
     var _config = config.isNull ? null : config.objectValue;
 
-    // if (!models.isNull) {
-    //   await ModelGenerator.generate(className, models, _config, imports);
-    //   await ValidatorGenerator.generate(className, models);
-    // }
+    if (!models.isNullOrEmpty) {
+      var isDart = _config?.getField('dart')?.toBoolValue() ?? false;
+      if (isDart) {
+        await dart.ModelGenerator.generate(className, models, _config, imports);
+        await dart.ValidatorGenerator.generate(className, models);
+      }
 
-    var isNode = _config?.getField('node')?.toBoolValue() ?? false;
-
-    if (isNode) {
-      await node.ModelGenerator.generate(className, models, _config, imports);
+      var isNode = _config?.getField('node')?.toBoolValue() ?? false;
+      if (isNode) {
+        await node.ModelGenerator.generate(className, models, _config, imports);
+      }
     }
 
     // if (!controller.isNull) {
