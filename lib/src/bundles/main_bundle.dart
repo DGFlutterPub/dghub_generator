@@ -13,4 +13,12 @@ final mainBundle = MasonBundle.fromJson(<String, dynamic>{
       "type": "text"
     }
   ],
+  "name": "main",
+  "version": "0.1.0+1",
+  "description": "A new brick created with the Mason CLI.",
+  "vars": {
+    "name": {
+      "type": "string",
+    }
+  }
 });

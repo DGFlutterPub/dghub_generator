@@ -165,9 +165,10 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
   }
 
   Future<void> _createMainFile(ArgResults topLevelResults) async {
-    final name = topLevelResults.option('create');
-
-    final generator = await MasonGenerator.fromBundle(mainBundle);
+    //final name = topLevelResults.option('create');
+    final progress = _logger.progress('Generate generator.dart');
+    progress.complete('test');
+    /* final generator = await MasonGenerator.fromBundle(mainBundle);
     final target = DirectoryGeneratorTarget(Directory.current);
 
     final progress = _logger.progress('Generate ${name}_generator.dart');
@@ -176,7 +177,7 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
 
     progress.update('Dart format');
     await Process.run('dart', ['format', '.']);
-    progress.complete('Created lib/gen/$name/${name}_generator.dart');
+    progress.complete('Created lib/gen/$name/${name}_generator.dart');*/
   }
 
   Future<ExitCode> _genFile(ArgResults topLevelResults) async {
