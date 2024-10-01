@@ -26,7 +26,7 @@ class ControllerGenerator {
         '${className}_controller.dart',
       ),
     );
-    if (!file.existsSync()) file.createSync();
+    if (!await file.exists()) await file.create();
     await file.writeAsString(result);
   }
 }

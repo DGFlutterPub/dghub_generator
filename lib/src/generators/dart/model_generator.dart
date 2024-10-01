@@ -27,7 +27,7 @@ class ModelGenerator {
       '${className}_model.dart',
     ));
 
-    if (!file.existsSync()) file.createSync();
+    if (!await file.exists()) await file.create();
 
     var result = ModelBuilder(
       config: config,
