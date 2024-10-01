@@ -18,6 +18,16 @@ class ModelGenerator {
     final generator = await MasonGenerator.fromBundle(modelBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
     generator.generate(target, vars: {'name': className});
+    var file = File(p.join(
+      Directory.current.path,
+      'lib',
+      'gen',
+      className,
+      'models',
+      '${className}_model.dart',
+    ));
+
+    if (!file.existsSync()) file.createSync();
 
     var result = ModelBuilder(
       config: config,
@@ -25,17 +35,6 @@ class ModelGenerator {
       models: models.listValue,
       name: className.toPascalCase(),
     ).get();
-
-    var file = File(
-      p.join(
-        Directory.current.path,
-        'lib',
-        'gen',
-        className,
-        'models',
-        '${className}_model.dart',
-      ),
-    );
 
     await file.writeAsString(result);
   }

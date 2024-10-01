@@ -28,6 +28,7 @@ class ValidatorGenerator {
         '${className}_validator.dart',
       ),
     );
+    if (!file.existsSync()) file.createSync();
 
     await file.writeAsString(result);
   }
