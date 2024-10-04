@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-const schema = mongoose.Schema({
+import mongoose from "mongoose";const schema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   deletedAt: { type: Date, default: null },
   email: {
@@ -14,11 +13,11 @@ const schema = mongoose.Schema({
   },
   token: {
     autopopulate: true,
-    type: String,
-    ref: "AuthToken",
-    default: null,
-    required: false,
-    trim: true,
+    type: String, 
+    ref: 'AuthToken',
+    default: null, 
+    required: false, 
+    trim: true
   },
-});
-export default mongoose.model("Auth", schema);
+})
+  ;export default mongoose.model("Auth", schema);
