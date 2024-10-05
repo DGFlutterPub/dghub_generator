@@ -15,18 +15,9 @@ class ModelGenerator {
     DartObject? config,
     List<String> imports,
   ) async {
-    var file = File(p.join(
-      Directory.current.path,
-      'lib',
-      'gen',
-      className,
-      'models',
-      '${className}_model.dart',
-    ));
-
-    // final generator = await MasonGenerator.fromBundle(modelBundle);
-    // var target = DirectoryGeneratorTarget(Directory.current);
-    //generator.generate(target, vars: {'name': className});
+    final generator = await MasonGenerator.fromBundle(modelBundle);
+    var target = DirectoryGeneratorTarget(Directory.current);
+    await generator.generate(target, vars: {'name': className});
 
     var result = ModelBuilder(
       config: config,
@@ -35,9 +26,19 @@ class ModelGenerator {
       name: className.toPascalCase(),
     ).get();
 
-    if (!file.existsSync()) {
-      file.createSync();
-    }
+    var file = File(
+      p.join(
+        Directory.current.path,
+        'lib',
+        'gen',
+        className,
+        'models',
+        '${className}_model.dart',
+      ),
+    );
+
+    print(file.path);
+
     await file.writeAsString(result);
   }
 }

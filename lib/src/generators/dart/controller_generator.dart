@@ -7,6 +7,15 @@ import 'package:path/path.dart' as p;
 
 class ControllerGenerator {
   static generator(className, controller) async {
+    final generator = await MasonGenerator.fromBundle(controllerBundle);
+    var target = DirectoryGeneratorTarget(Directory.current);
+    generator.generate(target, vars: {'name': className});
+
+    var result = ControllerBuilder.get(
+      name: className.toPascalCase(),
+      controller: controller.listValue,
+    );
+
     var file = File(
       p.join(
         Directory.current.path,
@@ -16,16 +25,6 @@ class ControllerGenerator {
         'controller',
         '${className}_controller.dart',
       ),
-    );
-    if (!await file.exists()) await file.create();
-
-    // final generator = await MasonGenerator.fromBundle(controllerBundle);
-    // var target = DirectoryGeneratorTarget(Directory.current);
-    // generator.generate(target, vars: {'name': className});
-
-    var result = ControllerBuilder.get(
-      name: className.toPascalCase(),
-      controller: controller.listValue,
     );
 
     await file.writeAsString(result);

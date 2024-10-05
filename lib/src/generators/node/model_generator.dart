@@ -24,7 +24,7 @@ class ModelGenerator {
       ),
     );
 
-    if (!await file.exists()) await file.create();
+    if (!file.existsSync()) file.createSync();
 
     var result = ModelBuilder(
       config: config,
