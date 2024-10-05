@@ -1,4 +1,5 @@
 class DGConfig {
+  final bool dart;
   final bool node;
   final bool python;
   final bool createdAt;
@@ -8,6 +9,7 @@ class DGConfig {
   final bool autoIncrement;
 
   const DGConfig({
+    this.dart = true,
     this.node = true,
     this.python = true,
     this.createdAt = true,
