@@ -52,10 +52,10 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
 
     var _config = config.isNull ? null : config.objectValue;
 
-    if (!models.isNull) {
-      await ModelGenerator.generate(className, models, _config, imports);
-      await ValidatorGenerator.generate(className, models);
-    }
+    // if (!models.isNull) {
+    //   await ModelGenerator.generate(className, models, _config, imports);
+    //   await ValidatorGenerator.generate(className, models);
+    // }
 
     var isNode = _config?.getField('node')?.toBoolValue() ?? false;
 

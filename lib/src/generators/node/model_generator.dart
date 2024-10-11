@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:analyzer/dart/constant/value.dart';
@@ -23,6 +24,8 @@ class ModelGenerator {
         '${className}_model.js',
       ),
     );
+
+    log('- Model ${file.path}');
 
     if (!file.existsSync()) file.createSync();
 

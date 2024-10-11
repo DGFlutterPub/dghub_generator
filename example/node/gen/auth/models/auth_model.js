@@ -1,23 +1,16 @@
-import mongoose from "mongoose";const schema = mongoose.Schema({
+import mongoose from "mongoose";
+const schema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   deletedAt: { type: Date, default: null },
   email: {
     type: String,
     required: false,
-    lowercase: true,
-    index: {
-      unique: true,
-      partialFilterExpression: { email: { $type: "string" } },
-    },
-    default: null,
+    default: "example@gmail.com",
   },
   token: {
-    autopopulate: true,
-    type: String, 
-    ref: 'AuthToken',
-    default: null, 
-    required: false, 
-    trim: true
+    type: String,
+    required: true,
+    default: "null",
   },
-})
-  ;export default mongoose.model("Auth", schema);
+});
+export default mongoose.model("Auth", schema);

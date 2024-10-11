@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:change_case/change_case.dart';
 import 'package:code_builder/code_builder.dart';
 
 class ModelBuilder {
@@ -15,43 +18,34 @@ class ModelBuilder {
   });
 
   String get() {
+    StringBuffer buffer = StringBuffer(
+      '{ _id: mongoose.Schema.Types.ObjectId,',
+    );
+
+    var isDeletedAt = config?.getField('deletedAt')?.toBoolValue() ?? false;
+    if (isDeletedAt) {
+      buffer.writeln('deletedAt: { type: Date, default: null },');
+    }
+
+    for (var e in models) {
+      var key = e.getField('key')!.toStringValue()!.toCamelCase();
+      var defaultValue = e.getField('defaultValue');
+      var type = e.getField('type')?.toTypeValue();
+
+      buffer.writeln('''
+$key: {
+    type: String,
+    required: ${defaultValue?.isNull ?? true},
+    default: ${defaultValue == null ? null : "\"${defaultValue.toStringValue()}\""},
+  },''');
+    }
+
     final library = Library((b) {
       b.body.addAll([
         const Code('import mongoose from "mongoose";'),
         const Code('const schema = mongoose.Schema('),
-        Block((b) {
-          b.addExpression(
-            const CodeExpression(
-              Code(
-                '''
-{
-  _id: mongoose.Schema.Types.ObjectId,
-  deletedAt: { type: Date, default: null },
-  email: {
-    type: String,
-    required: false,
-    lowercase: true,
-    index: {
-      unique: true,
-      partialFilterExpression: { email: { \$type: "string" } },
-    },
-    default: null,
-  },
-  token: {
-    autopopulate: true,
-    type: String, 
-    ref: 'AuthToken',
-    default: null, 
-    required: false, 
-    trim: true
-  },
-})
-  ''',
-              ),
-            ),
-          );
-        }),
-        const Code('export default mongoose.model("Auth", schema);'),
+        Code('${buffer.toString()}})'),
+        Code('export default mongoose.model("$name", schema);'),
       ]);
     });
 
