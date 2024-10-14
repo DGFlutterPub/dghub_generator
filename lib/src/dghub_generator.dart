@@ -8,10 +8,10 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/visitor.dart';
 import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
+import 'package:dghub_generator/src/auto_convert.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:dghub_generator/src/convert_dghub_data.dart';
 import 'package:dghub_generator/src/generators/dart/model_generator.dart';
 import 'package:dghub_generator/src/generators/dart/validator_generator.dart';
 import 'package:dghub_generator/src/generators/node/node.dart' as node;
@@ -30,14 +30,6 @@ class DGHubGenerator {
     this.apiServices,
     this.pages,
   });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'config': config?.toMap(),
-    };
-  }
-
-  String toJson() => json.encode(toMap());
 }
 
 Builder getIsarGenerator(BuilderOptions options) => SharedPartBuilder(
@@ -54,7 +46,15 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
     ConstantReader annotation,
     BuildStep buildStep,
   ) async {
-    print(DGHubData.convert(annotation).toMap());
+    var variables = getVariablesFromDartObject(annotation.objectValue);
+
+    var map = parseData(
+      variables: variables,
+      object: annotation.objectValue,
+    );
+
+    print(jsonEncode(map));
+
     return;
 
     var classObj = element as ClassElement;
