@@ -10,7 +10,7 @@ DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
       key: json['key'] as String,
       defaultValue: json['defaultValue'],
       validate: json['validate'] == null
-          ? null
+          ? const DGValidate()
           : DGValidate.fromJson(json['validate'] as Map<String, dynamic>),
       forms:
           (json['forms'] as List<dynamic>?)?.map((e) => e as String).toList() ??
@@ -21,7 +21,7 @@ DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
 Map<String, dynamic> _$DGModelToJson(DGModel instance) => <String, dynamic>{
       'key': instance.key,
       'defaultValue': instance.defaultValue,
-      'validate': instance.validate?.toJson(),
+      'validate': instance.validate.toJson(),
       'forms': instance.forms,
       'ref': instance.ref,
     };

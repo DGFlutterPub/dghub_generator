@@ -15,8 +15,6 @@ class DartQueryModelGenerator {
 
     var read = await file.readAsString();
 
-    print(read);
-
     var form = [];
     var formParameter = [];
 

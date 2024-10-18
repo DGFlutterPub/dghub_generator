@@ -5,9 +5,9 @@ import '../models/products.dart';
 import '../models/product_query.dart';
 import '../apis/product_api.dart';
 
-var productProvider = ChangeNotifierProvider<ProductNotifier>((ref) => ProductNotifier());
+var productsProvider = ChangeNotifierProvider<ProductsNotifier>((ref) => ProductsNotifier());
 
-class ProductNotifier extends ChangeNotifier {
+class ProductsNotifier extends ChangeNotifier {
   AsyncValue<Products?> state = const AsyncLoading();
   AsyncValue<bool> loadMoreState = const AsyncData(false);
   final _api = ProductApi();

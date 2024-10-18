@@ -65,9 +65,9 @@ final dartFormBundle = MasonBundle.fromJson(<String, dynamic>{
   "files": [
     {
       "path":
-          "lib/gen/{{name.snakeCase()}}/Forms/{{name.snakeCase()}}_{{form.shakeCase()}}_form.dart",
+          "lib/gen/{{name.snakeCase()}}/forms/{{name.snakeCase()}}_{{form.snakeCase()}}_form.dart",
       "data":
-          "aW1wb3J0ICdkYXJ0OmlvJzsKaW1wb3J0ICdwYWNrYWdlOmRpby9kaW8uZGFydCc7CgpjbGFzcyB7e25hbWUucGFzY2FsQ2FzZSgpfX17e2Zvcm0ucGFzY2FsQ2FzZSgpfX0gewogLypmb3JtKi8KICB7e25hbWUucGFzY2FsQ2FzZSgpfX17e2Zvcm0ucGFzY2FsQ2FzZSgpfX0oewogLypmb3JtUGFyYW1ldGVyKi99KTsKICB0b0Zvcm1EYXRhKCkgYXN5bmMgPT4gRm9ybURhdGEuZnJvbU1hcCh7CiAvKmZvcm1EYXRhUGFyYW1ldGVyKi8gICAgIAogICAgICB9KTsKfQoKCgoKaW1wb3J0IG1vbmdvb3NlIGZyb20gIm1vbmdvb3NlIjsKLyppbXBvcnQqLwoKY29uc3Qgc2NoZW1hID0gbW9uZ29vc2UuU2NoZW1hKHsKICBfaWQ6IG1vbmdvb3NlLlNjaGVtYS5UeXBlcy5PYmplY3RJZCwKICAvKmZvcm0qLwp9LAp7CiAgICB0aW1lc3RhbXBzOiBmYWxzZSwKICAgIHZlcnNpb25LZXk6IGZhbHNlLAogICAgdG9KU09OOiB7CiAgICAgIHRyYW5zZm9ybShkb2MsIHJldCkgewogICAgICAgIHJldC5pZCA9IHJldC5faWQ7CiAgICAgICAgLy8gZGVsZXRlIHJldC5faWQ7CgogICAgICB9LAogICAgfSwKICAgIHRvT2JqZWN0OiB7CiAgICAgIHRyYW5zZm9ybShkb2MsIHJldCkgewogICAgICAgIHJldC5pZCA9IHJldC5faWQ7CiAgICAgIC8vICBkZWxldGUgcmV0Ll9pZDsKICAgICAgfSwKICAgIH0sCiAgfSk7CgoKLypwbHVnaW4qLwpleHBvcnQgZGVmYXVsdCBtb25nb29zZS5tb2RlbCgie3tuYW1lLnBhc2NhbENhc2UoKX19Iiwgc2NoZW1hKTs=",
+          "aW1wb3J0ICdwYWNrYWdlOmRpby9kaW8uZGFydCc7Ci8qaW1wb3J0Ki8KCmNsYXNzIHt7bmFtZS5wYXNjYWxDYXNlKCl9fXt7Zm9ybS5wYXNjYWxDYXNlKCl9fUZvcm17CiAge3tuYW1lLnBhc2NhbENhc2UoKX19e3tmb3JtLnBhc2NhbENhc2UoKX19Rm9ybSh7CiAgLypmb3JtUGFyYW1ldGVyKi8KICB9KTsKCiAgIC8qZm9ybSovCgogIEZ1dHVyZTxGb3JtRGF0YT4gdG9Gb3JtRGF0YSgpIGFzeW5jID0+IEZvcm1EYXRhLmZyb21NYXAoewogICAgLypmb3JtRGF0YSovCiAgfSk7Cn0K",
       "type": "text"
     }
   ],
@@ -78,7 +78,7 @@ final dartFormBundle = MasonBundle.fromJson(<String, dynamic>{
     "name": {
       "type": "string",
     },
-    "form": {"type" "string"}
+    "form": {"type": "string"}
   }
 });
 

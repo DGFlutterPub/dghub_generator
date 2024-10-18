@@ -8,6 +8,7 @@ class DGApi {
   final DGApiAction action;
   final bool realTime;
   final bool autoDispose;
+  final bool preRefresh;
   final List<Map<String, dynamic>>? headers;
 
   const DGApi({
@@ -16,6 +17,7 @@ class DGApi {
     required this.action,
     this.realTime = false,
     this.autoDispose = false,
+    this.preRefresh = false,
     this.headers,
   });
 
@@ -30,6 +32,8 @@ enum DGApiAction {
   getAll,
   getOneRecovery,
   getAllRecovery,
+  recoverOne,
+  recoverAll,
   destroyForever,
   destroyAll,
   destroy,

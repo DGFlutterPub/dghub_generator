@@ -1,7 +1,9 @@
 name: dghub_generator
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: "Developed by DGHub Studio"
+version: 0.0.1-pre-release 
+homepage: https://pub.dghub.in
+repository: https://github.com/DGFlutterPub/dghub_generator
+issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
 
 environment:
   sdk: ^3.5.3

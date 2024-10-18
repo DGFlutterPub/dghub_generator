@@ -44,7 +44,7 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
       object: annotation.objectValue,
     );
 
-    print(anotations);
+    //  print(anotations);
 
     var config = anotations.containsKey('config')
         ? DGConfig.fromJson(anotations['config'])
@@ -64,6 +64,8 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
 
     ///Model
 
+    if (!config.enabledGenerator) return;
+
     if (models.isNotEmpty) {
       if (config.dart) {
         await DartModelGenerator.generate(
@@ -72,7 +74,8 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
           config,
         );
         await DartValidatorGenerator.generate(className, models);
-        await DartFormGenerator.generate(className, models);
+        await DartModelFormGenerator.generate(className, models, config);
+        //
       }
 
       if (config.node) {

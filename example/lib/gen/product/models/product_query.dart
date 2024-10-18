@@ -7,18 +7,12 @@ class ProductQuery {
   this.page = 1,
 this.search,
 this.title,
-this.price,
-this.enabled,
-this.category,
 
   });
 
    int page;
 String? search;
 String? title;
-String? price;
-String? enabled;
-String? category;
 
 
   factory  ProductQuery.fromJson(Map<String, dynamic> json) =>

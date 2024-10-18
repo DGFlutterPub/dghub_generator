@@ -169,12 +169,12 @@ import '../models/${className.toSnakeCase().toPlural()}.dart';
 import '../models/${className.toSnakeCase()}_query.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}Provider = ChangeNotifierProvider<${className.toPascalCase()}Notifier>((ref) => ${className.toPascalCase()}Notifier());
+var ${className.toCamelCase().toPlural()}Provider = ChangeNotifierProvider<${className.toPascalCase().toPlural()}Notifier>((ref) => ${className.toPascalCase().toPlural()}Notifier());
 
-class ${className.toPascalCase()}Notifier extends ChangeNotifier {
+class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
   AsyncValue<${className.toPascalCase().toPlural()}?> state = const AsyncLoading();
   AsyncValue<bool> loadMoreState = const AsyncData(false);
-  final _api = ProductApi();
+  final _api = ${className.toPascalCase()}Api();
   ${className.toPascalCase()}Query query = ${className.toPascalCase()}Query();
   
   

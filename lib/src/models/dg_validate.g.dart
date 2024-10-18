@@ -8,6 +8,7 @@ part of 'dg_validate.dart';
 
 DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       isEmail: json['isEmail'] as bool? ?? false,
+      isFile: json['isFile'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
       isDate: json['isDate'] as bool? ?? false,
       isIPv6: json['isIPv6'] as bool? ?? false,
@@ -39,6 +40,7 @@ Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
     <String, dynamic>{
       'isRequired': instance.isRequired,
       'isEmail': instance.isEmail,
+      'isFile': instance.isFile,
       'minLength': instance.minLength,
       'maxLength': instance.maxLength,
       'min': instance.min,

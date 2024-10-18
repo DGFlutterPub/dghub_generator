@@ -7,13 +7,13 @@ part 'dg_model.g.dart';
 class DGModel {
   final String key;
   final dynamic defaultValue;
-  final DGValidate? validate;
+  final DGValidate validate;
   final List<String> forms;
   final dynamic ref;
   const DGModel({
     required this.key,
     this.defaultValue,
-    this.validate,
+    this.validate = const DGValidate(),
     this.forms = const [],
     this.ref,
   });

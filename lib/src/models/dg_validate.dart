@@ -6,6 +6,7 @@ part 'dg_validate.g.dart';
 class DGValidate {
   final bool isRequired;
   final bool isEmail;
+  final bool isFile;
   final int? minLength;
   final int? maxLength;
   final int? min;
@@ -33,6 +34,7 @@ class DGValidate {
 
   const DGValidate(
       {this.isEmail = false,
+      this.isFile = false,
       this.isRequired = false,
       this.isDate = false,
       this.isIPv6 = false,

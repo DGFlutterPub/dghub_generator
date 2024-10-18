@@ -36,7 +36,12 @@ dynamic getDataFromDartObject(DartObject v) {
   if (type.isDartCoreList) {
     return v.toListValue()!.map((e) {
       var variables = getVariablesFromDartObject(e);
-      return parseData(variables: variables, object: e);
+      var parse = parseData(variables: variables, object: e);
+      if (parse.isEmpty) {
+        return getDataFromDartObject(e);
+      } else {
+        return parse;
+      }
     }).toList();
   }
 

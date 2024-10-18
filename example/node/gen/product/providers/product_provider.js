@@ -5,11 +5,9 @@ export default (req, res, next) => {
   Product.findOne({ _id: id })
     .exec()
     .then((data) => {
-   
       return res.json(data);
     })
     .catch((err) => {
-      console.log(err);
       return res.status(200).json("This Product is not exists" );
     });
 }

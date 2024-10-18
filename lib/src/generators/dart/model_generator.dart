@@ -21,7 +21,6 @@ class DartModelGenerator {
 
     var read = await file.readAsString();
 
-    print(read);
     var imports = [];
     var form = [];
     var formParameter = [];
@@ -52,19 +51,31 @@ class DartModelGenerator {
     }
 
     for (var model in models) {
-      if (model.ref != null) {
+      if (model.ref != null && model.ref.toString() != 'File') {
         imports.add(
             '''import '../../${model.ref.toString().toSnakeCase()}/models/${model.ref.toString().toSnakeCase()}.dart';''');
       }
-      formParameter.add(model.validate?.isRequired == true
-          ? 'required this.${model.key},'
-          : model.defaultValue == null
-              ? 'this.${model.key},'
-              : 'this.${model.key} = ${model.defaultValue},');
 
-      form.add(model.defaultValue == null
-          ? '${Tools.dartType(model.validate)}? ${model.key};'
-          : '${Tools.dartType(model.validate)} ${model.key};');
+      if (model.ref == null) {
+        formParameter.add(model.validate?.isRequired == true
+            ? 'required this.${model.key},'
+            : model.defaultValue == null
+                ? 'this.${model.key},'
+                : 'this.${model.key} = ${model.defaultValue},');
+      } else {
+        formParameter.add('this.${model.key},');
+      }
+
+      if (model.ref == null) {
+        form.add(model.validate?.isRequired == true
+            ? '${Tools.dartType(model.validate)} ${model.key};'
+            : model.defaultValue == null
+                ? '${Tools.dartType(model.validate)}? ${model.key};'
+                : '${Tools.dartType(model.validate)} ${model.key};');
+      } else {
+        form.add(
+            '${model.ref.toString() == 'File' ? 'String' : model.ref}? ${model.key};');
+      }
     }
     var importsResult = Tools.getNewLineString(imports);
     var formResult = Tools.getNewLineString(form);

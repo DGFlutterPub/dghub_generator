@@ -12,6 +12,7 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
       action: $enumDecode(_$DGApiActionEnumMap, json['action']),
       realTime: json['realTime'] as bool? ?? false,
       autoDispose: json['autoDispose'] as bool? ?? false,
+      preRefresh: json['preRefresh'] as bool? ?? false,
       headers: (json['headers'] as List<dynamic>?)
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
@@ -23,6 +24,7 @@ Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
       'action': _$DGApiActionEnumMap[instance.action]!,
       'realTime': instance.realTime,
       'autoDispose': instance.autoDispose,
+      'preRefresh': instance.preRefresh,
       'headers': instance.headers,
     };
 
@@ -38,6 +40,8 @@ const _$DGApiActionEnumMap = {
   DGApiAction.getAll: 'getAll',
   DGApiAction.getOneRecovery: 'getOneRecovery',
   DGApiAction.getAllRecovery: 'getAllRecovery',
+  DGApiAction.recoverOne: 'recoverOne',
+  DGApiAction.recoverAll: 'recoverAll',
   DGApiAction.destroyForever: 'destroyForever',
   DGApiAction.destroyAll: 'destroyAll',
   DGApiAction.destroy: 'destroy',
