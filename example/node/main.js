@@ -12,7 +12,7 @@ import { Server } from "socket.io";
 import header from "./system/express/header.js";
 import errorHandler from "./system/express/error_handler.js";
 import cors from "cors";
-import migration from "./migration/migration.js";
+import seeder from "./seeder/seeder.js";
 import database from  './system/database/database.js';
 import global from "./config/global.js";
 import tools from "./system/tools/tools.js";
@@ -69,8 +69,8 @@ webRoutes(app);
 //app.use(morgan('dev'));
 app.use(errorHandler);
 
-//---Migration
-migration();
+//---Seeder
+seeder();
 
 //--Socket file upload
 //app.use(sf.router);

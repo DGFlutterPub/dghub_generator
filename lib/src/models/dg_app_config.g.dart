@@ -11,6 +11,11 @@ DGAppConfig _$DGAppConfigFromJson(Map<String, dynamic> json) => DGAppConfig(
       appLogo: json['appLogo'] as String,
       appName: json['appName'] as String,
       packageName: json['packageName'] as String,
+      apiVersion: json['apiVersion'] as String,
+      baseUrl: json['baseUrl'] as String,
+      devUrl: json['devUrl'] as String,
+      port: (json['port'] as num).toInt(),
+      socketVersion: json['socketVersion'] as String,
     );
 
 Map<String, dynamic> _$DGAppConfigToJson(DGAppConfig instance) =>
@@ -19,4 +24,9 @@ Map<String, dynamic> _$DGAppConfigToJson(DGAppConfig instance) =>
       'packageName': instance.packageName,
       'appLogo': instance.appLogo,
       'appIcon': instance.appIcon,
+      'apiVersion': instance.apiVersion,
+      'baseUrl': instance.baseUrl,
+      'devUrl': instance.devUrl,
+      'socketVersion': instance.socketVersion,
+      'port': instance.port,
     };

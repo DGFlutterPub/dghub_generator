@@ -236,10 +236,12 @@ dependencies:
 ''');
 
     read = read.replaceFirst('dev_dependencies:', '''
-dev_dependencies:
+dev_dependencies:\
+  #DGHub Generator
   build_runner: ^2.4.9
   auto_route_generator: ^9.0.0
   json_serializable: ^6.8.0
+  #DGHub Generator
 ''');
 
     await file.writeAsString(read);

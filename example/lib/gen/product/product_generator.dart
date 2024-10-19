@@ -3,7 +3,11 @@ import "package:dghub_generator/dghub_generator.dart";
 import "models/product.dart";
 
 @DGHubGenerator(apis: [
-  DGApi(method: DGApiMethod.post, action: DGApiAction.store),
+  DGApi(
+      method: DGApiMethod.post,
+      action: DGApiAction.store,
+      authenticated: true,
+      roles: ['admin']),
   DGApi(method: DGApiMethod.get, action: DGApiAction.getOne),
   DGApi(method: DGApiMethod.get, action: DGApiAction.getAll),
   DGApi(method: DGApiMethod.post, action: DGApiAction.update),
