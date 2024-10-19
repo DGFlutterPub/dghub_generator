@@ -219,7 +219,7 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
 
     var read = await file.readAsString();
 
-    read = read.replaceFirst('dependencies:', '''
+    var dep = '''
 dependencies:
   #DGHub Generator 
   flutter_riverpod: ^2.5.1
@@ -232,19 +232,26 @@ dependencies:
   dio_cache_interceptor: ^3.5.0
   socket_io_client: ^2.0.3+1
   json_annotation: ^4.9.0
-  #DGHub Generator 
-''');
+  #DGHub Generator
+  ''';
 
-    read = read.replaceFirst('dev_dependencies:', '''
-dev_dependencies:\
+    if (!read.contains(dep)) {
+      read = read.replaceFirst('dependencies:', dep);
+    }
+
+    var devdep = '''
+dev_dependencies:
   #DGHub Generator
   build_runner: ^2.4.9
   auto_route_generator: ^9.0.0
   json_serializable: ^6.8.0
   #DGHub Generator
-''');
+''';
 
-    await file.writeAsString(read);
+    if (!devdep.contains(devdep)) {
+      read = read.replaceFirst('dev_dependencies:', devdep);
+      await file.writeAsString(read);
+    }
 
     final generator = await MasonGenerator.fromBundle(initBundle);
     final target = DirectoryGeneratorTarget(Directory.current);
