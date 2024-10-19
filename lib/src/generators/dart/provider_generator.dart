@@ -229,6 +229,33 @@ class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
 ''';
     }
 
+    if (actionName == 'getOneRecovery') {
+      result = '''
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/${className.toSnakeCase()}.dart';
+import '../apis/${className.toSnakeCase()}_api.dart';
+
+var ${className.toCamelCase()}RecoveryProvider = StateNotifierProvider<
+    ${className.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${className.toPascalCase()}RecoveryNotifier());
+
+class ${className.toPascalCase()}RecoveryNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${className.toPascalCase()}RecoveryNotifier() : super(const AsyncLoading());
+  
+  final _api = ${className.toPascalCase()}Api();
+
+  refresh({required String id}) {
+    state = const AsyncLoading();
+    _api.getOne(id: id).then((response) {
+      state = AsyncData(response);
+    }).onError((e, s) {
+      state = AsyncError(e!, s);
+    });
+  }
+}''';
+    }
+
     await file.writeAsString(result);
   }
 }

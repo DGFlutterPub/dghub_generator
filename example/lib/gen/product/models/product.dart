@@ -10,6 +10,8 @@ required this.createdAt,
 this.updatedAt,
 this.deletedAt,
 this.title,
+this.price,
+this.enabled,
 
   });
 
@@ -18,6 +20,8 @@ String createdAt;
 String? updatedAt;
 String? deletedAt;
 String? title;
+double? price;
+bool? enabled;
 
 
   factory  Product.fromJson(Map<String, dynamic> json) =>

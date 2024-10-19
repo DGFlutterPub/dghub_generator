@@ -93,5 +93,23 @@ Future<Product> getOneRecovery({required String id}) async {
     }
   }
 
+Future<Product> recoverOne({required String id}) async {
+    try {
+      var response = await ApiService.request().get('/product_recover/$id');
+      return Product.fromJson(response.data);
+    } catch (e, s) {
+      throw e.toString();
+    }
+  }
+
+Future<Product> recoverAll() async {
+    try {
+      var response = await ApiService.request().get('/products_recover');
+      return Product.fromJson(response.data);
+    } catch (e, s) {
+      throw e.toString();
+    }
+  }
+
 
 }

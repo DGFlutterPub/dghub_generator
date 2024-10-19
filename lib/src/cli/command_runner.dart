@@ -207,19 +207,43 @@ Run ${lightCyan.wrap('$executableName update')} to update''',
         .trim();
 
     final haveModels = annotation.contains('models:');
-    final haveController = annotation.contains('controller:');
-    final havePages = annotation.contains('pages:');
-    final haveSocket = annotation.contains('socket:');
 
     print('models: $haveModels');
-    print('controller: $haveController');
-    print('pages: $havePages');
-    print('socket: $haveSocket');
 
     return ExitCode.success;
   }
 
   Future<ExitCode> _init(ArgResults topLevelResults) async {
+    final path = p.join(Directory.current.path, 'pubspec.yaml');
+    final file = File(path);
+
+    var read = await file.readAsString();
+
+    read = read.replaceFirst('dependencies:', '''
+dependencies:
+  #DGHub Generator 
+  flutter_riverpod: ^2.5.1
+  auto_route: ^9.2.2
+  dghub_generator:
+    path: ../
+  path_provider: ^2.1.3
+  path: ^1.9.0
+  dio: ^5.4.3+1
+  dio_cache_interceptor: ^3.5.0
+  socket_io_client: ^2.0.3+1
+  json_annotation: ^4.9.0
+  #DGHub Generator 
+''');
+
+    read = read.replaceFirst('dev_dependencies:', '''
+dev_dependencies:
+  build_runner: ^2.4.9
+  auto_route_generator: ^9.0.0
+  json_serializable: ^6.8.0
+''');
+
+    await file.writeAsString(read);
+
     final generator = await MasonGenerator.fromBundle(initBundle);
     final target = DirectoryGeneratorTarget(Directory.current);
 

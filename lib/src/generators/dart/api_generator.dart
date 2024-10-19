@@ -30,6 +30,10 @@ class DartApiGenerator {
     var body = [];
 
     for (var api in apis) {
+      var baseOption = api.url == null
+          ? ""
+          : '''option: BaseOptions(baseUrl: "${api.url}")''';
+
       if (api.action == DGApiAction.store) {
         await DartProviderGenerator.generate(className, api.action.name);
         await DartApiFormGenerator.generate(
@@ -49,7 +53,7 @@ class DartApiGenerator {
         body.add('''
   Future<${className.toPascalCase()}> store({required FormData form}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.toSnakeCase()}',data: form);
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.toSnakeCase()}',data: form);
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -74,7 +78,7 @@ class DartApiGenerator {
         body.add('''
 Future<${className.toPascalCase()}> update({required String id, required FormData form}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}/\$id',data: form);
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}/\$id',data: form);
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -96,7 +100,7 @@ Future<${className.toPascalCase()}> update({required String id, required FormDat
         body.add('''
 Future<${className.toPascalCase()}> destroy({required String id}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}/\$id');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -118,7 +122,7 @@ Future<${className.toPascalCase()}> destroy({required String id}) async {
         body.add('''
 Future<${className.toPascalCase()}> destroyAll() async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase.toPlural()}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase.toPlural()}');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -140,7 +144,7 @@ Future<${className.toPascalCase()}> destroyAll() async {
         body.add('''
 Future<${className.toPascalCase()}> destroyForever({required String id}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}_forever_destroy/\$id');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}_forever_destroy/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -159,7 +163,7 @@ Future<${className.toPascalCase()}> destroyForever({required String id}) async {
         body.add('''
 Future<${className.toPascalCase()}> getOne({required String id}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}/\$id');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -192,7 +196,7 @@ Future<${className.toPascalCase()}> getOne({required String id}) async {
         body.add('''
 Future<${className.toPascalCase().toPlural()}> getAll({${className.toPascalCase()}Query? query}) async {
     try {
-      var response = await ApiService.request().${api.method.name}(
+      var response = await ApiService.request($baseOption).${api.method.name}(
       '/${className.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
@@ -228,7 +232,7 @@ Future<${className.toPascalCase().toPlural()}> getAll({${className.toPascalCase(
         body.add('''
 Future<${className.toPascalCase().toPlural()}> getAllRecovery({${className.toPascalCase()}Query? query}) async {
     try {
-      var response = await ApiService.request().${api.method.name}(
+      var response = await ApiService.request($baseOption).${api.method.name}(
       '/${className.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
@@ -250,7 +254,7 @@ Future<${className.toPascalCase().toPlural()}> getAllRecovery({${className.toPas
         body.add('''
 Future<${className.toPascalCase()}> getOneRecovery({required String id}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}_recovery/\$id');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}_recovery/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -269,7 +273,7 @@ Future<${className.toPascalCase()}> getOneRecovery({required String id}) async {
         body.add('''
 Future<${className.toPascalCase()}> recoverOne({required String id}) async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase}_recover/\$id');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase}_recover/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -288,7 +292,7 @@ Future<${className.toPascalCase()}> recoverOne({required String id}) async {
         body.add('''
 Future<${className.toPascalCase()}> recoverAll() async {
     try {
-      var response = await ApiService.request().${api.method.name}('/${className.snakeCase.toPlural()}_recover');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${className.snakeCase.toPlural()}_recover');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();

@@ -14,6 +14,7 @@ class NodeApiGenerator {
     String className,
     DGConfig config,
     List<DGApi> apis,
+    List<DGModel> models,
   ) async {
     final generator = await MasonGenerator.fromBundle(nodeApiBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
@@ -30,7 +31,8 @@ class NodeApiGenerator {
 
     for (var api in apis) {
       if (api.action == DGApiAction.getOne) {
-        await NodeProviderGenerator.generate(className, className, api, config);
+        await NodeProviderGenerator.generate(
+            className, className, api, config, models);
         import.add(
             '''import ${className.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
         form.add(
@@ -38,7 +40,7 @@ class NodeApiGenerator {
       }
       if (api.action == DGApiAction.store) {
         await NodeProviderGenerator.generate(
-            className, '${className}_store', api, config);
+            className, '${className}_store', api, config, models);
         import.add(
             '''import ${className.toPascalCase()}StoreProvider from '../providers/${className.toSnakeCase()}_store_provider.js';''');
         form.add(
@@ -47,7 +49,7 @@ class NodeApiGenerator {
 
       if (api.action == DGApiAction.update) {
         await NodeProviderGenerator.generate(
-            className, '${className}_update', api, config);
+            className, '${className}_update', api, config, models);
         import.add(
             '''import ${className.toPascalCase()}UpdateProvider from '../providers/${className.toSnakeCase()}_update_provider.js';''');
         form.add(
@@ -56,7 +58,7 @@ class NodeApiGenerator {
 
       if (api.action == DGApiAction.destroy) {
         await NodeProviderGenerator.generate(
-            className, '${className}_destroy', api, config);
+            className, '${className}_destroy', api, config, models);
         import.add(
             '''import ${className.toPascalCase()}DestroyProvider from '../providers/${className.toSnakeCase()}_destroy_provider.js';''');
         form.add(
@@ -65,7 +67,7 @@ class NodeApiGenerator {
 
       if (api.action == DGApiAction.destroyForever) {
         await NodeProviderGenerator.generate(
-            className, '${className}_destroy_forever', api, config);
+            className, '${className}_destroy_forever', api, config, models);
         import.add(
             '''import ${className.toPascalCase()}DestroyForeverProvider from '../providers/${className.toSnakeCase()}_destroy_forever_provider.js';''');
         form.add(
@@ -74,7 +76,7 @@ class NodeApiGenerator {
 
       if (api.action == DGApiAction.getAll) {
         await NodeProviderGenerator.generate(
-            className, className.toPlural(), api, config);
+            className, className.toPlural(), api, config, models);
         import.add(
             '''import ${className.toPascalCase().toPlural()}Provider from '../providers/${className.toSnakeCase().toPlural()}_provider.js';''');
         form.add(

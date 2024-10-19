@@ -92,7 +92,7 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
         await DartApiGenerator.generate(className, models, config, apis);
       }
       if (config.node) {
-        await NodeApiGenerator.generate(className, config, apis);
+        await NodeApiGenerator.generate(className, config, apis, models);
       }
       if (config.python) {}
     }

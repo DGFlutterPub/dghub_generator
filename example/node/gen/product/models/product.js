@@ -14,6 +14,20 @@ updatedAt: { type: Date, default: null },
           
         },
       
+        price: {
+          type: Number, 
+          
+          default: null,
+          
+        },
+      
+        enabled: {
+          type: Boolean, 
+          
+          default: null,
+          
+        },
+      
 
 },
 {

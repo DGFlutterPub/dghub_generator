@@ -57,7 +57,7 @@ class DartModelGenerator {
       }
 
       if (model.ref == null) {
-        formParameter.add(model.validate?.isRequired == true
+        formParameter.add(model.validate.isRequired == true
             ? 'required this.${model.key},'
             : model.defaultValue == null
                 ? 'this.${model.key},'
@@ -66,15 +66,16 @@ class DartModelGenerator {
         formParameter.add('this.${model.key},');
       }
 
-      if (model.ref == null) {
-        form.add(model.validate?.isRequired == true
+      if (model.validate.isFile) {
+        form.add('String? ${model.key};');
+      } else if (model.ref == null) {
+        form.add(model.validate.isRequired == true
             ? '${Tools.dartType(model.validate)} ${model.key};'
             : model.defaultValue == null
                 ? '${Tools.dartType(model.validate)}? ${model.key};'
                 : '${Tools.dartType(model.validate)} ${model.key};');
       } else {
-        form.add(
-            '${model.ref.toString() == 'File' ? 'String' : model.ref}? ${model.key};');
+        form.add('${model.ref}? ${model.key};');
       }
     }
     var importsResult = Tools.getNewLineString(imports);

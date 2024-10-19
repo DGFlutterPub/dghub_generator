@@ -1,12 +1,17 @@
+import 'package:example/gen/product/Forms/product_store_form.dart';
+import 'package:example/gen/product/providers/product_store_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'routes/routes.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   var ref = ProviderContainer();
+
+  ref.read(productStoreProvider.notifier).store(
+      form: await ProductStoreForm(enabled: true, title: 'Test').toFormData());
 
   runApp(UncontrolledProviderScope(container: ref, child: const DGHubApp()));
 }

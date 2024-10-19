@@ -2,6 +2,7 @@ import winston from  'winston';
 import path from "path";
 import url from "url";
 import validate from "joi";
+import fs from "fs";
 
 const tempPath = path.join(
     url.fileURLToPath(import.meta.url),
@@ -42,5 +43,46 @@ const tempPath = path.join(
   }
 
 
+  async function fileToStorage(file, settings) {
+    return await new Promise((resolve, reject) => {
+      if (file == undefined) {
+        return resolve({ error: true, value: "File not required" });
+      }
+      var id = new mongoose.Types.ObjectId();
+      var ext = path.extname(file.name);
+      var name = settings.name + "_" + id;
+      var dir = settings.path;
+      var fileName = dir + name + ext;
+      console.log(storagePath + fileName);
+  
+      if (!fs.existsSync(storagePath + dir)) {
+        fs.mkdirSync(storagePath + dir);
+      }
+  
+      if (!settings.supports.includes(ext.replace(".", ""))) {
+        return resolve({
+          error: true,
+          value: "Do not support mimetype " + settings.supports.toString(),
+        });
+      }
+  
+      if (settings.size < file.size) {
+        return resolve({
+          error: true,
+          value: "File size is to big,Support size 1MB",
+        });
+      }
+  
+      fs.rename(file.path, storagePath + fileName, function (err) {
+        if (err) {
+          console.log(err.message);
+          return resolve({ error: true, value: "File not moved" });
+        }
+        console.log("storage/" + fileName);
+        return resolve({ error: false, value: "storage/" + fileName });
+      });
+    });
+  }
 
-export default {log,tempPath,validator}
+
+export default {log,tempPath,validator,fileToStorage}

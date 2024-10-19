@@ -4,7 +4,7 @@ const publicKey = 'e5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpSMJz9qz7ugG7YCQUcNGS29XRVL
 
 const isDevMode = true;
 
-const devUrl = 'http://localhost:6001';
+const devUrl = 'http://127.0.0.1:6001';
 const baseUrl = 'https://your-production-url';
 
 const port = 6001;

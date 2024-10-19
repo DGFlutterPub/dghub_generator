@@ -18,17 +18,3 @@ class DGAppConfig {
       _$DGAppConfigFromJson(json);
   Map<String, dynamic> toJson() => _$DGAppConfigToJson(this);
 }
-
-enum DGAppConfigMethod { get, post, put, delete }
-
-enum DGAppConfigAction {
-  getOne,
-  getAll,
-  getOneRecovery,
-  getAllRecovery,
-  destroyForever,
-  destroyAll,
-  destroy,
-  store,
-  update
-}
