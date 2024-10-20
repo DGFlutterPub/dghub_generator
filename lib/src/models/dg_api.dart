@@ -13,6 +13,7 @@ class DGApi {
   final bool authenticated;
   final List<String> roles;
   final List<Map<String, dynamic>>? headers;
+  final bool enabledForm;
 
   const DGApi({
     this.url,
@@ -25,6 +26,7 @@ class DGApi {
     this.roles = const [],
     this.headers,
     this.path,
+    this.enabledForm = true,
   });
 
   factory DGApi.fromJson(Map<String, dynamic> json) => _$DGApiFromJson(json);

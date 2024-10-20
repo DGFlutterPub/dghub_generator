@@ -31,6 +31,8 @@ class DGValidate {
   final bool isInt;
   final bool isDouble;
   final bool isBoolean;
+  final bool isListString;
+  final bool isList;
   final List<String> fileExtensions;
   final int fileSize;
 
@@ -63,6 +65,8 @@ class DGValidate {
       this.isInt = false,
       this.fileExtensions = const ["png", "jpg", "jpeg", "gif", "webp"],
       this.fileSize = 1000000,
+      this.isList = false,
+      this.isListString = false,
       this.isString = false});
   factory DGValidate.fromJson(Map<String, dynamic> json) =>
       _$DGValidateFromJson(json);
