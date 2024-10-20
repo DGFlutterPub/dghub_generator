@@ -45,7 +45,6 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
     );
 
     //  print(anotations);
-
     var config = anotations.containsKey('config')
         ? DGConfig.fromJson(anotations['config'])
         : const DGConfig();
@@ -75,7 +74,6 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
         );
         await DartValidatorGenerator.generate(className, models);
         await DartModelFormGenerator.generate(className, models, config);
-        //
       }
 
       if (config.node) {

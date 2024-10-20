@@ -8,6 +8,7 @@ class ProductQuery {
     this.search,
     this.title,
     this.price,
+    this.photo,
     this.enabled,
   });
 
@@ -15,6 +16,7 @@ class ProductQuery {
   String? search;
   String? title;
   String? price;
+  String? photo;
   String? enabled;
 
   factory ProductQuery.fromJson(Map<String, dynamic> json) =>

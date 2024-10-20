@@ -35,8 +35,9 @@ class NodeApiGenerator {
             className, className, api, config, models);
         import.add(
             '''import ${className.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
+
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",${className.toPascalCase()}Provider);''');
+            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",${api.authenticated ? 'authenticated,' : ''} ${className.toPascalCase()}Provider);''');
       }
       if (api.action == DGApiAction.store) {
         await NodeProviderGenerator.generate(

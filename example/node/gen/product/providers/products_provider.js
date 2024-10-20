@@ -14,6 +14,10 @@ if(req.query.price){
   search.$and.push({price: req.query.price || null});
   }
   
+if(req.query.photo){
+  search.$and.push({photo: req.query.photo || null});
+  }
+  
 if(req.query.enabled){
   search.$and.push({enabled: req.query.enabled || null});
   }

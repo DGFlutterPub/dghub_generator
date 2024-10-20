@@ -9,7 +9,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().post('/product', data: form);
       return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
@@ -18,7 +18,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().get('/product/$id');
       return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
@@ -28,7 +28,7 @@ class ProductApi {
       var response = await ApiService.request()
           .get('/products', queryParameters: query?.toJson());
       return Products.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
@@ -38,7 +38,7 @@ class ProductApi {
       var response =
           await ApiService.request().post('/product/$id', data: form);
       return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
@@ -47,16 +47,16 @@ class ProductApi {
     try {
       var response = await ApiService.request().delete('/product/$id');
       return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
 
   Future<Product> destroyAll() async {
     try {
-      var response = await ApiService.request().delete('/products');
+      var response = await ApiService.request().delete('/product');
       return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }
@@ -66,44 +66,7 @@ class ProductApi {
       var response =
           await ApiService.request().delete('/product_forever_destroy/$id');
       return Product.fromJson(response.data);
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
-  Future<Products> getAllRecovery({ProductQuery? query}) async {
-    try {
-      var response = await ApiService.request()
-          .get('/products', queryParameters: query?.toJson());
-      return Products.fromJson(response.data);
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
-  Future<Product> getOneRecovery({required String id}) async {
-    try {
-      var response = await ApiService.request().get('/product_recovery/$id');
-      return Product.fromJson(response.data);
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
-  Future<Product> recoverOne({required String id}) async {
-    try {
-      var response = await ApiService.request().get('/product_recover/$id');
-      return Product.fromJson(response.data);
-    } catch (e) {
-      throw e.toString();
-    }
-  }
-
-  Future<Product> recoverAll() async {
-    try {
-      var response = await ApiService.request().get('/products_recover');
-      return Product.fromJson(response.data);
-    } catch (e) {
+    } catch (e, s) {
       throw e.toString();
     }
   }

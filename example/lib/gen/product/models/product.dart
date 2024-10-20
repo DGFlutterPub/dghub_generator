@@ -11,6 +11,7 @@ class Product {
     this.deletedAt,
     this.title,
     this.price,
+    this.photo,
     this.enabled,
   });
 
@@ -20,6 +21,7 @@ class Product {
   String? deletedAt;
   String? title;
   double? price;
+  String? photo;
   bool? enabled;
 
   factory Product.fromJson(Map<String, dynamic> json) =>

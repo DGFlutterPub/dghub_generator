@@ -11,6 +11,7 @@ ProductQuery _$ProductQueryFromJson(Map<String, dynamic> json) => ProductQuery(
       search: json['search'] as String?,
       title: json['title'] as String?,
       price: json['price'] as String?,
+      photo: json['photo'] as String?,
       enabled: json['enabled'] as String?,
     );
 
@@ -20,5 +21,6 @@ Map<String, dynamic> _$ProductQueryToJson(ProductQuery instance) =>
       'search': instance.search,
       'title': instance.title,
       'price': instance.price,
+      'photo': instance.photo,
       'enabled': instance.enabled,
     };

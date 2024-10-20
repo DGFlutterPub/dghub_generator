@@ -7,29 +7,22 @@ const schema = mongoose.Schema({
   deletedAt: { type: Date, default: null },
 createdAt: { type: Date, default: Date.now },
 updatedAt: { type: Date, default: null },
-        title: {
+        email: {
           type: String, 
           
           default: null,
           
         },
       
-        price: {
-          type: Number, 
-          
-          default: null,
-          
-        },
-      
-        photo: {
+        password: {
           type: String, 
           
           default: null,
           
         },
       
-        enabled: {
-          type: Boolean, 
+        roles: {
+          type: String, 
           
           default: null,
           
@@ -58,4 +51,4 @@ updatedAt: { type: Date, default: null },
 
 schema.plugin(populate);
 
-export default mongoose.model("Product", schema);
+export default mongoose.model("Auth", schema);

@@ -3,47 +3,61 @@ import 'dart:io';
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/src/tools/tools.dart';
 import 'package:mason/mason.dart';
+import '../../../dghub_generator.dart';
 import '../../bundles/module/dart/dart_module_bundle.dart';
 
 class DartProviderGenerator {
-  static Future<void> generate(String className, String actionName) async {
+  static Future<void> generate(
+      String className, String actionName, DGApi api) async {
+    var pathName = api.path?.replaceAll('/', '_').toPascalCase().toSnakeCase();
+
+    var classPathName = switch (actionName) {
+      'getOne' => className,
+      'getAll' => className.toPlural(),
+      'store' => '${className}_store',
+      'update' => '${className}_update',
+      'destroy' => '${className}_destroy',
+      'destroyAll' => '${className.toPlural()}_destroy',
+      'destroyForever' => '${className}_destroy_forever',
+      'recoverOne' => '${className}_recover',
+      'recoverAll' => '${className.toPlural()}_recover',
+      'getOneRecovery' => '${className}_recovery',
+      'getAllRecovery' => '${className.toPlural()}_recovery',
+      _ =>
+        pathName == null ? className : '${className}_$pathName'.toSnakeCase(),
+    };
+
+    print(className);
+    print(classPathName);
+    print(pathName);
+
     final generator = await MasonGenerator.fromBundle(dartProviderBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
-    var generated = await generator.generate(target, vars: {
-      'name': className,
-      'action': switch (actionName) {
-        'getOne' => className,
-        'getAll' => className.toPlural(),
-        'store' => '${className}_store',
-        'update' => '${className}_update',
-        'destroy' => '${className}_destroy',
-        'destroyForever' => '${className}_destroy_forever',
-        _ => className
-      }
-    });
+    var generated = await generator
+        .generate(target, vars: {'name': className, 'action': classPathName});
 
     var file = File(generated.first.path);
     var result = '';
 
-    if (actionName == 'store') {
+    if (api.action == DGApiAction.store) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}StoreProvider = StateNotifierProvider<
-    ${className.toPascalCase()}StoreNotifier,
-    AsyncValue<${className.toPascalCase()}>?>((ref) => ${className.toPascalCase()}StoreNotifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>?>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}StoreNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>?> {
-   ${className.toPascalCase()}StoreNotifier() : super(null);
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>?> {
+   ${classPathName.toPascalCase()}Notifier() : super(null);
   
   final _api = ${className.toPascalCase()}Api();
 
-  store({required FormData form}) {
+  ${actionName.toCamelCase()}({required FormData form}) {
     state = const AsyncLoading();
-    _api.store(form: form).then((response) {
+    _api.${actionName.toCamelCase()}(form: form).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -52,25 +66,25 @@ class ${className.toPascalCase()}StoreNotifier extends StateNotifier<AsyncValue<
 }''';
     }
 
-    if (actionName == 'update') {
+    if (api.action == DGApiAction.update) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}UpdateProvider = StateNotifierProvider<
-    ${className.toPascalCase()}UpdateNotifier,
-    AsyncValue<${className.toPascalCase()}>?>((ref) => ${className.toPascalCase()}UpdateNotifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>?>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}UpdateNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>?> {
-   ${className.toPascalCase()}UpdateNotifier() : super(null);
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>?> {
+   ${classPathName.toPascalCase()}Notifier() : super(null);
   
   final _api = ${className.toPascalCase()}Api();
 
-  update({required String id, required FormData form}) {
+  ${actionName.toCamelCase()}({required String id, required FormData form}) {
     state = const AsyncLoading();
-    _api.update(form: form,id: id).then((response) {
+    _api.${actionName.toCamelCase()}(form: form,id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -79,25 +93,25 @@ class ${className.toPascalCase()}UpdateNotifier extends StateNotifier<AsyncValue
 }''';
     }
 
-    if (actionName == 'getOne') {
+    if (api.action == DGApiAction.getOne) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}Provider = StateNotifierProvider<
-    ${className.toPascalCase()}Notifier,
-    AsyncValue<${className.toPascalCase()}>>((ref) => ${className.toPascalCase()}Notifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
-   ${className.toPascalCase()}Notifier() : super(const AsyncLoading());
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${classPathName.toPascalCase()}Notifier() : super(const AsyncLoading());
   
   final _api = ${className.toPascalCase()}Api();
 
   refresh({required String id}) {
     state = const AsyncLoading();
-    _api.getOne(id: id).then((response) {
+    _api.${actionName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -106,25 +120,25 @@ class ${className.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${cla
 }''';
     }
 
-    if (actionName == 'destroy') {
+    if (api.action == DGApiAction.destroy) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}DestroyProvider = StateNotifierProvider<
-    ${className.toPascalCase()}DestroyNotifier,
-    AsyncValue<${className.toPascalCase()}>>((ref) => ${className.toPascalCase()}DestroyNotifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}DestroyNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
-   ${className.toPascalCase()}DestroyNotifier() : super(const AsyncLoading());
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${classPathName.toPascalCase()}Notifier() : super(const AsyncLoading());
   
   final _api = ${className.toPascalCase()}Api();
 
   destroy({required String id}) {
     state = const AsyncLoading();
-    _api.destroy(id: id).then((response) {
+    _api.${actionName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -133,25 +147,25 @@ class ${className.toPascalCase()}DestroyNotifier extends StateNotifier<AsyncValu
 }''';
     }
 
-    if (actionName == 'destroyForever') {
+    if (api.action == DGApiAction.destroyForever) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}DestroyForeverProvider = StateNotifierProvider<
-    ${className.toPascalCase()}DestroyForeverNotifier,
-    AsyncValue<${className.toPascalCase()}>>((ref) => ${className.toPascalCase()}DestroyForeverNotifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}DestroyForeverNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
-   ${className.toPascalCase()}DestroyForeverNotifier() : super(const AsyncLoading());
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${classPathName.toPascalCase()}Notifier() : super(const AsyncLoading());
   
   final _api = ${className.toPascalCase()}Api();
 
   destroy({required String id}) {
     state = const AsyncLoading();
-    _api.destroyForever(id: id).then((response) {
+    _api.${actionName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -160,7 +174,7 @@ class ${className.toPascalCase()}DestroyForeverNotifier extends StateNotifier<As
 }''';
     }
 
-    if (actionName == 'getAll') {
+    if (api.action == DGApiAction.getAll) {
       result = '''
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -169,10 +183,10 @@ import '../models/${className.toSnakeCase().toPlural()}.dart';
 import '../models/${className.toSnakeCase()}_query.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase().toPlural()}Provider = ChangeNotifierProvider<${className.toPascalCase().toPlural()}Notifier>((ref) => ${className.toPascalCase().toPlural()}Notifier());
+var ${classPathName.toCamelCase().toPlural()}Provider = ChangeNotifierProvider<${classPathName.toPascalCase().toPlural()}Notifier>((ref) => ${classPathName.toPascalCase().toPlural()}Notifier());
 
-class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
-  AsyncValue<${className.toPascalCase().toPlural()}?> state = const AsyncLoading();
+class ${classPathName.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
+  AsyncValue<${classPathName.toPascalCase().toPlural()}?> state = const AsyncLoading();
   AsyncValue<bool> loadMoreState = const AsyncData(false);
   final _api = ${className.toPascalCase()}Api();
   ${className.toPascalCase()}Query query = ${className.toPascalCase()}Query();
@@ -181,7 +195,7 @@ class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
   refresh() {
     query.page = 1;
     state = const AsyncLoading();
-    _api.getAll(query:query).then((response) {
+    _api.${actionName.toCamelCase()}(query:query).then((response) {
       state = AsyncData(response);
       notifyListeners();
     }).onError((e, s) {
@@ -193,7 +207,7 @@ class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
   loadMore() {
     query.page++;
     loadMoreState = const AsyncLoading();
-    _api.getAll(query:query).then((response) {
+    _api.${actionName.toCamelCase()}(query:query).then((response) {
       if (response.data.isNotEmpty) {
         state.value?.data = [...state.value?.data ?? [], ...response.data];
         state = AsyncData(state.value);
@@ -229,25 +243,25 @@ class ${className.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
 ''';
     }
 
-    if (actionName == 'getOneRecovery') {
+    if (api.action == DGApiAction.getOneRecovery) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 
-var ${className.toCamelCase()}RecoveryProvider = StateNotifierProvider<
-    ${className.toPascalCase()}Notifier,
-    AsyncValue<${className.toPascalCase()}>>((ref) => ${className.toPascalCase()}RecoveryNotifier());
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${className.toPascalCase()}RecoveryNotifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
-   ${className.toPascalCase()}RecoveryNotifier() : super(const AsyncLoading());
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${classPathName.toPascalCase()}Notifier() : super(const AsyncLoading());
   
   final _api = ${className.toPascalCase()}Api();
 
   refresh({required String id}) {
     state = const AsyncLoading();
-    _api.getOne(id: id).then((response) {
+    _api.${actionName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

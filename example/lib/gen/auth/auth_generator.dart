@@ -1,4 +1,4 @@
-import "models/auth.dart";
+import "package:dghub_generator/dghub_generator.dart";
 
 //DO NOT DELETE THIS FILE
 

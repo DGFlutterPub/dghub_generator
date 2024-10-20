@@ -20,7 +20,7 @@ var nodeInit = [
   {
     "path": "node/routes/api_routes.js",
     "data":
-        "aW1wb3J0IGdsb2JhbCBmcm9tICcuLi9jb25maWcvZ2xvYmFsLmpzJzsKLyppbXBvcnQqLwoKZXhwb3J0IGRlZmF1bHQgKGFwcCk9PnsKICAgIAogLypmb3JtKi8KICAgIAp9",
+        "aW1wb3J0IGdsb2JhbCBmcm9tICcuLi9jb25maWcvZ2xvYmFsLmpzJzsKaW1wb3J0IGF1dGhlbnRpY2F0ZWQgZnJvbSAnLi4vbWlkZGxld2FyZS9hcGkvYXV0aGVudGljYXRlZC5qcyc7CmltcG9ydCByb2xlcyBmcm9tICcuLi9taWRkbGV3YXJlL2FwaS9yb2xlcy5qcyc7CgovKmltcG9ydCovCgpleHBvcnQgZGVmYXVsdCAoYXBwKT0+ewogICAgCiAvKmZvcm0qLwogICAgCn0=",
     "type": "text"
   },
   {
@@ -74,7 +74,7 @@ var nodeInit = [
     "type": "text"
   },
   {
-    "path": "node/middleware/api/role_checker.js",
+    "path": "node/middleware/api/roles.js",
     "data":
         "ZXhwb3J0IGRlZmF1bHQgYXN5bmMgKHJlcSwgcmVzLCBuZXh0LHJvbGUpID0+IHsKICAgIHRyeSB7CiAgICAgIGNvbnNvbGUubG9nKHJlcS5hdXRoLnJvbGVzKTsKICAgICAgaWYgKHJlcS5hdXRoLnJvbGVzLmluY2x1ZGVzKHJvbGUpKSB7CiAgICAgICAgbmV4dCgpOwogICAgICB9IGVsc2UgewogICAgICAgIHJldHVybiByZXMuc3RhdHVzKDIwMCkuanNvbih7CiAgICAgICAgICBtZXNzYWdlOiAiWW91IGFyZSBub3QgIityb2xlLAogICAgICAgIH0pOwogICAgICB9CiAgICB9IGNhdGNoIChlcnJvcikgewogICAgICBjb25zb2xlLmxvZyhlcnJvcik7CiAgICAgIHJldHVybiByZXMuc3RhdHVzKDIwMCkuanNvbih7CiAgICAgICAgbWVzc2FnZTogcm9sZSsiIG1pZGRsZXdhcmUgZXJyb3IiLAogICAgICB9KTsKICAgIH0KICB9Ow==",
     "type": "text"
