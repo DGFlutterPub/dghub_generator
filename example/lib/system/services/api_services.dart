@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
-import 'package:example/config/global.dart';
+import '../../config/global.dart';
 
 class ApiService {
   static Dio request({BaseOptions? option, LogInterceptor? logInterceptor}) {
