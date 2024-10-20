@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/product.dart';
 import '../apis/product_api.dart';
 
-var productProvider =
-    StateNotifierProvider<ProductNotifier, AsyncValue<Product>>(
-        (ref) => ProductNotifier());
+var productProvider = StateNotifierProvider<
+    ProductNotifier,
+    AsyncValue<Product>>((ref) => ProductNotifier());
 
 class ProductNotifier extends StateNotifier<AsyncValue<Product>> {
-  ProductNotifier() : super(const AsyncLoading());
-
+   ProductNotifier() : super(const AsyncLoading());
+  
   final _api = ProductApi();
 
   refresh({required String id}) {

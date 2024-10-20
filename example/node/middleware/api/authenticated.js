@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Auth from "../../gen/auth/auth.js";
+import Auth from "../../gen/auth/models/auth.js";
 
 export default async (req, res, next) => {
   console.log("[API] Middleware connected");

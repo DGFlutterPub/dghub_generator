@@ -13,6 +13,7 @@ dependency_overrides:
 
 dependencies:
   #DGHub Generator 
+  dghub_generator: any  
   flutter_riverpod: ^2.5.1
   auto_route: ^9.2.2
   path_provider: ^2.1.3

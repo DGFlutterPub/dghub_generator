@@ -7,7 +7,11 @@ import "package:dghub_generator/dghub_generator.dart";
       authenticated: true,
       roles: ['admin']),
   DGApi(method: DGApiMethod.get, action: DGApiAction.getOne),
-  DGApi(method: DGApiMethod.get, action: DGApiAction.getAll),
+  DGApi(
+      authenticated: true,
+      roles: ['admin'],
+      method: DGApiMethod.get,
+      action: DGApiAction.getAll),
   DGApi(method: DGApiMethod.post, action: DGApiAction.update),
   DGApi(method: DGApiMethod.delete, action: DGApiAction.destroy),
   DGApi(method: DGApiMethod.delete, action: DGApiAction.destroyAll),
