@@ -21,7 +21,7 @@ dependencies:
   dio_cache_interceptor: ^3.5.0
   socket_io_client: ^2.0.3+1
   json_annotation: ^4.9.0
-  dghub_generator: ^1.0.0-beta6
+  dghub_generator: any
   #DGHub Generator
  
 
