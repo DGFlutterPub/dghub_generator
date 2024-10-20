@@ -47,5 +47,5 @@ flutter:
   assets:
      - images/icon.png
  
- executables:
+executables:
   dg:
