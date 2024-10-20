@@ -84,7 +84,7 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
       }
     }
 
-    ///Apis
+    //Apis
     if (apis.isNotEmpty) {
       if (config.dart) {
         await DartApiGenerator.generate(className, models, config, apis);

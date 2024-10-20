@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:change_case/change_case.dart';
@@ -37,7 +38,7 @@ class NodeApiGenerator {
             '''import ${className.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
 
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",${api.authenticated ? 'authenticated,' : ''} ${className.toPascalCase()}Provider);''');
+            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",${api.authenticated ? 'authenticated,' : ''} ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,)${jsonEncode(api.roles)},'} ${className.toPascalCase()}Provider);''');
       }
       if (api.action == DGApiAction.store) {
         await NodeProviderGenerator.generate(
