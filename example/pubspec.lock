@@ -228,7 +228,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1-beta6"
+    version: "0.0.1-beta7"
   dio:
     dependency: "direct main"
     description:
