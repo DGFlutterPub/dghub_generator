@@ -30,6 +30,10 @@ class NodeApiGenerator {
 
     await NodeApiRouteGenerator.generate(className);
 
+    import.add(
+        '''import authenticated from '../middleware/api/authenticated.js';''');
+    import.add('''import roles from '../middleware/api/roles.js';''');
+
     for (var api in apis) {
       if (api.action == DGApiAction.getOne) {
         await NodeProviderGenerator.generate(

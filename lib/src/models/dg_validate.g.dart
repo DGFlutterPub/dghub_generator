@@ -38,6 +38,8 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
               .toList() ??
           const ["png", "jpg", "jpeg", "gif", "webp"],
       fileSize: (json['fileSize'] as num?)?.toInt() ?? 1000000,
+      isList: json['isList'] as bool? ?? false,
+      isListString: json['isListString'] as bool? ?? false,
       isString: json['isString'] as bool? ?? false,
     );
 
@@ -70,6 +72,8 @@ Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
       'isInt': instance.isInt,
       'isDouble': instance.isDouble,
       'isBoolean': instance.isBoolean,
+      'isListString': instance.isListString,
+      'isList': instance.isList,
       'fileExtensions': instance.fileExtensions,
       'fileSize': instance.fileSize,
     };

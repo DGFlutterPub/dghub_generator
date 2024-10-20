@@ -20,7 +20,7 @@ var nodeInit = [
   {
     "path": "node/routes/api_routes.js",
     "data":
-        "aW1wb3J0IGdsb2JhbCBmcm9tICcuLi9jb25maWcvZ2xvYmFsLmpzJzsKaW1wb3J0IGF1dGhlbnRpY2F0ZWQgZnJvbSAnLi4vbWlkZGxld2FyZS9hcGkvYXV0aGVudGljYXRlZC5qcyc7CmltcG9ydCByb2xlcyBmcm9tICcuLi9taWRkbGV3YXJlL2FwaS9yb2xlcy5qcyc7CgovKmltcG9ydCovCgpleHBvcnQgZGVmYXVsdCAoYXBwKT0+ewogICAgCiAvKmZvcm0qLwogICAgCn0=",
+        "aW1wb3J0IGdsb2JhbCBmcm9tICcuLi9jb25maWcvZ2xvYmFsLmpzJzsKCi8qaW1wb3J0Ki8KCmV4cG9ydCBkZWZhdWx0IChhcHApPT57CiAgICAKIC8qZm9ybSovCiAgICAKfQ==",
     "type": "text"
   },
   {

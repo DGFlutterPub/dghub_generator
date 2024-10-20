@@ -1,11 +1,18 @@
 import global from '../config/global.js';
-import authenticated from '../middleware/api/authenticated.js';
-import roles from '../middleware/api/roles.js';
 
+
+import AuthApi from '../gen/auth/apis/auth_api.js';
+import ProductApi from '../gen/product/apis/product_api.js';
 /*import*/
+
+
 
 export default (app)=>{
     
- /*form*/
+  app.use('/api/'+global.apiVersion, AuthApi);
+       app.use('/api/'+global.apiVersion, ProductApi);
+      /*form*/
+      
+      
     
 }

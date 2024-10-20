@@ -21,6 +21,7 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
           ?.map((e) => e as Map<String, dynamic>)
           .toList(),
       path: json['path'] as String?,
+      enabledForm: json['enabledForm'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
@@ -34,6 +35,7 @@ Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
       'authenticated': instance.authenticated,
       'roles': instance.roles,
       'headers': instance.headers,
+      'enabledForm': instance.enabledForm,
     };
 
 const _$DGApiMethodEnumMap = {

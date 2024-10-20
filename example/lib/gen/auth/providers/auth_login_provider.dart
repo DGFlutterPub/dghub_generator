@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/auth.dart';
 import '../apis/auth_api.dart';
 
-var authLoginProvider =
-    StateNotifierProvider<AuthLoginNotifier, AsyncValue<Auth>?>(
-        (ref) => AuthLoginNotifier());
+var authLoginProvider = StateNotifierProvider<
+    AuthLoginNotifier,
+    AsyncValue<Auth>?>((ref) => AuthLoginNotifier());
 
 class AuthLoginNotifier extends StateNotifier<AsyncValue<Auth>?> {
-  AuthLoginNotifier() : super(null);
-
+   AuthLoginNotifier() : super(null);
+  
   final _api = AuthApi();
 
   login({required FormData form}) {
