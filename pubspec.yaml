@@ -1,6 +1,6 @@
 name: dghub_generator
 description: "Developed by DGHub Studio"
-version: 0.0.1-pre-release 
+version: 0.0.1-beta
 homepage: https://pub.dghub.in
 repository: https://github.com/DGFlutterPub/dghub_generator
 issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
@@ -29,6 +29,7 @@ dependencies:
   logger: ^2.4.0
   pluralize: ^0.0.8
 
+  mason_logger: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -46,3 +47,5 @@ flutter:
   assets:
      - images/icon.png
  
+ executables:
+  dg:

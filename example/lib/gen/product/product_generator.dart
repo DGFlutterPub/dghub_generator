@@ -1,6 +1,5 @@
 import "package:dghub_generator/dghub_generator.dart";
 
-import "models/product.dart";
 
 @DGHubGenerator(apis: [
   DGApi(

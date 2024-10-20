@@ -9,7 +9,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().post('/product', data: form);
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -18,7 +18,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().get('/product/$id');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -28,7 +28,7 @@ class ProductApi {
       var response = await ApiService.request()
           .get('/products', queryParameters: query?.toJson());
       return Products.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -38,7 +38,7 @@ class ProductApi {
       var response =
           await ApiService.request().post('/product/$id', data: form);
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -47,7 +47,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().delete('/product/$id');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -56,7 +56,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().delete('/products');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -66,7 +66,7 @@ class ProductApi {
       var response =
           await ApiService.request().delete('/product_forever_destroy/$id');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -76,7 +76,7 @@ class ProductApi {
       var response = await ApiService.request()
           .get('/products', queryParameters: query?.toJson());
       return Products.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -85,7 +85,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().get('/product_recovery/$id');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -94,7 +94,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().get('/product_recover/$id');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }
@@ -103,7 +103,7 @@ class ProductApi {
     try {
       var response = await ApiService.request().get('/products_recover');
       return Product.fromJson(response.data);
-    } catch (e, s) {
+    } catch (e) {
       throw e.toString();
     }
   }

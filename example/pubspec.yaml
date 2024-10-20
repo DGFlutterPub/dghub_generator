@@ -13,7 +13,7 @@ dependency_overrides:
     path: ../
 
 dependencies:
-
+  dghub_generator: ^0.0.1-beta
 
   flutter:
     sdk: flutter

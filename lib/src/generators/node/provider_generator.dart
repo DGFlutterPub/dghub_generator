@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:dghub_generator/src/dghub_generator.dart';
-import 'package:dghub_generator/src/generators/node/route_generator.dart';
 import 'package:mason/mason.dart';
 
 import '../../bundles/module/node/node_module_bundle.dart';
@@ -215,7 +213,7 @@ if(req.files.${model.key}){
     }
 
     if (api.action == DGApiAction.destroy) {
-      var body;
+      String body;
       read = '''
 import ${folder.toPascalCase()} from '../models/${folder.toSnakeCase()}.js';
 

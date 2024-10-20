@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
-import 'package:dghub_generator/src/generators/dart/form_generator.dart';
 import 'package:dghub_generator/src/tools/tools.dart';
 import 'package:mason/mason.dart';
 import '../../bundles/module/dart/dart_module_bundle.dart';
