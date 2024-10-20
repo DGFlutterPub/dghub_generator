@@ -8,8 +8,12 @@ environment:
   sdk: ">=3.3.4 <4.0.0"
 
 
+dependency_overrides:
+  dghub_generator:
+    path: ../
+
 dependencies:
- 
+
 
   flutter:
     sdk: flutter
