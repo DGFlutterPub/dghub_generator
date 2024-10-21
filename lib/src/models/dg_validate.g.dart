@@ -32,6 +32,7 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       isEncrypt: json['isEncrypt'] as bool? ?? false,
       isBoolean: json['isBoolean'] as bool? ?? false,
       isDouble: json['isDouble'] as bool? ?? false,
+      isToken: json['isToken'] as bool? ?? false,
       isInt: json['isInt'] as bool? ?? false,
       fileExtensions: (json['fileExtensions'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -76,4 +77,5 @@ Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
       'isList': instance.isList,
       'fileExtensions': instance.fileExtensions,
       'fileSize': instance.fileSize,
+      'isToken': instance.isToken
     };

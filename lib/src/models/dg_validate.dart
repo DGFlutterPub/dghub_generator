@@ -33,6 +33,7 @@ class DGValidate {
   final bool isBoolean;
   final bool isListString;
   final bool isList;
+  final bool isToken;
   final List<String> fileExtensions;
   final int fileSize;
 
@@ -67,6 +68,7 @@ class DGValidate {
       this.fileSize = 1000000,
       this.isList = false,
       this.isListString = false,
+      this.isToken = false,
       this.isString = false});
   factory DGValidate.fromJson(Map<String, dynamic> json) =>
       _$DGValidateFromJson(json);

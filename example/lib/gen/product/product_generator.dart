@@ -2,6 +2,7 @@ import "package:dghub_generator/dghub_generator.dart";
 
 @DGHubGenerator(apis: [
   DGApi(
+      realTime: true,
       method: DGApiMethod.post,
       action: DGApiAction.store,
       authenticated: true,

@@ -46,5 +46,9 @@ enum DGApiAction {
   destroyAll,
   destroy,
   store,
-  update
+  update,
+  login,
+  register,
+  forgotPassword,
+  emailVerification,
 }

@@ -9,3 +9,4 @@ export 'src/models/dg_api.dart';
 export 'src/models/dg_app_config.dart';
 export 'src/models/dg_generator_config.dart';
 export 'src/models/dg_icon_config.dart';
+export 'src/models/dg_env_config.dart';

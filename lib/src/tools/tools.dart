@@ -48,6 +48,14 @@ class Tools {
 
     if (validate.isFile) return 'File';
 
+    if (validate.isList) return 'List<dynamic>';
+
+    if (validate.isListString) return 'List<String>';
+
+    if (validate.isToken) return 'String';
+
+    if (validate.isPassword) return 'String';
+
     return 'dynamic';
   }
 
@@ -59,6 +67,10 @@ class Tools {
 
     if (pathName == null) {
       return switch (api.action) {
+        DGApiAction.login => '${className}_login',
+        DGApiAction.register => '${className}_register',
+        DGApiAction.forgotPassword => '${className}_forgot_password',
+        DGApiAction.emailVerification => '${className}_email_verification',
         DGApiAction.getOne => className,
         DGApiAction.getAll => className.toPlural(),
         DGApiAction.store => '${className}_store',

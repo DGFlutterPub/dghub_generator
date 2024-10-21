@@ -17,12 +17,16 @@ import '../src/libraries/icon_generator/config/config.dart';
 import '../src/libraries/icon_generator/custom_exceptions.dart';
 import '../src/libraries/icon_generator/lfogger.dart';
 import '../src/libraries/rename_generator/enums.dart';
+import 'models/dg_env_config.dart';
 import 'models/dg_icon_config.dart';
+import 'package:path/path.dart' as p;
 
 class DGHubMainGenerator {
   final DGAppConfig appConfig;
+  final DGEnvConfig envConfig;
   final DGIconConfig iconConfig;
   const DGHubMainGenerator({
+    this.envConfig = const DGEnvConfig(),
     this.iconConfig = const DGIconConfig(),
     this.appConfig = const DGAppConfig(),
   });
@@ -56,6 +60,14 @@ class _DGHUBMainGenerator extends GeneratorForAnnotation<DGHubMainGenerator> {
         ? DGAppConfig.fromJson(anotations['appConfig'])
         : const DGAppConfig();
 
+    var envConfig = anotations.containsKey('envConfig')
+        ? DGEnvConfig.fromJson(anotations['envConfig'])
+        : const DGEnvConfig();
+
+    if (envConfig.enabledGenerator) {
+      await envGenerator(envConfig, appConfig);
+    }
+
     if (appConfig.enabledGenerator) {
       await renameGenerator(appConfig);
     }
@@ -67,6 +79,44 @@ class _DGHUBMainGenerator extends GeneratorForAnnotation<DGHubMainGenerator> {
       await iconGenerator(iconConfig);
     }
   }
+}
+
+envGenerator(DGEnvConfig config, DGAppConfig appConfig) async {
+  final path = p.join(
+    Directory.current.path,
+    'lib',
+    'config',
+    'global.dart',
+  );
+  final file = File(path);
+
+  await file.writeAsString('''
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
+
+const appName = '${appConfig.appName}';
+const appPackageName = '${appConfig.packageName}';
+
+const isProductionMode = ${config.production};
+
+const devUrl = '${config.devUrl}';
+const baseUrl = '${config.baseUrl}';
+
+const apiVersion = '${config.apiVersion}';
+const socketVersion = '${config.socketVersion}';
+
+const hostUrl = isProductionMode ? baseUrl : devUrl;
+
+const apiUrl = '\$hostUrl/api/\$apiVersion/';
+
+const secertKey = '${config.secertKey}';
+const publicKey = '${config.publicKey}';
+
+var globalRef = ProviderContainer();
+
+Logger logger = Logger();
+
+''');
 }
 
 renameGenerator(DGAppConfig config) async {

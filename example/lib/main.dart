@@ -1,14 +1,21 @@
+import 'package:encrypt_shared_preferences/provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'config/global.dart';
 import 'routes/routes.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
+import 'package:url_strategy/url_strategy.dart';
 
-void main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  var ref = ProviderContainer();
+  await EncryptedSharedPreferences.initialize(secertKey.substring(0, 15));
 
-  runApp(UncontrolledProviderScope(container: ref, child: const DGHubApp()));
+  if (kIsWeb) setPathUrlStrategy();
+
+  runApp(
+      UncontrolledProviderScope(container: globalRef, child: const DGHubApp()));
 }
 
 class DGHubApp extends StatelessWidget {
