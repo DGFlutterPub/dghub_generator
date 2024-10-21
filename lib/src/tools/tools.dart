@@ -28,6 +28,14 @@ class Tools {
 
     if (validate.isEmail) return 'String';
 
+    if (validate.isList) return '[Object]';
+
+    if (validate.isListString) return '[String]';
+
+    if (validate.isToken) return 'String';
+
+    if (validate.isPassword) return 'String';
+
     return 'String';
   }
 

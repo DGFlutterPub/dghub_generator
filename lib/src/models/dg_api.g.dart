@@ -57,4 +57,8 @@ const _$DGApiActionEnumMap = {
   DGApiAction.destroy: 'destroy',
   DGApiAction.store: 'store',
   DGApiAction.update: 'update',
+  DGApiAction.login: 'login',
+  DGApiAction.register: 'register',
+  DGApiAction.forgotPassword: 'forgotPassword',
+  DGApiAction.emailVerification: 'emailVerification'
 };
