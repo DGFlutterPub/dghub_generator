@@ -1,12 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dg_config.dart';
+part of 'dg_generator_config.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DGConfig _$DGConfigFromJson(Map<String, dynamic> json) => DGConfig(
+DGGeneratorConfig _$DGGeneratorConfigFromJson(Map<String, dynamic> json) =>
+    DGGeneratorConfig(
       dart: json['dart'] as bool? ?? true,
       node: json['node'] as bool? ?? true,
       python: json['python'] as bool? ?? true,
@@ -18,7 +19,8 @@ DGConfig _$DGConfigFromJson(Map<String, dynamic> json) => DGConfig(
       enabledGenerator: json['enabledGenerator'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$DGConfigToJson(DGConfig instance) => <String, dynamic>{
+Map<String, dynamic> _$DGGeneratorConfigToJson(DGGeneratorConfig instance) =>
+    <String, dynamic>{
       'dart': instance.dart,
       'node': instance.node,
       'python': instance.python,

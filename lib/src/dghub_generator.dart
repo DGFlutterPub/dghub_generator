@@ -11,16 +11,17 @@ import 'generators/dart/validator_generator.dart';
 import 'generators/node/api_generator.dart';
 import 'generators/node/model_generator.dart';
 import 'generators/python/model_generator.dart';
+import 'models/dg_generator_config.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
   final List<DGApi>? apis;
-  final DGConfig? config;
+  final DGGeneratorConfig? config;
 
   const DGHubGenerator({this.config, this.models, this.apis});
 }
 
-Builder getIsarGenerator(BuilderOptions options) => SharedPartBuilder(
+Builder generator(BuilderOptions options) => SharedPartBuilder(
       [
         _DGHUBGenerator(),
       ],
@@ -46,8 +47,8 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
 
     //  print(anotations);
     var config = anotations.containsKey('config')
-        ? DGConfig.fromJson(anotations['config'])
-        : const DGConfig();
+        ? DGGeneratorConfig.fromJson(anotations['config'])
+        : const DGGeneratorConfig();
 
     //Model
     var models = anotations.containsKey('models')

@@ -4,13 +4,14 @@ import 'package:dghub_generator/dghub_generator.dart';
 import 'package:mason/mason.dart';
 
 import '../../bundles/module/node/node_module_bundle.dart';
+import '../../models/dg_generator_config.dart';
 import '../../tools/tools.dart';
 
 class NodeModelGenerator {
   static Future<void> generate(
     String className,
     List<DGModel> models,
-    DGConfig config,
+    DGGeneratorConfig config,
   ) async {
     final generator = await MasonGenerator.fromBundle(nodeModelBundle);
     var target = DirectoryGeneratorTarget(Directory.current);

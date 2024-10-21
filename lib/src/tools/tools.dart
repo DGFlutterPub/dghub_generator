@@ -1,3 +1,4 @@
+import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:pluralize/pluralize.dart';
 
@@ -48,5 +49,30 @@ class Tools {
     if (validate.isFile) return 'File';
 
     return 'dynamic';
+  }
+
+  static String? getPathName(DGApi api) =>
+      api.path?.replaceAll('/', '_').toPascalCase().toSnakeCase();
+
+  static String getClassPathName(String className, DGApi api) {
+    var pathName = getPathName(api);
+
+    if (pathName == null) {
+      return switch (api.action) {
+        DGApiAction.getOne => className,
+        DGApiAction.getAll => className.toPlural(),
+        DGApiAction.store => '${className}_store',
+        DGApiAction.update => '${className}_update',
+        DGApiAction.destroy => '${className}_destroy',
+        DGApiAction.destroyAll => '${className.toPlural()}_destroy',
+        DGApiAction.destroyForever => '${className}_destroy_forever',
+        DGApiAction.recoverOne => '${className}_recover',
+        DGApiAction.recoverAll => '${className.toPlural()}_recover',
+        DGApiAction.getOneRecovery => '${className}_recovery',
+        DGApiAction.getAllRecovery => '${className.toPlural()}_recovery',
+      };
+    } else {
+      return '${className}_$pathName'.toSnakeCase();
+    }
   }
 }

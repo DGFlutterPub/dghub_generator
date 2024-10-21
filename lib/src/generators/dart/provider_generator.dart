@@ -7,34 +7,15 @@ import '../../../dghub_generator.dart';
 import '../../bundles/module/dart/dart_module_bundle.dart';
 
 class DartProviderGenerator {
-  static Future<void> generate(
-      String className, String actionName, DGApi api) async {
-    var pathName = api.path?.replaceAll('/', '_').toPascalCase().toSnakeCase();
-
-    var classPathName = switch (actionName) {
-      'getOne' => className,
-      'getAll' => className.toPlural(),
-      'store' => '${className}_store',
-      'update' => '${className}_update',
-      'destroy' => '${className}_destroy',
-      'destroyAll' => '${className.toPlural()}_destroy',
-      'destroyForever' => '${className}_destroy_forever',
-      'recoverOne' => '${className}_recover',
-      'recoverAll' => '${className.toPlural()}_recover',
-      'getOneRecovery' => '${className}_recovery',
-      'getAllRecovery' => '${className.toPlural()}_recovery',
-      _ =>
-        pathName == null ? className : '${className}_$pathName'.toSnakeCase(),
-    };
-
-    print(className);
-    print(classPathName);
-    print(pathName);
+  static Future<void> generate(String className, DGApi api) async {
+    var classPathName = Tools.getClassPathName(className, api);
 
     final generator = await MasonGenerator.fromBundle(dartProviderBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
-    var generated = await generator
-        .generate(target, vars: {'name': className, 'action': classPathName});
+    var generated = await generator.generate(target, vars: {
+      'name': className.toSnakeCase(),
+      'action': classPathName.toSnakeCase()
+    });
 
     var file = File(generated.first.path);
     var result = '';
@@ -55,9 +36,9 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
   
   final _api = ${className.toPascalCase()}Api();
 
-  ${actionName.toCamelCase()}({required FormData form}) {
+  ${classPathName.toCamelCase()}({required FormData form}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(form: form).then((response) {
+    _api.${classPathName.toCamelCase()}(form: form).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -82,9 +63,9 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
   
   final _api = ${className.toPascalCase()}Api();
 
-  ${actionName.toCamelCase()}({required String id, required FormData form}) {
+  ${classPathName.toCamelCase()}({required String id, required FormData form}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(form: form,id: id).then((response) {
+    _api.${classPathName.toCamelCase()}(form: form,id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -111,7 +92,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 
   refresh({required String id}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(id: id).then((response) {
+    _api.${classPathName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -138,7 +119,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 
   destroy({required String id}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(id: id).then((response) {
+    _api.${classPathName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -165,7 +146,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 
   destroy({required String id}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(id: id).then((response) {
+    _api.${classPathName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -195,7 +176,7 @@ class ${classPathName.toPascalCase().toPlural()}Notifier extends ChangeNotifier 
   refresh() {
     query.page = 1;
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(query:query).then((response) {
+    _api.${classPathName.toCamelCase()}(query:query).then((response) {
       state = AsyncData(response);
       notifyListeners();
     }).onError((e, s) {
@@ -207,7 +188,7 @@ class ${classPathName.toPascalCase().toPlural()}Notifier extends ChangeNotifier 
   loadMore() {
     query.page++;
     loadMoreState = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(query:query).then((response) {
+    _api.${classPathName.toCamelCase()}(query:query).then((response) {
       if (response.data.isNotEmpty) {
         state.value?.data = [...state.value?.data ?? [], ...response.data];
         state = AsyncData(state.value);
@@ -261,7 +242,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 
   refresh({required String id}) {
     state = const AsyncLoading();
-    _api.${actionName.toCamelCase()}(id: id).then((response) {
+    _api.${classPathName.toCamelCase()}(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

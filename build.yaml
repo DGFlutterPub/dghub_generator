@@ -1,8 +1,15 @@
 builders:
   dghub_generator:
     import: "package:dghub_generator/src/dghub_generator.dart"
-    builder_factories: ["getIsarGenerator"]
+    builder_factories: ["generator"]
     build_extensions: { ".dart": ["dghub_generator.g.part"] }
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+  dghub_main_generator:
+    import: "package:dghub_generator/src/dghub_main_generator.dart"
+    builder_factories: ["mainGenerator"]
+    build_extensions: { ".dart": ["dghub_main_generator.g.part"] }
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]

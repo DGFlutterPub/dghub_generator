@@ -6,6 +6,7 @@ import 'package:dghub_generator/src/generators/dart/form_generator.dart';
 import 'package:dghub_generator/src/generators/dart/provider_generator.dart';
 import 'package:dghub_generator/src/generators/dart/pagination_model_generator.dart';
 import 'package:dghub_generator/src/generators/dart/query_model_generator.dart';
+import 'package:dghub_generator/src/models/dg_generator_config.dart';
 import 'package:dghub_generator/src/tools/tools.dart';
 import 'package:mason/mason.dart';
 
@@ -15,7 +16,7 @@ class DartApiGenerator {
   static Future<void> generate(
     String className,
     List<DGModel> models,
-    DGConfig config,
+    DGGeneratorConfig config,
     List<DGApi> apis,
   ) async {
     final generator = await MasonGenerator.fromBundle(dartApiBundle);
@@ -30,16 +31,14 @@ class DartApiGenerator {
     var body = [];
 
     for (var api in apis) {
+      var classPathName = Tools.getClassPathName(className, api);
+
       var baseOption = api.url == null
           ? ""
           : '''option: BaseOptions(baseUrl: "${api.url}")''';
 
-      var pathName =
-          api.path?.replaceAll('/', '_').toPascalCase().toSnakeCase();
-
       if (api.action == DGApiAction.store) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         await DartApiFormGenerator.generate(
             className, models, config, api.action.name);
 
@@ -56,9 +55,9 @@ class DartApiGenerator {
         }
 
         body.add('''
-  Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'store'}({required FormData form}) async {
+  Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required FormData form}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.toSnakeCase()}' : '/${pathName.snakeCase}'}' ,data: form);
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}' ,data: form);
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -68,8 +67,7 @@ class DartApiGenerator {
       }
 
       if (api.action == DGApiAction.update) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         await DartApiFormGenerator.generate(
             className, models, config, api.action.name);
 
@@ -82,9 +80,9 @@ class DartApiGenerator {
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'update'}({required String id, required FormData form}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id, required FormData form}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.toSnakeCase()}/\$id' : '/${pathName.snakeCase}/\$id'}' ,data: form);
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id' ,data: form);
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -94,8 +92,7 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'update'}({requ
       }
 
       if (api.action == DGApiAction.destroy) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
@@ -105,9 +102,9 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'update'}({requ
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroy'}({required String id}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.toSnakeCase()}/\$id' : '/${pathName.snakeCase}/\$id'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -117,8 +114,7 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroy'}({req
       }
 
       if (api.action == DGApiAction.destroyAll) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
@@ -128,9 +124,9 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroy'}({req
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroyAll'}() async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.toSnakeCase()}' : '/${api.path!.snakeCase}'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -140,8 +136,7 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroyAll'}()
       }
 
       if (api.action == DGApiAction.destroyForever) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
@@ -151,9 +146,9 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroyAll'}()
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroyForever'}({required String id}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.snakeCase}_forever_destroy/\$id' : '/${pathName.snakeCase}_forever_destroy/\$id'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -163,21 +158,16 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'destroyForever
       }
 
       if (api.action == DGApiAction.getOne) {
-        print(className);
-        print(pathName);
-        print(api.action.name);
-
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'getOne'}({required String id}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.snakeCase}/\$id' : '/${pathName.snakeCase}/\$id'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -189,8 +179,7 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'getOne'}({requ
       if (api.action == DGApiAction.getAll) {
         await DartPaginationModelGenerator.generate(className);
         await DartQueryModelGenerator.generate(className, models);
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
 
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
@@ -209,10 +198,9 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'getOne'}({requ
         }
 
         body.add('''
-Future<${className.toPascalCase().toPlural()}> ${pathName?.toCamelCase() ?? 'getAll'}({${className.toPascalCase()}Query? query}) async {
+Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({${className.toPascalCase()}Query? query}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}(
-      '${pathName == null ? '/${className.toSnakeCase().toPlural()}' : '/${pathName.toSnakeCase().toPlural()}'}',
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
       return ${className.toPascalCase().toPlural()}.fromJson(response.data);
@@ -226,8 +214,7 @@ Future<${className.toPascalCase().toPlural()}> ${pathName?.toCamelCase() ?? 'get
       if (api.action == DGApiAction.getAllRecovery) {
         await DartPaginationModelGenerator.generate(className);
         await DartQueryModelGenerator.generate(className, models);
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
 
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
@@ -246,10 +233,9 @@ Future<${className.toPascalCase().toPlural()}> ${pathName?.toCamelCase() ?? 'get
         }
 
         body.add('''
-Future<${className.toPascalCase().toPlural()}> ${pathName?.toCamelCase() ?? 'getAllRecovery'}({${className.toPascalCase()}Query? query}) async {
+Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({${className.toPascalCase()}Query? query}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}(
-     '${pathName == null ? '/${className.toSnakeCase().toPlural()}' : '/${pathName.toSnakeCase().toPlural()}'}',
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
       return ${className.toPascalCase().toPlural()}.fromJson(response.data);
@@ -261,17 +247,16 @@ Future<${className.toPascalCase().toPlural()}> ${pathName?.toCamelCase() ?? 'get
       }
 
       if (api.action == DGApiAction.getOneRecovery) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'getOneRecovery'}({required String id}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.snakeCase}_recovery/\$id' : '/${pathName.snakeCase}_recovery/\$id'}');
+      var response = await ApiService.request($baseOption).${api.method.name}( '/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -281,17 +266,16 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'getOneRecovery
       }
 
       if (api.action == DGApiAction.recoverOne) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'recoverOne'}({required String id}) async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.snakeCase}_recover/\$id' : '/${pathName.snakeCase}_recover/\$id'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
@@ -301,17 +285,16 @@ Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'recoverOne'}({
       }
 
       if (api.action == DGApiAction.recoverAll) {
-        await DartProviderGenerator.generate(
-            className, pathName ?? api.action.name, api);
+        await DartProviderGenerator.generate(className, api);
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
           import.add("import '../models/${className.toSnakeCase()}.dart';");
         }
 
         body.add('''
-Future<${className.toPascalCase()}> ${pathName?.toCamelCase() ?? 'recoverAll'}() async {
+Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('${pathName == null ? '/${className.snakeCase.toPlural()}_recover' : '/${pathName.snakeCase.toPlural()}_recover'}');
+      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase.toPlural()}');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();

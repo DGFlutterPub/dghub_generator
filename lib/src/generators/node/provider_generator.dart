@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
+import 'package:dghub_generator/src/models/dg_generator_config.dart';
 import 'package:mason/mason.dart';
 
 import '../../bundles/module/node/node_module_bundle.dart';
@@ -13,7 +14,7 @@ class NodeProviderGenerator {
     String folder,
     String name,
     DGApi api,
-    DGConfig config,
+    DGGeneratorConfig config,
     List<DGModel> models,
   ) async {
     final generator = await MasonGenerator.fromBundle(nodeProviderBundle);

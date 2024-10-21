@@ -12,9 +12,9 @@ class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
   
   final _api = ProductApi();
 
-  store({required FormData form}) {
+  productStore({required FormData form}) {
     state = const AsyncLoading();
-    _api.store(form: form).then((response) {
+    _api.productStore(form: form).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

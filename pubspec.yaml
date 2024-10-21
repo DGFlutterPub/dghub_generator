@@ -1,6 +1,6 @@
 name: dghub_generator
 description: "Developed by DGHub Studio"
-version: 0.0.1-beta8
+version: 0.0.1-beta9
 homepage: https://pub.dghub.in
 repository: https://github.com/DGFlutterPub/dghub_generator
 issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
@@ -28,7 +28,10 @@ dependencies:
   json_annotation: ^4.9.0
   logger: ^2.4.0
   pluralize: ^0.0.8
-
+  checked_yaml: ^2.0.3
+  cli_util: ^0.4.1
+  image: ^4.2.0
+  yaml: ^3.1.2
   mason_logger: any
 dev_dependencies:
   flutter_test:
@@ -36,7 +39,7 @@ dev_dependencies:
   flutter_lints: ^4.0.0
   json_serializable: ^6.8.0
   build_runner: ^2.4.9
-
+  mockito: ^5.4.4
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -45,7 +48,7 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
   assets:
-     - images/icon.png
+     - images/
  
 executables:
   dg:

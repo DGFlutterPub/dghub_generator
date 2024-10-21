@@ -5,6 +5,7 @@ import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:dghub_generator/src/generators/node/provider_generator.dart';
 import 'package:dghub_generator/src/generators/node/route_generator.dart';
+import 'package:dghub_generator/src/models/dg_generator_config.dart';
 import 'package:mason/mason.dart';
 
 import '../../bundles/module/node/node_module_bundle.dart';
@@ -13,7 +14,7 @@ import '../../tools/tools.dart';
 class NodeApiGenerator {
   static Future<void> generate(
     String className,
-    DGConfig config,
+    DGGeneratorConfig config,
     List<DGApi> apis,
     List<DGModel> models,
   ) async {
@@ -35,18 +36,20 @@ class NodeApiGenerator {
     import.add('''import roles from '../../../middleware/api/roles.js';''');
 
     for (var api in apis) {
+      var classPathName = Tools.getClassPathName(className, api);
+
       if (api.action == DGApiAction.getOne) {
         await NodeProviderGenerator.generate(
-            className, className, api, config, models);
+            className, classPathName, api, config, models);
         var authenticated = api.authenticated ? 'authenticated,' : '';
         var roles = api.roles.isEmpty
             ? ''
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
         import.add(
-            '''import ${className.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
 
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",$authenticated $roles ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),'} ${className.toPascalCase()}Provider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}" ,$authenticated $roles ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),'} ${className.toPascalCase()}Provider);''');
       }
       if (api.action == DGApiAction.store) {
         var authenticated = api.authenticated ? 'authenticated,' : '';
@@ -55,11 +58,11 @@ class NodeApiGenerator {
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
 
         await NodeProviderGenerator.generate(
-            className, '${className}_store', api, config, models);
+            className, classPathName, api, config, models);
         import.add(
-            '''import ${className.toPascalCase()}StoreProvider from '../providers/${className.toSnakeCase()}_store_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}",$authenticated $roles ${className.toPascalCase()}StoreProvider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}",$authenticated $roles ${classPathName.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.update) {
@@ -68,11 +71,11 @@ class NodeApiGenerator {
             ? ''
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
         await NodeProviderGenerator.generate(
-            className, '${className}_update', api, config, models);
+            className, classPathName, api, config, models);
         import.add(
-            '''import ${className.toPascalCase()}UpdateProvider from '../providers/${className.toSnakeCase()}_update_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id", $authenticated $roles ${className.toPascalCase()}UpdateProvider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}/:id", $authenticated $roles ${classPathName.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.destroy) {
@@ -82,11 +85,11 @@ class NodeApiGenerator {
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
 
         await NodeProviderGenerator.generate(
-            className, '${className}_destroy', api, config, models);
+            className, classPathName, api, config, models);
         import.add(
-            '''import ${className.toPascalCase()}DestroyProvider from '../providers/${className.toSnakeCase()}_destroy_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",$authenticated $roles ${className.toPascalCase()}DestroyProvider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}/:id",$authenticated $roles ${classPathName.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.destroyForever) {
@@ -95,11 +98,11 @@ class NodeApiGenerator {
             ? ''
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
         await NodeProviderGenerator.generate(
-            className, '${className}_destroy_forever', api, config, models);
+            className, classPathName, api, config, models);
         import.add(
-            '''import ${className.toPascalCase()}DestroyForeverProvider from '../providers/${className.toSnakeCase()}_destroy_forever_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase()}/:id",$authenticated $roles  ${className.toPascalCase()}DestroyForeverProvider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}/:id",$authenticated $roles  ${classPathName.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.getAll) {
@@ -109,11 +112,11 @@ class NodeApiGenerator {
             : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
 
         await NodeProviderGenerator.generate(
-            className, className.toPlural(), api, config, models);
+            className, classPathName, api, config, models);
         import.add(
-            '''import ${className.toPascalCase().toPlural()}Provider from '../providers/${className.toSnakeCase().toPlural()}_provider.js';''');
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
-            '''router.${api.method.name}("/${className.toSnakeCase().toPlural()}",$authenticated $roles  ${className.toPascalCase().toPlural()}Provider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}",$authenticated $roles  ${classPathName.toPascalCase()}Provider);''');
       }
     }
 

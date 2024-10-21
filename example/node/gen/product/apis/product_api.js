@@ -11,12 +11,12 @@ import ProductDestroyProvider from '../providers/product_destroy_provider.js';
 import ProductDestroyForeverProvider from '../providers/product_destroy_forever_provider.js';
 
 
-router.post("/product",authenticated, (req,res,next)=>roles(req,res,next,["admin"]), ProductStoreProvider);
-router.get("/product/:id",   ProductProvider);
+router.post("/product_store",authenticated, (req,res,next)=>roles(req,res,next,["admin"]), ProductStoreProvider);
+router.get("/product" ,   ProductProvider);
 router.get("/products",authenticated, (req,res,next)=>roles(req,res,next,["admin"]),  ProductsProvider);
-router.post("/product/:id",   ProductUpdateProvider);
-router.delete("/product/:id",  ProductDestroyProvider);
-router.delete("/product/:id",   ProductDestroyForeverProvider);
+router.post("/product_update/:id",   ProductUpdateProvider);
+router.delete("/product_destroy/:id",  ProductDestroyProvider);
+router.delete("/product_destroy_forever/:id",   ProductDestroyForeverProvider);
 
 
 export default router;

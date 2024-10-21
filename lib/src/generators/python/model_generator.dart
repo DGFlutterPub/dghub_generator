@@ -1,15 +1,15 @@
 import 'dart:io';
 
+import 'package:dghub_generator/src/models/dg_generator_config.dart';
 import 'package:mason/mason.dart';
 import '../../bundles/module/python/python_module_bundle.dart';
-import '../../models/dg_config.dart';
 import '../../models/dg_model.dart';
 
 class PythonModelGenerator {
   static Future<void> generate(
     String className,
     List<DGModel> models,
-    DGConfig? config,
+    DGGeneratorConfig? config,
   ) async {
     final generator = await MasonGenerator.fromBundle(pythonModelBundle);
     var target = DirectoryGeneratorTarget(Directory.current);

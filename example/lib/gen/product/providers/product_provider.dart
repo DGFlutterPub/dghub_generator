@@ -14,7 +14,7 @@ class ProductNotifier extends StateNotifier<AsyncValue<Product>> {
 
   refresh({required String id}) {
     state = const AsyncLoading();
-    _api.getOne(id: id).then((response) {
+    _api.product(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

@@ -17,7 +17,7 @@ class ProductsNotifier extends ChangeNotifier {
   refresh() {
     query.page = 1;
     state = const AsyncLoading();
-    _api.getAll(query:query).then((response) {
+    _api.products(query:query).then((response) {
       state = AsyncData(response);
       notifyListeners();
     }).onError((e, s) {
@@ -29,7 +29,7 @@ class ProductsNotifier extends ChangeNotifier {
   loadMore() {
     query.page++;
     loadMoreState = const AsyncLoading();
-    _api.getAll(query:query).then((response) {
+    _api.products(query:query).then((response) {
       if (response.data.isNotEmpty) {
         state.value?.data = [...state.value?.data ?? [], ...response.data];
         state = AsyncData(state.value);

@@ -12,9 +12,9 @@ class AuthRegisterNotifier extends StateNotifier<AsyncValue<Auth>?> {
   
   final _api = AuthApi();
 
-  register({required FormData form}) {
+  authRegister({required FormData form}) {
     state = const AsyncLoading();
-    _api.register(form: form).then((response) {
+    _api.authRegister(form: form).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

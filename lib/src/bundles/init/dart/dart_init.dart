@@ -20,7 +20,7 @@ var dartInit = [
   {
     "path": "lib/main_generator.dart",
     "data":
-        "aW1wb3J0ICJwYWNrYWdlOmRnaHViX2dlbmVyYXRvci9kZ2h1Yl9nZW5lcmF0b3IuZGFydCI7CgpAREdIdWJNYWluR2VuZXJhdG9yKCkKY2xhc3MgTWFpbkdlbmVyYXRvcnt9",
+        "aW1wb3J0ICJwYWNrYWdlOmRnaHViX2dlbmVyYXRvci9kZ2h1Yl9nZW5lcmF0b3IuZGFydCI7CgpAREdIdWJNYWluR2VuZXJhdG9yKAogICAgYXBwQ29uZmlnOiBER0FwcENvbmZpZygKICAgICAgICBhcHBOYW1lOiAnRXhhbXBsZSAoREcpJywKICAgICAgICBwYWNrYWdlTmFtZTogJ2Rldi5kZ2h1Yi5leGFtcGxlJywKICAgICAgICBzb2NrZXRWZXJzaW9uOiAndjEnLAogICAgICAgIGFwaVZlcnNpb246ICd2MScsCiAgICAgICAgYmFzZVVybDogJ2h0dHA6Ly8xMjcuMC4wLjEnLAogICAgICAgIGRldlVybDogJ2h0dHA6Ly8xMjcuMC4wLjEnLAogICAgICAgIHByb2R1Y3Rpb246IHRydWUsCiAgICAgICAgcG9ydDogNjAwMSkpCmNsYXNzIE1haW5HZW5lcmF0b3Ige30K",
     "type": "text"
   },
   {

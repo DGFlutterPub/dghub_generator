@@ -12,9 +12,9 @@ class ProductUpdateNotifier extends StateNotifier<AsyncValue<Product>?> {
   
   final _api = ProductApi();
 
-  update({required String id, required FormData form}) {
+  productUpdate({required String id, required FormData form}) {
     state = const AsyncLoading();
-    _api.update(form: form,id: id).then((response) {
+    _api.productUpdate(form: form,id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

@@ -8,40 +8,47 @@
 
 [![Pub](https://img.shields.io/pub/v/font_awesome_flutter.svg)](https://pub.dartlang.org/packages/dghub_generator)
 
-## What is
+## 🚀 Introducing DGHUB Generator — Automate Your Flutter Project’s Backend and Frontend Integration! 🚀
 
 I'm Dimi, 
 Let me show you a package that I have developed.
 This package connects the front-end to the back-end.
 
-Let me explain.
-After we make a project in Flutter, we usually use MVC or MVVM systems.
-This package can generate these automatically.
-You no longer need to use dependent servers like Firebase or Supabase.  You can build your own server easily.
+I’m Dimi, Let me show you a package that I have developed.
 
-For example - a model written in Dart is automatically built for Node.js.  Not only that, it also builds Providers, API Service, Forms, Validator, Queries.
+Are you tired of spending hours setting up MVC or MVVM systems manually in your Flutter projects? Let me introduce you to DGHUB Generator, a package that can do it all for you in just a few steps.
 
-This package can generate the MVVM system as well as generate the things needed in the project at once.  For example - Background service, River pod wrap widget, Native splash, Notification service, Cron service and anything.
+What Does DGHUB Generator Do?
 
-To try it out now, see how to use it in the document and give it a try.  You will like it very much.
+✅ Automatic MVC/MVVM System Generation: Say goodbye to repetitive work! DGHUB Generator automates the creation of complete MVC or MVVM systems for your Flutter apps.
 
-So let me tell you.  I have plans for the next project. You can come to me to start investing.
+✅ Node.js Model Creation: Your Dart models are automatically converted into Node.js models, eliminating the need to use external servers like Firebase or Supabase. Build and control your own server!
 
-- Telegram account:
-t.me/dghub_founder
+✅ Providers, API Service, Forms & Validators: It takes care of the most common elements of your app, building essential providers, forms, validators, and API services.
 
-- Telegram group: 
-t.me/dghub_dev
+✅ Background Services & More: Need a notification service, native splash screen, cron jobs, or Riverpod widgets? DGHUB Generator has you covered!
 
-# Developed by DGHub Studio ( Myanmar Development )
+Why You’ll Love It:
 
-- I like my country.
-- I will fix anything.
+Save Time: Focus on building your app’s core features rather than worrying about setting up back-end infrastructure.
 
-- New dictionary word =>  Full Stacker
-- Backend auto generator
-- Ai Full stack auto generator
-- DGHub Generator
+Flexibility: You have full control over your backend system without relying on third-party servers.
+
+All-In-One: From background services to notification handling, it generates everything you need in one go.
+
+🎯 Ready to try it out?
+
+Head over to the documentation and see how easy it is to integrate DGHUB Generator into your project. I promise, once you try it, you won’t go back!
+
+📥 Get it now on pub.dev: DGHUB Generator
+
+If you’re interested in contributing or have any feedback, feel free to reach out. Also, stay tuned — I have exciting plans for future projects and I’m looking for potential investors!
+
+You can share this across Flutter forums, social media, and developer communities! Let me know if you’d like any changes or if you need this translated into other languages.
+
+Developed by DGHub Studio ( Myanmar )
+
+Telegram group: t.me/dghub_dev
 
 # Please try for new project, Do not try in existing project.
 
@@ -89,12 +96,12 @@ import 'package:dghub_generator/dghub_generator.dart';
 ```
 
 
-## Example for model create.
+## Example for model generate.
 ### After using 'dg -c product' will see the: 
 - 'lib/gen/product/product_generator.dart' file.
 ### Don't forget:
 - 'flutter pub run build_runner build --delete-conflicting-outputs',
-### Check generated files:
+### Check auto generated files:
 - 'lib/gen/product/models/'
 - 'node/gen/product/models/'
 - 'python/gen/product/models/'
@@ -119,6 +126,27 @@ import 'package:dghub_generator/dghub_generator.dart';
     key: "enabled"
     )
 ])
+class ProductGenerator {}
+```
+
+
+
+## Example for apis generate.
+### Check auto generated files:
+- 'lib/gen/product/apis/' or 'lib/gen/product/providers'
+- 'node/gen/product/apis/' or 'node/gen/product/providers'
+- 'python/gen/product/apis/' or 'python/gen/product/providers'
+```dart
+import 'package:dghub_generator/dghub_generator.dart';
+
+@DGHubGenerator(apis: [
+  DGApi(
+      method: DGApiMethod.post,
+      action: DGApiAction.store,
+      authenticated: true,
+      roles: ['admin']),
+  DGApi(method: DGApiMethod.get, action: DGApiAction.getOne),
+  ])
 class ProductGenerator {}
 ```
 

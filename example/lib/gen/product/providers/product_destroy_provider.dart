@@ -14,7 +14,7 @@ class ProductDestroyNotifier extends StateNotifier<AsyncValue<Product>> {
 
   destroy({required String id}) {
     state = const AsyncLoading();
-    _api.destroy(id: id).then((response) {
+    _api.productDestroy(id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

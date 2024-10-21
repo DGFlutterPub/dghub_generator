@@ -12,9 +12,9 @@ class AuthLoginNotifier extends StateNotifier<AsyncValue<Auth>?> {
   
   final _api = AuthApi();
 
-  login({required FormData form}) {
+  authLogin({required FormData form}) {
     state = const AsyncLoading();
-    _api.login(form: form).then((response) {
+    _api.authLogin(form: form).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

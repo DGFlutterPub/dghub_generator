@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'dg_config.g.dart';
+part 'dg_generator_config.g.dart';
 
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
-class DGConfig {
+class DGGeneratorConfig {
   final bool dart;
   final bool node;
   final bool python;
@@ -14,7 +14,7 @@ class DGConfig {
   final bool autoIncrement;
   final bool enabledGenerator;
 
-  const DGConfig({
+  const DGGeneratorConfig({
     this.dart = true,
     this.node = true,
     this.python = true,
@@ -26,8 +26,8 @@ class DGConfig {
     this.enabledGenerator = true,
   });
 
-  factory DGConfig.fromJson(Map<String, dynamic> json) =>
-      _$DGConfigFromJson(json);
+  factory DGGeneratorConfig.fromJson(Map<String, dynamic> json) =>
+      _$DGGeneratorConfigFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DGConfigToJson(this);
+  Map<String, dynamic> toJson() => _$DGGeneratorConfigToJson(this);
 }
