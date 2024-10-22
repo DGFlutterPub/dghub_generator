@@ -1,10 +1,10 @@
 # DGHub Studio
 
-<a href="https://t.me/dghub_founder" target="_blank"><img src="https://raw.githubusercontent.com/dghub-founder/storage/refs/heads/main/icon.png" style="height: 170px !important;width: 170px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://t.me/dghub_founder" target="_blank"><img src="https://raw.githubusercontent.com/dghub-founder/storage/refs/heads/main/icon.png" height="150" width="150" ></a>
 
 ### Group
 
-<a href="https://t.me/dghub_dev" target="_blank"><img src="https://raw.githubusercontent.com/dghub-founder/storage/refs/heads/main/telegram_button.png" alt="Buy Me A Coffee" style="height: 37px !important;width: 170px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+<a href="https://t.me/dghub_dev" target="_blank"><img src="https://raw.githubusercontent.com/dghub-founder/storage/refs/heads/main/telegram_button.png" height="50" ></a>
 
 [![Pub](https://img.shields.io/pub/v/font_awesome_flutter.svg)](https://pub.dartlang.org/packages/dghub_generator)
 
