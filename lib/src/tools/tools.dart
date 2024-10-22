@@ -60,6 +60,8 @@ class Tools {
 
     if (validate.isListString) return 'List<String>';
 
+    if (validate.isRoles) return 'List<String>';
+
     if (validate.isToken) return 'String';
 
     if (validate.isPassword) return 'String';
@@ -77,8 +79,13 @@ class Tools {
       return switch (api.action) {
         DGApiAction.login => '${className}_login',
         DGApiAction.register => '${className}_register',
-        DGApiAction.forgotPassword => '${className}_forgot_password',
-        DGApiAction.emailVerification => '${className}_email_verification',
+        DGApiAction.forgotPasswordSend => '${className}_forgot_password_send',
+        DGApiAction.forgotPasswordUpdate =>
+          '${className}_forgot_password_update',
+        DGApiAction.emailVerificationSend =>
+          '${className}_email_verification_send',
+        DGApiAction.emailVerificationUpdate =>
+          '${className}_email_verification_update',
         DGApiAction.getOne => className,
         DGApiAction.getAll => className.toPlural(),
         DGApiAction.store => '${className}_store',

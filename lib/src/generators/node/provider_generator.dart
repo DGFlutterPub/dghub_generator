@@ -137,11 +137,12 @@ var data = await new ${folder.toPascalCase()}({
 }''';
 
       for (var model in models) {
-        fields.add(
-            '''${model.key}: ${model.validate.isFile ? model.key : 'req.body.${model.key}'} ,''');
+        if (model.store) {
+          fields.add(
+              '''${model.key}: ${model.validate.isFile ? model.key : 'req.body.${model.key}'} ,''');
 
-        if (model.validate.isFile) {
-          files.add('''
+          if (model.validate.isFile) {
+            files.add('''
  var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
     name: id,
     supports: ${jsonEncode(model.validate.fileExtensions)},
@@ -154,6 +155,7 @@ var data = await new ${folder.toPascalCase()}({
   }
   var ${model.key} = value;
 ''');
+          }
         }
       }
 
@@ -188,9 +190,9 @@ var data = await ${folder.toPascalCase()}.findOneAndUpdate(
 }''';
       for (var model in models) {
         fields.add('''${model.key}: req.body.${model.key},''');
-
-        if (model.validate.isFile) {
-          files.add('''
+        if (model.update) {
+          if (model.validate.isFile) {
+            files.add('''
 var ${model.key} = null;
 if(req.files.${model.key}){
  var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
@@ -206,6 +208,7 @@ if(req.files.${model.key}){
    ${model.key} = value;
   }
 ''');
+          }
         }
       }
 
@@ -286,6 +289,121 @@ export default async (req, res, next) => {
 }''';
     }
 
+    if (api.action == DGApiAction.register) {
+      var fields = [];
+      var files = [];
+      var passwords = [];
+
+      read = '''
+import mongoose from "mongoose";
+import tools from '../../../system/tools/tools.js';
+import ${folder.toPascalCase()} from '../models/${folder.toSnakeCase()}.js';
+
+export default async (req, res, next) => {
+  
+ var id = new mongoose.Types.ObjectId();
+
+/*passwords*/
+ 
+/*file*/
+
+ try{
+var data = await new Auth({
+    _id: id,
+    /*field*/
+
+  }).save();
+
+ return res.status(200).json(data);
+ }catch(e){
+ console.log(e);
+  return res.status(200).json('Register failed');
+ }
+
+}''';
+
+      for (var model in models) {
+        if (model.store) {
+          if (model.validate.isFile) {
+            fields.add('''${model.key}: ${model.key} ,''');
+          } else if (model.validate.isPassword) {
+            fields.add('''${model.key}: ${model.key} ,''');
+          } else if (model.validate.isRoles) {
+          } else if (model.validate.isToken) {
+            fields.add('''${model.key}: tools.getToken(id),''');
+          } else {
+            fields.add('''${model.key}: ${'req.body.${model.key}'} ,''');
+          }
+
+          if (model.validate.isFile) {
+            files.add('''
+ var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
+    name: id,
+    supports: ${jsonEncode(model.validate.fileExtensions)},
+    path: "${folder.toSnakeCase()}/${model.key}/",
+    size: ${model.validate.fileSize},
+  });
+
+  if (error) {
+   return res.status(200).json(value);
+  }
+  var ${model.key} = value;
+''');
+          }
+          if (model.validate.isPassword) {
+            passwords.add('''
+var { error, value } = await tools.createPassword(req.body.${model.key});
+  if (error) {
+    return res.status(200).json(value);
+  }
+  var ${model.key} = value;
+''');
+          }
+        }
+      }
+      read =
+          read.replaceAll('/*passwords*/', Tools.getNewLineString(passwords));
+      read = read.replaceAll('/*field*/', Tools.getNewLineString(fields));
+      read = read.replaceAll('/*file*/', Tools.getNewLineString(files));
+    }
+
+    if (api.action == DGApiAction.login) {
+      var fields = [];
+
+      read = '''
+import mongoose from "mongoose";
+import tools from '../../../system/tools/tools.js';
+import ${folder.toPascalCase()} from '../models/${folder.toSnakeCase()}.js';
+
+export default async (req, res, next) => {
+  
+ try{
+var data = await ${folder.toPascalCase()}.findOne({email: req.body.email}).select("+password");
+
+var { error, value } = tools.checkPassword(req.body.password,data.password);
+if (error) return res.status(200).json(value);  
+  
+  var data = await Auth.findOne({email: data.email},{token: tools.getToken()}).select("-password").update();
+
+ return res.status(200).json(data);
+ }catch(e){
+ console.log(e);
+  return res.status(200).json('Login failed');
+ }
+}''';
+
+      for (var model in models) {
+        if (model.validate.isFile) {
+          fields.add('''${model.key}: ${model.key} ,''');
+        } else if (model.validate.isPassword) {
+          fields.add('''${model.key}: ${model.key} ,''');
+        } else {
+          fields.add('''${model.key}: ${'req.body.${model.key}'} ,''');
+        }
+
+        read = read.replaceAll('/*field*/', Tools.getNewLineString(fields));
+      }
+    }
     await file.writeAsString(read);
   }
 }

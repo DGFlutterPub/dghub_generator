@@ -22,7 +22,7 @@ updatedAt: { type: Date, default: null },
         },
       
         roles: {
-          type: [String], 
+          type: String, 
           
           default: null,
           

@@ -33,6 +33,7 @@ class DGValidate {
   final bool isBoolean;
   final bool isListString;
   final bool isList;
+  final bool isRoles;
   final bool isToken;
   final List<String> fileExtensions;
   final int fileSize;
@@ -41,6 +42,7 @@ class DGValidate {
       {this.isEmail = false,
       this.isFile = false,
       this.isRequired = false,
+      this.isRoles = false,
       this.isDate = false,
       this.isIPv6 = false,
       this.isIp = false,

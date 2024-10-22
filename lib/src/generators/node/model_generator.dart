@@ -24,6 +24,7 @@ class NodeModelGenerator {
     var form = [];
     var import = [];
     var plugin = [];
+    var hidden = [];
 
     if (config.autoIncrement) {
       import.add('''import mongooseSequence from "mongoose-sequence";''');
@@ -56,10 +57,12 @@ class NodeModelGenerator {
     var formResult = Tools.getNewLineString(form);
     var importResult = Tools.getNewLineString(import);
     var pluginResult = Tools.getNewLineString(plugin);
+    var hiddenResult = Tools.getNewLineString(hidden);
 
     read = read.replaceAll('/*form*/', formResult);
     read = read.replaceAll('/*import*/', importResult);
     read = read.replaceAll('/*plugin*/', pluginResult);
+    read = read.replaceAll('/*hidden*/', hiddenResult);
 
     await file.writeAsString(read);
   }

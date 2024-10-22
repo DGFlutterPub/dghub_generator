@@ -40,10 +40,10 @@ Future<Auth> authForgotPasswordUpdate({required String id, required FormData for
     }
   }
 
-  Future<bool> authEmailVerificationSend({required FormData form}) async {
+  Future<Auth> authEmailVerificationSend({required FormData form}) async {
     try {
       var response = await ApiService.request().post('/auth_email_verification_send' ,data: form);
-      return response.data;
+      return Auth.fromJson(response.data);
     } catch (e, s) {
       throw e.toString();
     }

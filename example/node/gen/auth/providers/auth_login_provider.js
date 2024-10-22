@@ -4,24 +4,17 @@ import Auth from '../models/auth.js';
 
 export default async (req, res, next) => {
   
- var id = new mongoose.Types.ObjectId();
-
- 
-
-
  try{
-var data = await new Auth({
-    _id: id,
-    email: req.body.email ,
-password: req.body.password ,
-roles: req.body.roles ,
+var data = await Auth.findOne({email: req.body.email}).select("+password");
 
-  }).save();
+var { error, value } = tools.checkPassword(req.body.password,data.password);
+if (error) return res.status(200).json(value);  
+  
+  var data = await Auth.findOne({email: data.email},{token: tools.getToken()}).select("-password").update();
 
  return res.status(200).json(data);
  }catch(e){
  console.log(e);
-  return res.status(200).json('Store failed');
+  return res.status(200).json('Login failed');
  }
-
 }

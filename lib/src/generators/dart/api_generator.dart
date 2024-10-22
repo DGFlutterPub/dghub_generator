@@ -44,11 +44,7 @@ class DartApiGenerator {
           api.action == DGApiAction.emailVerificationSend) {
         await DartProviderGenerator.generate(className, api);
         await DartApiFormGenerator.generate(
-          className,
-          models,
-          config,
-          api.action.name,
-        );
+            className, models, config, api.action.name, api);
 
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
@@ -74,10 +70,12 @@ class DartApiGenerator {
 ''');
       }
 
-      if (api.action == DGApiAction.update) {
+      if (api.action == DGApiAction.update ||
+          api.action == DGApiAction.forgotPasswordUpdate ||
+          api.action == DGApiAction.emailVerificationUpdate) {
         await DartProviderGenerator.generate(className, api);
         await DartApiFormGenerator.generate(
-            className, models, config, api.action.name);
+            className, models, config, api.action.name, api);
 
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {

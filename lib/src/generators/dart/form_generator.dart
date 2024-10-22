@@ -75,7 +75,9 @@ class DartModelFormGenerator {
 
 class DartApiFormGenerator {
   static Future<void> generate(String className, List<DGModel> models,
-      DGGeneratorConfig config, String form) async {
+      DGGeneratorConfig config, String form, DGApi api) async {
+    if (!api.enabledForm) return;
+
     final generator = await MasonGenerator.fromBundle(dartFormBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
     var generated = await generator

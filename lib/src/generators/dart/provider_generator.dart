@@ -22,7 +22,13 @@ class DartProviderGenerator {
 
     if (api.action == DGApiAction.store ||
         api.action == DGApiAction.login ||
-        api.action == DGApiAction.register) {
+        api.action == DGApiAction.register ||
+        api.action == DGApiAction.forgotPasswordSend ||
+        api.action == DGApiAction.emailVerificationSend) {
+      var modelClass = api.action == DGApiAction.forgotPasswordSend
+          ? 'bool'
+          : className.toPascalCase();
+
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,9 +37,9 @@ import '../apis/${className.toSnakeCase()}_api.dart';
 
 var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
     ${classPathName.toPascalCase()}Notifier,
-    AsyncValue<${className.toPascalCase()}>?>((ref) => ${classPathName.toPascalCase()}Notifier());
+    AsyncValue<$modelClass>?>((ref) => ${classPathName.toPascalCase()}Notifier());
 
-class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>?> {
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$modelClass>?> {
    ${classPathName.toPascalCase()}Notifier() : super(null);
   
   final _api = ${className.toPascalCase()}Api();
@@ -49,7 +55,9 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 }''';
     }
 
-    if (api.action == DGApiAction.update) {
+    if (api.action == DGApiAction.update ||
+        api.action == DGApiAction.forgotPasswordUpdate ||
+        api.action == DGApiAction.emailVerificationUpdate) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

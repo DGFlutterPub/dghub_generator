@@ -51,7 +51,12 @@ class NodeApiGenerator {
         form.add(
             '''router.${api.method.name}("/${classPathName.toSnakeCase()}" ,$authenticated $roles ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),'} ${className.toPascalCase()}Provider);''');
       }
-      if (api.action == DGApiAction.store) {
+
+      if (api.action == DGApiAction.store ||
+          api.action == DGApiAction.login ||
+          api.action == DGApiAction.register ||
+          api.action == DGApiAction.forgotPasswordSend ||
+          api.action == DGApiAction.emailVerificationSend) {
         var authenticated = api.authenticated ? 'authenticated,' : '';
         var roles = api.roles.isEmpty
             ? ''
@@ -65,7 +70,9 @@ class NodeApiGenerator {
             '''router.${api.method.name}("/${classPathName.toSnakeCase()}",$authenticated $roles ${classPathName.toPascalCase()}Provider);''');
       }
 
-      if (api.action == DGApiAction.update) {
+      if (api.action == DGApiAction.update ||
+          api.action == DGApiAction.forgotPasswordUpdate ||
+          api.action == DGApiAction.emailVerificationUpdate) {
         var authenticated = api.authenticated ? 'authenticated,' : '';
         var roles = api.roles.isEmpty
             ? ''

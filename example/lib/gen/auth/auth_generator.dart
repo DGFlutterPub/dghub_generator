@@ -37,7 +37,7 @@ import "package:dghub_generator/dghub_generator.dart";
       forms: ['login', 'register'],
       validate: DGValidate(isPassword: true),
       key: 'password'),
-  DGModel(validate: DGValidate(isListString: true), key: 'roles'),
-  DGModel(validate: DGValidate(isToken: true), key: 'token')
+  DGModel(store: false, validate: DGValidate(isRoles: true), key: 'roles'),
+  DGModel(store: false, validate: DGValidate(isToken: true), key: 'token')
 ])
 class AuthGenerator {}
