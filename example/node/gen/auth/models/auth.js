@@ -22,6 +22,13 @@ updatedAt: { type: Date, default: null },
         },
       
         roles: {
+          type: [String], 
+          
+          default: null,
+          
+        },
+      
+        token: {
           type: String, 
           
           default: null,

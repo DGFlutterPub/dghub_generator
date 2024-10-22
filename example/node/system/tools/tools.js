@@ -3,6 +3,9 @@ import path from "path";
 import url from "url";
 import validate from "joi";
 import fs from "fs";
+import config from '../../config/global.js';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 const tempPath = path.join(
     url.fileURLToPath(import.meta.url),
@@ -85,4 +88,35 @@ const tempPath = path.join(
   }
 
 
-export default {log,tempPath,validator,fileToStorage}
+  function getToken(id){
+
+    return  jwt.sign({
+      secretOrPrivateKey: config.publicKey,
+      id: id,
+    },
+    config.secertKey,
+    {
+    expiresIn: '7d'
+    });
+    
+    } 
+
+    const createPassword = async (password) => {
+      return await new Promise((resolve, reject) => {
+        bcrypt
+          .hash(password, 10)
+          .then((hash) => {
+            return resolve({ error: false, value: hash });
+          })
+          .catch((err) => resolve({ error: true, value: err.message }));
+      });
+    };
+    const checkPassword = (password, hash) => {
+      if (bcrypt.compareSync(password, hash || "")) {
+        return { error: false, value: "Password is correct" };
+      } else {
+        return { error: true, value: "Password is wrong" };
+      }
+    };
+
+export default {log,tempPath,validator,fileToStorage,getToken,createPassword,checkPassword}

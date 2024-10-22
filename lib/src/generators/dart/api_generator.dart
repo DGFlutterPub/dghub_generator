@@ -37,10 +37,18 @@ class DartApiGenerator {
           ? ""
           : '''option: BaseOptions(baseUrl: "${api.url}")''';
 
-      if (api.action == DGApiAction.store) {
+      if (api.action == DGApiAction.store ||
+          api.action == DGApiAction.login ||
+          api.action == DGApiAction.register ||
+          api.action == DGApiAction.forgotPasswordSend ||
+          api.action == DGApiAction.emailVerificationSend) {
         await DartProviderGenerator.generate(className, api);
         await DartApiFormGenerator.generate(
-            className, models, config, api.action.name);
+          className,
+          models,
+          config,
+          api.action.name,
+        );
 
         if (!import
             .contains("import '../models/${className.toSnakeCase()}.dart';")) {
@@ -55,10 +63,10 @@ class DartApiGenerator {
         }
 
         body.add('''
-  Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required FormData form}) async {
+  Future<${api.action == DGApiAction.forgotPasswordSend ? 'bool' : className.toPascalCase()}> ${classPathName.toCamelCase()}({required FormData form}) async {
     try {
       var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}' ,data: form);
-      return ${className.toPascalCase()}.fromJson(response.data);
+      return ${api.action == DGApiAction.forgotPasswordSend ? 'response.data;' : '${className.toPascalCase()}.fromJson(response.data);'}
     } catch (e, s) {
       throw e.toString();
     }

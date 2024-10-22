@@ -12,15 +12,31 @@ import "package:dghub_generator/dghub_generator.dart";
       method: DGApiMethod.post, action: DGApiAction.login, enabledForm: false),
   DGApi(
       method: DGApiMethod.post,
-      action: DGApiAction.forgotPassword,
+      action: DGApiAction.forgotPasswordSend,
       enabledForm: false),
   DGApi(
       method: DGApiMethod.post,
-      action: DGApiAction.emailVerification,
+      action: DGApiAction.forgotPasswordUpdate,
+      enabledForm: false),
+  DGApi(
+      method: DGApiMethod.post,
+      action: DGApiAction.emailVerificationSend,
+      authenticated: true,
+      enabledForm: false),
+  DGApi(
+      method: DGApiMethod.post,
+      action: DGApiAction.emailVerificationUpdate,
+      authenticated: true,
       enabledForm: false),
 ], models: [
-  DGModel(validate: DGValidate(isEmail: true), key: 'email'),
-  DGModel(validate: DGValidate(isPassword: true), key: 'password'),
+  DGModel(
+      forms: ['login', 'register', 'forgotPassword', 'emailVerification'],
+      validate: DGValidate(isEmail: true),
+      key: 'email'),
+  DGModel(
+      forms: ['login', 'register'],
+      validate: DGValidate(isPassword: true),
+      key: 'password'),
   DGModel(validate: DGValidate(isListString: true), key: 'roles'),
   DGModel(validate: DGValidate(isToken: true), key: 'token')
 ])

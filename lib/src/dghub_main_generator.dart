@@ -72,7 +72,7 @@ class _DGHUBMainGenerator extends GeneratorForAnnotation<DGHubMainGenerator> {
       await renameGenerator(appConfig);
     }
     var iconConfig = anotations.containsKey('iconConfig')
-        ? DGIconConfig.fromJson(anotations['icononfig'])
+        ? DGIconConfig.fromJson(anotations['iconConfig'])
         : const DGIconConfig();
 
     if (iconConfig.enabledGenerator) {

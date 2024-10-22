@@ -20,7 +20,9 @@ class DartProviderGenerator {
     var file = File(generated.first.path);
     var result = '';
 
-    if (api.action == DGApiAction.store) {
+    if (api.action == DGApiAction.store ||
+        api.action == DGApiAction.login ||
+        api.action == DGApiAction.register) {
       result = '''
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

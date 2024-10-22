@@ -49,6 +49,8 @@ enum DGApiAction {
   update,
   login,
   register,
-  forgotPassword,
-  emailVerification,
+  forgotPasswordSend,
+  forgotPasswordUpdate,
+  emailVerificationSend,
+  emailVerificationUpdate
 }
