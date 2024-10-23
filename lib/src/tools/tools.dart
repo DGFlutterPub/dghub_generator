@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:pluralize/pluralize.dart';
@@ -41,6 +43,7 @@ class Tools {
 
   static dartDefaultValue(DGModel model) {
     if (model.validate.isString) return '''"${model.defaultValue}"''';
+    if (model.validate.isListString) return jsonEncode(model.defaultValue);
   }
 
   static dartType(DGValidate? validate) {
