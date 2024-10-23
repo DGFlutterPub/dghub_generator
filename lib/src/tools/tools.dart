@@ -42,8 +42,10 @@ class Tools {
   }
 
   static dartDefaultValue(DGModel model) {
-    if (model.validate.isString) return '''"${model.defaultValue}"''';
-    if (model.validate.isListString) return jsonEncode(model.defaultValue);
+    if (model.validate.isString) return '\'${model.defaultValue}\'';
+    if (model.validate.isListString) {
+      return jsonEncode(model.defaultValue).toString();
+    }
   }
 
   static dartType(DGValidate? validate) {
