@@ -10,7 +10,7 @@ updatedAt: { type: Date, default: null },
         title: {
           type: String, 
           
-          default: null,
+          default: 'test',
           
         },
       
@@ -32,6 +32,13 @@ updatedAt: { type: Date, default: null },
           type: Boolean, 
           
           default: null,
+          
+        },
+      
+        metaData: {
+          type: [String], 
+          
+          default: const ["data4","data2"],
           
         },
       

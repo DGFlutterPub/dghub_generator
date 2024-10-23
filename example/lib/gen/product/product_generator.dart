@@ -22,9 +22,14 @@ import "package:dghub_generator/dghub_generator.dart";
   // DGApi(method: DGApiMethod.get, action: DGApiAction.recoverOne),
 //  DGApi(method: DGApiMethod.get, action: DGApiAction.recoverAll),
 ], models: [
-  DGModel(validate: DGValidate(isString: true), key: 'title'),
+  DGModel(
+      validate: DGValidate(isString: true), defaultValue: 'test', key: 'title'),
   DGModel(validate: DGValidate(isDouble: true), key: 'price'),
   DGModel(validate: DGValidate(isFile: true), key: 'photo'),
-  DGModel(validate: DGValidate(isBoolean: true), key: "enabled")
+  DGModel(validate: DGValidate(isBoolean: true), key: "enabled"),
+  DGModel(
+      validate: DGValidate(isListString: true),
+      defaultValue: ['data4', 'data2'],
+      key: "metaData"),
 ])
 class ProductGenerator {}

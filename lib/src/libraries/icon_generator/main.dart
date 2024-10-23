@@ -65,7 +65,6 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
   if (argResults[helpFlag]) {
     stdout.writeln('Generates icons for iOS and Android');
     stdout.writeln(parser.usage);
-    exit(0);
   }
 
   // Flavors management
@@ -97,7 +96,6 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
     } catch (e) {
       stderr.writeln('\n✕ Could not generate launcher icons');
       stderr.writeln(e);
-      exit(2);
     }
   } else {
     try {
@@ -121,7 +119,6 @@ Future<void> createIconsFromArguments(List<String> arguments) async {
     } catch (e) {
       stderr.writeln('\n✕ Could not generate launcher icons for flavors');
       stderr.writeln(e);
-      exit(2);
     }
   }
 }

@@ -120,6 +120,5 @@ void generateIconsFor({
     logger
       ..error(e.toString())
       ..verbose(st);
-    exit(1);
   }
 }

@@ -42,9 +42,9 @@ class Tools {
   }
 
   static dartDefaultValue(DGModel model) {
-    if (model.validate.isString) return '\'test ${model.defaultValue}\'';
+    if (model.validate.isString) return '\'${model.defaultValue}\'';
     if (model.validate.isListString) {
-      return jsonEncode(model.defaultValue).toString();
+      return 'const ${jsonEncode(model.defaultValue).toString()}';
     }
     return model.defaultValue;
   }

@@ -22,6 +22,10 @@ if(req.query.enabled){
   search.$and.push({enabled: req.query.enabled || null});
   }
   
+if(req.query.metaData){
+  search.$and.push({metaData: req.query.metaData || null});
+  }
+  
 
 
   var total = await Product.countDocuments(search);

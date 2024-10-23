@@ -28,6 +28,7 @@ var data = await new Product({
 price: req.body.price ,
 photo: photo ,
 enabled: req.body.enabled ,
+metaData: req.body.metaData ,
 
   }).save();
 

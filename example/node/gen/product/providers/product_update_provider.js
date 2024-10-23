@@ -29,6 +29,7 @@ var data = await Product.findOneAndUpdate(
 price: req.body.price,
 photo: req.body.photo,
 enabled: req.body.enabled,
+metaData: req.body.metaData,
 }
   );
  return res.status(200).json(data);

@@ -13,6 +13,7 @@ ProductQuery _$ProductQueryFromJson(Map<String, dynamic> json) => ProductQuery(
       price: json['price'] as String?,
       photo: json['photo'] as String?,
       enabled: json['enabled'] as String?,
+      metaData: json['metaData'] as String?,
     );
 
 Map<String, dynamic> _$ProductQueryToJson(ProductQuery instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$ProductQueryToJson(ProductQuery instance) =>
       'price': instance.price,
       'photo': instance.photo,
       'enabled': instance.enabled,
+      'metaData': instance.metaData,
     };

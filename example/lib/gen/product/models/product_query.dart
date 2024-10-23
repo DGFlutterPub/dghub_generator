@@ -4,22 +4,26 @@ part 'product_query.g.dart';
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
 class ProductQuery {
   ProductQuery({
-    this.page = 1,
-    this.search,
-    this.title,
-    this.price,
-    this.photo,
-    this.enabled,
+  this.page = 1,
+this.search,
+this.title,
+this.price,
+this.photo,
+this.enabled,
+this.metaData,
+
   });
 
-  int page;
-  String? search;
-  String? title;
-  String? price;
-  String? photo;
-  String? enabled;
+   int page;
+String? search;
+String? title;
+String? price;
+String? photo;
+String? enabled;
+String? metaData;
 
-  factory ProductQuery.fromJson(Map<String, dynamic> json) =>
-      _$ProductQueryFromJson(json);
+
+  factory  ProductQuery.fromJson(Map<String, dynamic> json) =>
+      _$ProductQueryFromJson(json);  
   Map<String, dynamic> toJson() => _$ProductQueryToJson(this);
 }
