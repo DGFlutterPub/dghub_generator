@@ -11,6 +11,7 @@ class DGGeneratorConfig {
   final bool updatedAt;
   final bool deletedAt;
   final bool id;
+  final bool language;
   final bool autoIncrement;
   final bool enabledGenerator;
 
@@ -21,6 +22,7 @@ class DGGeneratorConfig {
     this.createdAt = true,
     this.deletedAt = true,
     this.updatedAt = true,
+    this.language = false,
     this.id = true,
     this.autoIncrement = false,
     this.enabledGenerator = true,

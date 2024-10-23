@@ -49,7 +49,7 @@ class NodeModelGenerator {
         ${model.key}: {
           type: ${Tools.nodeType(model.validate)}, 
           ${model.ref == null ? '' : 'ref: "${model.ref}",'}
-          default: ${model.defaultValue},
+          default: ${Tools.dartDefaultValue(model)},
           
         },
       ''');

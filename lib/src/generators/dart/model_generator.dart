@@ -50,6 +50,11 @@ class DartModelGenerator {
       form.add('String? deletedAt;');
     }
 
+    if (config.language) {
+      formParameter.add('this.language = "en",');
+      form.add('String language;');
+    }
+
     for (var model in models) {
       if (model.ref != null && model.ref.toString() != 'File') {
         imports.add(
@@ -61,7 +66,7 @@ class DartModelGenerator {
             ? 'required this.${model.key},'
             : model.defaultValue == null
                 ? 'this.${model.key},'
-                : 'this.${model.key} = ${model.defaultValue},');
+                : 'this.${model.key} = ${Tools.dartDefaultValue(model)},');
       } else {
         formParameter.add('this.${model.key},');
       }

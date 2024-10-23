@@ -20,6 +20,7 @@ DGIconConfig _$DGIconConfigFromJson(Map<String, dynamic> json) => DGIconConfig(
       linuxPath: json['linuxPath'] as String? ?? 'assets/images/icon.png',
       macosPath: json['macosPath'] as String? ?? 'assets/images/icon.png',
       windowPath: json['windowPath'] as String? ?? 'assets/images/icon.png',
+      allPath: json['allPath'] as String? ?? 'assets/images/icon.png',
     );
 
 Map<String, dynamic> _$DGIconConfigToJson(DGIconConfig instance) =>
@@ -35,6 +36,7 @@ Map<String, dynamic> _$DGIconConfigToJson(DGIconConfig instance) =>
       'linux': instance.linux,
       'linuxPath': instance.linuxPath,
       'window': instance.window,
+      'allPath': instance.allPath,
       'windowPath': instance.windowPath,
       'enabledGenerator': instance.enabledGenerator,
     };

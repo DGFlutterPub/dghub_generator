@@ -39,6 +39,10 @@ class Tools {
     return 'String';
   }
 
+  static dartDefaultValue(DGModel model) {
+    if (model.validate.isString) return '''"${model.defaultValue}"''';
+  }
+
   static dartType(DGValidate? validate) {
     if (validate == null) return 'dynamic';
 

@@ -16,6 +16,7 @@ class DGIconConfig {
   final String linuxPath;
   final bool window;
   final String windowPath;
+  final String allPath;
   final bool enabledGenerator;
 
   const DGIconConfig({
@@ -26,6 +27,7 @@ class DGIconConfig {
     this.linux = true,
     this.macos = true,
     this.window = true,
+    this.allPath = 'assets/images/icon.png',
     this.webPath = 'assets/images/icon.png',
     this.androidPath = 'assets/images/icon.png',
     this.iosPath = 'assets/images/icon.png',

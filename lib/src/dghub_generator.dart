@@ -11,7 +11,6 @@ import 'generators/dart/validator_generator.dart';
 import 'generators/node/api_generator.dart';
 import 'generators/node/model_generator.dart';
 import 'generators/python/model_generator.dart';
-import 'models/dg_generator_config.dart';
 
 class DGHubGenerator {
   final List<DGModel>? models;
