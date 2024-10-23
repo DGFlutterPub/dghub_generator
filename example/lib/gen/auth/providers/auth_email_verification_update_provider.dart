@@ -7,14 +7,15 @@ var authEmailVerificationUpdateProvider = StateNotifierProvider<
     AuthEmailVerificationUpdateNotifier,
     AsyncValue<Auth>?>((ref) => AuthEmailVerificationUpdateNotifier());
 
-class AuthEmailVerificationUpdateNotifier extends StateNotifier<AsyncValue<Auth>?> {
-   AuthEmailVerificationUpdateNotifier() : super(null);
-  
+class AuthEmailVerificationUpdateNotifier
+    extends StateNotifier<AsyncValue<Auth>?> {
+  AuthEmailVerificationUpdateNotifier() : super(null);
+
   final _api = AuthApi();
 
   authEmailVerificationUpdate({required String id, required FormData form}) {
     state = const AsyncLoading();
-    _api.authEmailVerificationUpdate(form: form,id: id).then((response) {
+    _api.authEmailVerificationUpdate(form: form, id: id).then((response) {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);

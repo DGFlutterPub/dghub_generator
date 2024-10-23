@@ -16,14 +16,4 @@ const host = devUrl.split(':')[1].replace('//','');
 
 const apiUrl = hostUrl + '/api/' + apiVersion + '/';
 
-const mailPort = '';
-const mailHost = '';
-const mailUsername = '';
-const mailPassword ='';
-
-export default { 
-    mailHost,
-    mailPort,
-    mailPassword,
-    mailUsername,
-    port,host, secertKey,publicKey, isDevMode, devUrl, baseUrl, apiVersion, socketVersion, hostUrl, apiUrl ,packageName}
+export default {port,host, secertKey,publicKey, isDevMode, devUrl, baseUrl, apiVersion, socketVersion, hostUrl, apiUrl ,packageName}

@@ -1,20 +1,17 @@
 import 'package:dio/dio.dart';
 /*import*/
 
-class AuthLoginForm{
+class AuthLoginForm {
   AuthLoginForm({
-  this.email,
-this.password,
-
+    this.email,
+    this.password,
   });
 
-   String? email;
-String? password;
-
+  String? email;
+  String? password;
 
   Future<FormData> toFormData() async => FormData.fromMap({
-    "email":  email,
-"password":  password,
-
-  });
+        "email": email,
+        "password": password,
+      });
 }

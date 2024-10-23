@@ -1,26 +1,23 @@
 import 'package:dio/dio.dart';
 /*import*/
 
-class AuthForgotPasswordSendForm{
+class AuthForgotPasswordSendForm {
   AuthForgotPasswordSendForm({
-  this.email,
-this.password,
-this.roles,
-this.token,
-
+    this.email,
+    this.password,
+    this.roles,
+    this.token,
   });
 
-   String? email;
-String? password;
-List<String>? roles;
-String? token;
-
+  String? email;
+  String? password;
+  List<String>? roles;
+  String? token;
 
   Future<FormData> toFormData() async => FormData.fromMap({
-    "email":  email,
-"password":  password,
-"roles":  roles,
-"token":  token,
-
-  });
+        "email": email,
+        "password": password,
+        "roles": roles,
+        "token": token,
+      });
 }

@@ -1,6 +1,6 @@
-import 'package:dghub/config/global.dart';
-import 'package:dghub/system/services/background_services.dart';
-import 'package:dghub/system/services/notification_services.dart';
+import './config/global.dart';
+import './system/services/background_services.dart';
+import './system/services/notification_services.dart';
 import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

@@ -1,17 +1,14 @@
 import 'package:dio/dio.dart';
 /*import*/
 
-class AuthForgotPasswordForm{
+class AuthForgotPasswordForm {
   AuthForgotPasswordForm({
-  this.email,
-
+    this.email,
   });
 
-   String? email;
-
+  String? email;
 
   Future<FormData> toFormData() async => FormData.fromMap({
-    "email":  email,
-
-  });
+        "email": email,
+      });
 }

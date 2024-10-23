@@ -10,34 +10,10 @@ import "package:dghub_generator/dghub_generator.dart";
       enabledForm: false),
   DGApi(
       method: DGApiMethod.post, action: DGApiAction.login, enabledForm: false),
-  DGApi(
-      method: DGApiMethod.post,
-      action: DGApiAction.forgotPasswordSend,
-      enabledForm: false),
-  DGApi(
-      method: DGApiMethod.post,
-      action: DGApiAction.forgotPasswordUpdate,
-      enabledForm: false),
-  DGApi(
-      method: DGApiMethod.post,
-      action: DGApiAction.emailVerificationSend,
-      authenticated: true,
-      enabledForm: false),
-  DGApi(
-      method: DGApiMethod.post,
-      action: DGApiAction.emailVerificationUpdate,
-      authenticated: true,
-      enabledForm: false),
 ], models: [
-  DGModel(
-      forms: ['login', 'register', 'forgotPassword', 'emailVerification'],
-      validate: DGValidate(isEmail: true),
-      key: 'email'),
-  DGModel(
-      forms: ['login', 'register'],
-      validate: DGValidate(isPassword: true),
-      key: 'password'),
-  DGModel(store: false, validate: DGValidate(isRoles: true), key: 'roles'),
+  DGModel(validate: DGValidate(isEmail: true), key: 'email'),
+  DGModel(validate: DGValidate(isPassword: true), key: 'password'),
+  DGModel(store: false, validate: DGValidate(isListString: true), key: 'roles'),
   DGModel(store: false, validate: DGValidate(isToken: true), key: 'token')
 ])
 class AuthGenerator {}
