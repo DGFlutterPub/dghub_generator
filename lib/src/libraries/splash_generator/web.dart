@@ -1,4 +1,4 @@
-/*part of 'create.dart';
+part of 'create.dart';
 
 // Image template
 class _WebLaunchImageTemplate {
@@ -403,4 +403,3 @@ void _updateHtml({
   // Write the updated index.html
   webIndex.writeAsStringSync(document.outerHtml);
 }
-*/

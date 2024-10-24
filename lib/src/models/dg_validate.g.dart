@@ -10,6 +10,7 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       isEmail: json['isEmail'] as bool? ?? false,
       isFile: json['isFile'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
+      isRoles: json['isRoles'] as bool? ?? false,
       isDate: json['isDate'] as bool? ?? false,
       isIPv6: json['isIPv6'] as bool? ?? false,
       isIp: json['isIp'] as bool? ?? false,
@@ -32,7 +33,6 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       isEncrypt: json['isEncrypt'] as bool? ?? false,
       isBoolean: json['isBoolean'] as bool? ?? false,
       isDouble: json['isDouble'] as bool? ?? false,
-      isToken: json['isToken'] as bool? ?? false,
       isInt: json['isInt'] as bool? ?? false,
       fileExtensions: (json['fileExtensions'] as List<dynamic>?)
               ?.map((e) => e as String)
@@ -41,8 +41,8 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       fileSize: (json['fileSize'] as num?)?.toInt() ?? 1000000,
       isList: json['isList'] as bool? ?? false,
       isListString: json['isListString'] as bool? ?? false,
+      isToken: json['isToken'] as bool? ?? false,
       isString: json['isString'] as bool? ?? false,
-      isRoles: json['isRoles'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
@@ -76,8 +76,8 @@ Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
       'isBoolean': instance.isBoolean,
       'isListString': instance.isListString,
       'isList': instance.isList,
+      'isRoles': instance.isRoles,
+      'isToken': instance.isToken,
       'fileExtensions': instance.fileExtensions,
       'fileSize': instance.fileSize,
-      'isToken': instance.isToken,
-      'isRoles': instance.isRoles
     };

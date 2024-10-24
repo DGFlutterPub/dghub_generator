@@ -1,29 +1,12 @@
 import './config/global.dart';
-import './system/services/background_services.dart';
-import './system/services/notification_services.dart';
-import 'package:encrypt_shared_preferences/provider.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_strategy/url_strategy.dart';
 import 'routes/routes.dart';
+import 'system/services/dghub_services.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
-import 'system/widgets/splash/native_splash.dart';
 
 void main() async {
-  var wb = WidgetsFlutterBinding.ensureInitialized();
-
-  NativeSplash.start(widgetsBinding: wb);
-
-  //await EncryptedSharedPreferences.initialize(secertKey.substring(0, 15));
-
-  // await NotificationService().init();
-
-  if (kIsWeb) {
-    setPathUrlStrategy();
-  } else {
-    // await BackgroundService.init();
-  }
+  await DGHubServices.init();
 
   runApp(
       UncontrolledProviderScope(container: globalRef, child: const DGHubApp()));

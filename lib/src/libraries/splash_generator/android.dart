@@ -1,4 +1,4 @@
-/*part of 'create.dart';
+part of 'create.dart';
 
 /// Image template
 class _AndroidDrawableTemplate {
@@ -569,4 +569,3 @@ void _applyOrientation({required String? orientation}) {
     ),
   );
 }
-*/

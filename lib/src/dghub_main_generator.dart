@@ -22,15 +22,18 @@ import 'models/dg_env_config.dart';
 import 'models/dg_icon_config.dart';
 import 'package:path/path.dart' as p;
 
+import 'models/dg_splash_config.dart';
+
 class DGHubMainGenerator {
   final DGAppConfig appConfig;
   final DGEnvConfig envConfig;
   final DGIconConfig iconConfig;
-  const DGHubMainGenerator({
-    this.envConfig = const DGEnvConfig(),
-    this.iconConfig = const DGIconConfig(),
-    this.appConfig = const DGAppConfig(),
-  });
+  final DGSplashConfig splashConfig;
+  const DGHubMainGenerator(
+      {this.envConfig = const DGEnvConfig(),
+      this.iconConfig = const DGIconConfig(),
+      this.appConfig = const DGAppConfig(),
+      this.splashConfig = const DGSplashConfig()});
 }
 
 Builder mainGenerator(BuilderOptions options) => SharedPartBuilder(
@@ -79,12 +82,23 @@ class _DGHUBMainGenerator extends GeneratorForAnnotation<DGHubMainGenerator> {
     if (iconConfig.enabledGenerator) {
       await iconGenerator(iconConfig);
     }
-    await splashGenerator();
+
+    var splashConfig = anotations.containsKey('splashConfig')
+        ? DGSplashConfig.fromJson(anotations['splashConfig'])
+        : const DGSplashConfig();
+    if (splashConfig.enabledGenerator) {
+      await splashGenerator(splashConfig);
+    }
   }
 }
 
-splashGenerator() async {
-  //createSplashByConfig({});
+splashGenerator(DGSplashConfig config) async {
+  createSplashByConfig({
+    "fullscreen": config.fullScreeen,
+    "color": config.allBackgroundColor,
+    "color_dark": config.allBackgroundColorDark,
+    "image": config.allIconPath
+  });
 }
 
 envGenerator(DGEnvConfig config, DGAppConfig appConfig) async {

@@ -9,9 +9,7 @@ part of 'dg_model.dart';
 DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
       key: json['key'] as String,
       defaultValue: json['defaultValue'],
-      validate: json['validate'] == null
-          ? const DGValidate()
-          : DGValidate.fromJson(json['validate'] as Map<String, dynamic>),
+      validate: json['validate'] ?? const DGValidate(),
       forms:
           (json['forms'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -23,9 +21,9 @@ DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
 Map<String, dynamic> _$DGModelToJson(DGModel instance) => <String, dynamic>{
       'key': instance.key,
       'defaultValue': instance.defaultValue,
-      'validate': instance.validate.toJson(),
+      'validate': instance.validate,
       'forms': instance.forms,
       'ref': instance.ref,
       'store': instance.store,
-      'update': instance.update
+      'update': instance.update,
     };

@@ -1,10 +1,10 @@
-/*part of 'create.dart';
+part of 'create.dart';
 
 class _FlavorHelper {
   _FlavorHelper(this._flavor) {
     if (_flavor != null) {
       _androidResFolder = 'android/app/src/$_flavor/res/';
-      _iOSFlavorName = _flavor!.capitalize();
+      _iOSFlavorName = _flavor.capitalize();
     } else {
       _androidResFolder = 'android/app/src/main/res/';
       _iOSFlavorName = '';
@@ -13,14 +13,14 @@ class _FlavorHelper {
 
   // Android related path values
   final String? _flavor;
-  late String _androidResFolder;
+  String? _androidResFolder;
 
   String? get flavor {
     return _flavor;
   }
 
   String get androidResFolder {
-    return _androidResFolder;
+    return _androidResFolder!;
   }
 
   String get androidDrawableFolder {
@@ -76,7 +76,7 @@ class _FlavorHelper {
   }
 
   // iOS related values
-  late String? _iOSFlavorName;
+  String? _iOSFlavorName;
 
   String? get iOSFlavorName {
     return _iOSFlavorName;
@@ -157,4 +157,3 @@ extension _StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
-*/

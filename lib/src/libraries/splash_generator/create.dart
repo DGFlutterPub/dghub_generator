@@ -13,7 +13,7 @@ import 'package:path/path.dart' as p;
 import 'package:universal_io/io.dart';
 import 'package:xml/xml.dart';
 import 'package:yaml/yaml.dart';
-/*
+
 part 'android.dart';
 part 'constants.dart';
 part 'flavor_helper.dart';
@@ -23,9 +23,33 @@ part 'web.dart';
 
 late _FlavorHelper _flavorHelper;
 
+/// Create splash screens for Android and iOS
+void createSplash({
+  required String? path,
+  required String? flavor,
+}) {
+  if (flavor != null) {
+    print(
+      '''
+╔════════════════════════════════════════════════════════════════════════════╗
+║                             Setting up flavors!                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+===> Setting up the $flavor flavor.
+''',
+    );
+  }
+
+  final config = getConfig(configFile: path, flavor: flavor);
+  createSplashByConfig(config);
+}
+
 /// Create splash screens for Android and iOS based on a config argument
-void _createSplashByConfig(Map<String, dynamic> config) {
+void createSplashByConfig(
+  Map<String, dynamic> config,
+) {
   // Preparing all the data for later usage
+  _flavorHelper = _FlavorHelper(null);
+
   final String? image =
       _checkImageExists(config: config, parameter: _Parameter.image);
   final String? imageAndroid =
@@ -251,7 +275,7 @@ void removeSplash({
   if (config.containsKey(_Parameter.plistFiles)) {
     removeConfig[_Parameter.plistFiles] = config[_Parameter.plistFiles];
   }
-  _createSplashByConfig(removeConfig);
+  createSplashByConfig(removeConfig);
 }
 
 String? _checkImageExists({
@@ -497,4 +521,3 @@ class _Parameter {
     webImageMode,
   ];
 }
-*/

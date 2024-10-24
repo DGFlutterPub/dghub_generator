@@ -1,4 +1,4 @@
-/*part of 'create.dart';
+part of 'create.dart';
 
 // Image template
 class _IosLaunchImageTemplate {
@@ -566,4 +566,3 @@ void _updateInfoPlistFile({
     '${xmlDocument.toXmlString(pretty: true, indent: '	')}\n',
   );
 }
-*/

@@ -14,7 +14,7 @@ DGGeneratorConfig _$DGGeneratorConfigFromJson(Map<String, dynamic> json) =>
       createdAt: json['createdAt'] as bool? ?? true,
       deletedAt: json['deletedAt'] as bool? ?? true,
       updatedAt: json['updatedAt'] as bool? ?? true,
-      language: json['language'] as bool? ?? true,
+      language: json['language'] as bool? ?? false,
       id: json['id'] as bool? ?? true,
       autoIncrement: json['autoIncrement'] as bool? ?? false,
       enabledGenerator: json['enabledGenerator'] as bool? ?? true,
@@ -28,8 +28,8 @@ Map<String, dynamic> _$DGGeneratorConfigToJson(DGGeneratorConfig instance) =>
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
       'deletedAt': instance.deletedAt,
-      'language': instance.language,
       'id': instance.id,
+      'language': instance.language,
       'autoIncrement': instance.autoIncrement,
       'enabledGenerator': instance.enabledGenerator,
     };
