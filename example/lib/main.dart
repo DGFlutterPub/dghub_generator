@@ -1,5 +1,3 @@
-import 'package:dghub_generator/dghub_generator.dart';
-
 import './config/global.dart';
 import './system/services/background_services.dart';
 import './system/services/notification_services.dart';
@@ -9,13 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'routes/routes.dart';
-import 'system/tools/tools.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
+import 'system/widgets/splash/native_splash.dart';
 
 void main() async {
   var wb = WidgetsFlutterBinding.ensureInitialized();
 
-  Tools.startSplash(widgetsBinding: wb);
+  NativeSplash.start(widgetsBinding: wb);
 
   //await EncryptedSharedPreferences.initialize(secertKey.substring(0, 15));
 
