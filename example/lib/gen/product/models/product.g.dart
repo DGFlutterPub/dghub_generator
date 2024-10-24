@@ -11,14 +11,14 @@ Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String?,
       deletedAt: json['deletedAt'] as String?,
-      title: json['title'] as String? ?? 'test test',
+      title: json['title'] as String? ?? 'test',
       price: (json['price'] as num?)?.toDouble(),
       photo: json['photo'] as String?,
       enabled: json['enabled'] as bool?,
       metaData: (json['metaData'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
-          const ["data1", "data2"],
+          const ["data4", "data2"],
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{

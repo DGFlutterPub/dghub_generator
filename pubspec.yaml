@@ -1,7 +1,7 @@
 name: dghub_generator
 description: "Developed by DGHub Studio"
-version: 0.0.1-beta9.4
-homepage: https://pub.dghub.in
+version: 0.0.1-beta9.8
+homepage: https://pub.dghub.dev
 repository: https://github.com/DGFlutterPub/dghub_generator
 issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
 
@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter 
   analyzer: ^6.4.1
   build: ^2.4.1
   meta: ^1.15.0
@@ -30,15 +32,19 @@ dependencies:
   pluralize: ^0.0.8
   checked_yaml: ^2.0.3
   cli_util: ^0.4.1
-  image: ^4.2.0
+  image: ^4.3.0
   yaml: ^3.1.2
   mason_logger: any
+  html: ^0.15.4
+  universal_io: ^2.2.2
+  xml: ^6.5.0
+  ansicolor: ^2.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  json_serializable: ^6.8.0
+  #json_serializable: ^6.8.0
   build_runner: ^2.4.9
   mockito: ^5.4.4
 # For information on the generic Dart part of this file, see the
@@ -49,7 +55,18 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
   assets:
-     - images/
+     - assets/images/
  
+  plugin:
+    platforms:
+      android:
+        package: net.jonhanson.flutter_native_splash
+        pluginClass: FlutterNativeSplashPlugin
+      ios:
+        pluginClass: FlutterNativeSplashPlugin
+      web:
+        pluginClass: FlutterNativeSplashWeb
+        fileName: flutter_native_splash_web.dart
+
 executables:
   dg:

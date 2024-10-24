@@ -1,3 +1,5 @@
+import 'package:dghub_generator/dghub_generator.dart';
+
 import './config/global.dart';
 import './system/services/background_services.dart';
 import './system/services/notification_services.dart';
@@ -7,12 +9,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'routes/routes.dart';
+import 'system/tools/tools.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  var wb = WidgetsFlutterBinding.ensureInitialized();
 
-  await EncryptedSharedPreferences.initialize(secertKey.substring(0, 15));
+  Tools.startSplash(widgetsBinding: wb);
+
+  //await EncryptedSharedPreferences.initialize(secertKey.substring(0, 15));
 
   // await NotificationService().init();
 

@@ -56,9 +56,18 @@ class DartModelGenerator {
     }
 
     for (var model in models) {
-      if (model.ref != null && model.ref.toString() != 'File') {
-        imports.add(
-            '''import '../../${model.ref.toString().toSnakeCase()}/models/${model.ref.toString().toSnakeCase()}.dart';''');
+      if (model.ref != null) {
+        if (model.ref.toString().contains('List<')) {
+          var name = model.ref
+              .toString()
+              .replaceFirst('List<', '')
+              .replaceFirst('>', '')
+              .toSnakeCase();
+          imports.add('''import '../../$name/models/$name.dart';''');
+        } else {
+          imports.add(
+              '''import '../../${model.ref.toString().toSnakeCase()}/models/${model.ref.toString().toSnakeCase()}.dart';''');
+        }
       }
 
       if (model.ref == null) {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
+import 'package:dghub_generator/src/libraries/splash_generator/create.dart';
 import '../src/libraries/icon_generator/abs/icon_generator.dart';
 import '../src/libraries/icon_generator/config/macos_config.dart';
 import '../src/libraries/icon_generator/config/web_config.dart';
@@ -78,7 +79,12 @@ class _DGHUBMainGenerator extends GeneratorForAnnotation<DGHubMainGenerator> {
     if (iconConfig.enabledGenerator) {
       await iconGenerator(iconConfig);
     }
+    await splashGenerator();
   }
+}
+
+splashGenerator() async {
+  //createSplashByConfig({});
 }
 
 envGenerator(DGEnvConfig config, DGAppConfig appConfig) async {
