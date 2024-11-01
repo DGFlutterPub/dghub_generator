@@ -20,6 +20,6 @@ class DGHubServices {
     } else {
       // await BackgroundService.init();
     }
-    //  NativeSplash.close();
+    NativeSplash.close();
   }
 }

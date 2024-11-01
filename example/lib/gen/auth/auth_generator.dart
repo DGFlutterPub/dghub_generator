@@ -10,10 +10,11 @@ import "package:dghub_generator/dghub_generator.dart";
       enabledForm: false),
   DGApi(
       method: DGApiMethod.post, action: DGApiAction.login, enabledForm: false),
-], models: [
-  DGModel(validate: DGValidate(isEmail: true), key: 'email'),
-  DGModel(validate: DGValidate(isPassword: true), key: 'password'),
-  DGModel(store: false, validate: DGValidate(isListString: true), key: 'roles'),
-  DGModel(store: false, validate: DGValidate(isToken: true), key: 'token')
+], model: [
+  DGModelField(validate: DGValidate(isEmail: true), key: 'email'),
+  DGModelField(validate: DGValidate(isPassword: true), key: 'password'),
+  DGModelField(
+      store: false, validate: DGValidate(isListString: true), key: 'roles'),
+  DGModelField(store: false, validate: DGValidate(isToken: true), key: 'token')
 ])
 class AuthGenerator {}

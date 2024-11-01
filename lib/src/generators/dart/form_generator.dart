@@ -8,8 +8,8 @@ import 'package:mason/mason.dart';
 import '../../models/dg_generator_config.dart';
 
 class DartModelFormGenerator {
-  static Future<void> generate(
-      String className, List<DGModel> models, DGGeneratorConfig config) async {
+  static Future<void> generate(String className, List<DGModelField> models,
+      DGGeneratorConfig config) async {
     List<Map<String, String>> generatedPaths = [];
 
     for (var model in models) {
@@ -74,7 +74,7 @@ class DartModelFormGenerator {
 }
 
 class DartApiFormGenerator {
-  static Future<void> generate(String className, List<DGModel> models,
+  static Future<void> generate(String className, List<DGModelField> models,
       DGGeneratorConfig config, String form, DGApi api) async {
     if (!api.enabledForm) return;
 

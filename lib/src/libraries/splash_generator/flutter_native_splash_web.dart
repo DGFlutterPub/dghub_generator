@@ -13,7 +13,7 @@ import 'remove_splash_from_web.dart';
 class FlutterNativeSplashWeb {
   static void registerWith(Registrar registrar) {
     final MethodChannel channel = MethodChannel(
-      'flutter_native_splash',
+      'native_splash',
       const StandardMethodCodec(),
       registrar,
     );

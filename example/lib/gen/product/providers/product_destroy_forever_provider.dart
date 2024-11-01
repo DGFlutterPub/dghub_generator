@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/product.dart';
 import '../apis/product_api.dart';
 
-var productDestroyForeverProvider = StateNotifierProvider<
-    ProductDestroyForeverNotifier,
-    AsyncValue<Product>>((ref) => ProductDestroyForeverNotifier());
+var productDestroyForeverProvider =
+    StateNotifierProvider<ProductDestroyForeverNotifier, AsyncValue<Product>>(
+        (ref) => ProductDestroyForeverNotifier());
 
 class ProductDestroyForeverNotifier extends StateNotifier<AsyncValue<Product>> {
-   ProductDestroyForeverNotifier() : super(const AsyncLoading());
-  
+  ProductDestroyForeverNotifier() : super(const AsyncLoading());
+
   final _api = ProductApi();
 
   destroy({required String id}) {

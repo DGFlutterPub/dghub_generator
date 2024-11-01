@@ -87,7 +87,7 @@ Map<String, dynamic> _$ConfigToJson(Config instance) => <String, dynamic>{
       'desaturate_tinted_to_grayscale_ios':
           instance.desaturateTintedToGrayscaleIOS,
       'background_color_ios': instance.backgroundColorIOS,
-      'web': instance.webConfig,
-      'windows': instance.windowsConfig,
-      'macos': instance.macOSConfig,
+      'web': instance.webConfig?.toJson(),
+      'windows': instance.windowsConfig?.toJson(),
+      'macos': instance.macOSConfig?.toJson(),
     };

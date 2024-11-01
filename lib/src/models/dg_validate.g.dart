@@ -7,6 +7,7 @@ part of 'dg_validate.dart';
 // **************************************************************************
 
 DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
+      isUnique: json['isUnique'] as bool? ?? false,
       isEmail: json['isEmail'] as bool? ?? false,
       isFile: json['isFile'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
@@ -47,6 +48,7 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
 
 Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
     <String, dynamic>{
+      'isUnique': instance.isUnique,
       'isRequired': instance.isRequired,
       'isEmail': instance.isEmail,
       'isFile': instance.isFile,

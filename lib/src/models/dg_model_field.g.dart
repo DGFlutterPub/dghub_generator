@@ -1,15 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'dg_model.dart';
+part of 'dg_model_field.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
+DGModelField _$DGModelFieldFromJson(Map<String, dynamic> json) => DGModelField(
       key: json['key'] as String,
       defaultValue: json['defaultValue'],
-      validate: json['validate'] ?? const DGValidate(),
+      validate: json['validate'] == null
+          ? const DGValidate()
+          : DGValidate.fromJson(json['validate'] as Map<String, dynamic>),
       forms:
           (json['forms'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -18,10 +20,11 @@ DGModel _$DGModelFromJson(Map<String, dynamic> json) => DGModel(
       update: json['update'] as bool? ?? true,
     );
 
-Map<String, dynamic> _$DGModelToJson(DGModel instance) => <String, dynamic>{
+Map<String, dynamic> _$DGModelFieldToJson(DGModelField instance) =>
+    <String, dynamic>{
       'key': instance.key,
       'defaultValue': instance.defaultValue,
-      'validate': instance.validate,
+      'validate': instance.validate.toJson(),
       'forms': instance.forms,
       'ref': instance.ref,
       'store': instance.store,

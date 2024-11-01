@@ -41,10 +41,18 @@ class Tools {
     return 'String';
   }
 
-  static dartDefaultValue(DGModel model) {
+  static dartDefaultValue(DGModelField model) {
     if (model.validate.isString) return '\'${model.defaultValue}\'';
     if (model.validate.isListString) {
       return 'const ${jsonEncode(model.defaultValue).toString()}';
+    }
+    return model.defaultValue;
+  }
+
+  static nodeDefaultValue(DGModelField model) {
+    if (model.validate.isString) return '\'${model.defaultValue}\'';
+    if (model.validate.isListString) {
+      return [];
     }
     return model.defaultValue;
   }

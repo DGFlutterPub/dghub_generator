@@ -16,7 +16,7 @@ import "package:dghub_generator/dghub_generator.dart";
     iconConfig: DGIconConfig(
         enabledGenerator: true,
         android: true,
-        androidPath: 'assets/images/icon.png'),
+        allPath: 'assets/images/icon.png'),
     splashConfig: DGSplashConfig(
         enabledGenerator: true, allIconPath: 'assets/images/icon.png'))
 class MainGenerator {}

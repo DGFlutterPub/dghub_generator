@@ -1,25 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
+const isDevMode = true;
+
 const appName = 'Example (DG)';
+
 const appPackageName = 'dev.dghub.example';
 
-const isProductionMode = true;
-
-const devUrl = 'http://127.0.0.1';
-const baseUrl = 'http://127.0.0.1';
+const devUrl = 'http://127.0.0.1:6001';
+const baseUrl = 'https://your-production-url';
 
 const apiVersion = 'v1';
 const socketVersion = 'v1';
 
-const hostUrl = isProductionMode ? baseUrl : devUrl;
+const hostUrl = isDevMode ? devUrl : baseUrl;
 
 const apiUrl = '$hostUrl/api/$apiVersion/';
 
-const secertKey = 'a5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpScJz9qz7ugG7YCQUcNGS29XRVLqHe';
-const publicKey = 'e5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpSMJz9qz7ugG7YCQUcNGS29XRVLqHa';
-
 var globalRef = ProviderContainer();
 
-Logger logger = Logger();
+var secertKey =
+    'a5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpScJz9qz7ugG7YCQUcNGS29XRVLqHe';
 
+var publicKey =
+    'e5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpSMJz9qz7ugG7YCQUcNGS29XRVLqHa';
+
+Logger logger = Logger();

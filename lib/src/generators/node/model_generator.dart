@@ -10,7 +10,7 @@ import '../../tools/tools.dart';
 class NodeModelGenerator {
   static Future<void> generate(
     String className,
-    List<DGModel> models,
+    List<DGModelField> models,
     DGGeneratorConfig config,
   ) async {
     final generator = await MasonGenerator.fromBundle(nodeModelBundle);
@@ -45,14 +45,41 @@ class NodeModelGenerator {
     }
 
     for (var model in models) {
-      form.add('''
+      var unique = model.validate.isUnique
+          ? '''index: {
+        unique: true,
+        partialFilterExpression: { ${model.key}: { \$type: ${Tools.dartType(model.validate)} } },
+      },'''
+          : '';
+
+      if (model.ref == null) {
+        form.add('''
         ${model.key}: {
           type: ${Tools.nodeType(model.validate)}, 
-          ${model.ref == null ? '' : 'ref: "${model.ref}",'}
-          default: ${Tools.dartDefaultValue(model)},
-          
+          default: ${Tools.nodeDefaultValue(model)},
+          $unique
         },
       ''');
+      } else if (model.ref.toString().contains('List<')) {
+        form.add('''
+        ${model.key}: {
+          type: [{
+          type: String,
+          ref: '${model.ref.toString().replaceFirst('List<', '').replaceFirst('>', '')}'}], 
+          default: [],
+            $unique
+        },
+      ''');
+      } else {
+        form.add('''
+        ${model.key}: {
+          type: String, 
+          ${model.ref == null ? '' : 'ref: "${model.ref}",'}
+          default: ${Tools.dartDefaultValue(model)},
+            $unique
+        },
+      ''');
+      }
     }
     var formResult = Tools.getNewLineString(form);
     var importResult = Tools.getNewLineString(import);

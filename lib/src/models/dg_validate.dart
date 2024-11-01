@@ -4,6 +4,7 @@ part 'dg_validate.g.dart';
 
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
 class DGValidate {
+  final bool isUnique;
   final bool isRequired;
   final bool isEmail;
   final bool isFile;
@@ -70,6 +71,7 @@ class DGValidate {
       this.fileSize = 1000000,
       this.isList = false,
       this.isListString = false,
+      this.isUnique = false,
       this.isToken = false,
       this.isString = false});
   factory DGValidate.fromJson(Map<String, dynamic> json) =>

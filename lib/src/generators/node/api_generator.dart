@@ -16,7 +16,7 @@ class NodeApiGenerator {
     String className,
     DGGeneratorConfig config,
     List<DGApi> apis,
-    List<DGModel> models,
+    List<DGModelField> models,
   ) async {
     final generator = await MasonGenerator.fromBundle(nodeApiBundle);
     var target = DirectoryGeneratorTarget(Directory.current);

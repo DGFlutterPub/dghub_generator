@@ -5,6 +5,7 @@ import 'package:dghub_generator/src/tools/tools.dart';
 import 'package:mason/mason.dart';
 import '../../../dghub_generator.dart';
 import '../../bundles/module/dart/dart_module_bundle.dart';
+import 'provider_prerefresh_generator.dart';
 
 class DartProviderGenerator {
   static Future<void> generate(String className, DGApi api) async {
@@ -166,6 +167,11 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
     }
 
     if (api.action == DGApiAction.getAll) {
+      if (api.preRefresh && !api.autoDispose) {
+        await DartProviderPreRefreshGenerator.generate(
+            className, classPathName.toSnakeCase().toPlural());
+      }
+
       result = '''
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

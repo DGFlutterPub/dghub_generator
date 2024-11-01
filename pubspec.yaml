@@ -1,6 +1,6 @@
 name: dghub_generator
 description: "Developed by DGHub Studio"
-version: 0.0.1-beta9.9
+version: 0.0.1-beta9.9.7
 homepage: https://pub.dghub.dev
 repository: https://github.com/DGFlutterPub/dghub_generator
 issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
@@ -44,7 +44,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  json_serializable: ^6.8.0
+  json_serializable: 
+      git:
+       url: https://github.com/google/json_serializable.dart.git
+       path: json_serializable
   build_runner: ^2.4.9
   mockito: ^5.4.4
 # For information on the generic Dart part of this file, see the
@@ -66,7 +69,7 @@ flutter:
         pluginClass: FlutterNativeSplashPlugin
       web:
         pluginClass: FlutterNativeSplashWeb
-        fileName: flutter_native_splash_web.dart
+        fileName: src/libraries/splash_generator/flutter_native_splash_web.dart
 
 executables:
   dg:

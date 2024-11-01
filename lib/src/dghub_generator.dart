@@ -3,6 +3,7 @@ import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
 import 'package:dghub_generator/src/tools/auto_convert.dart';
+import 'package:logger/logger.dart';
 import 'package:source_gen/source_gen.dart';
 import 'generators/dart/api_generator.dart';
 import 'generators/dart/form_generator.dart';
@@ -13,11 +14,11 @@ import 'generators/node/model_generator.dart';
 import 'generators/python/model_generator.dart';
 
 class DGHubGenerator {
-  final List<DGModel>? models;
+  final List<DGModelField>? model;
   final List<DGApi>? apis;
   final DGGeneratorConfig? config;
 
-  const DGHubGenerator({this.config, this.models, this.apis});
+  const DGHubGenerator({this.config, this.model, this.apis});
 }
 
 Builder generator(BuilderOptions options) => SharedPartBuilder(
@@ -44,17 +45,18 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
       object: annotation.objectValue,
     );
 
-    //  print(anotations);
+    print(anotations);
+
     var config = anotations.containsKey('config')
         ? DGGeneratorConfig.fromJson(anotations['config'])
         : const DGGeneratorConfig();
 
     //Model
-    var models = anotations.containsKey('models')
-        ? (anotations['models'] as List)
-            .map((e) => DGModel.fromJson(e))
+    var models = anotations.containsKey('model')
+        ? (anotations['model'] as List)
+            .map((e) => DGModelField.fromJson(e))
             .toList()
-        : <DGModel>[];
+        : <DGModelField>[];
 
     //Apis
     var apis = anotations.containsKey('apis')

@@ -1,12 +1,10 @@
-import 'package:dghub_generator/dghub_generator.dart';
-
 import 'dg_validate.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'dg_model.g.dart';
+part 'dg_model_field.g.dart';
 
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
-class DGModel {
+class DGModelField {
   final String key;
   final dynamic defaultValue;
   final DGValidate validate;
@@ -14,7 +12,7 @@ class DGModel {
   final dynamic ref;
   final bool store;
   final bool update;
-  const DGModel(
+  const DGModelField(
       {required this.key,
       this.defaultValue,
       this.validate = const DGValidate(),
@@ -22,7 +20,7 @@ class DGModel {
       this.ref,
       this.store = true,
       this.update = true});
-  factory DGModel.fromJson(Map<String, dynamic> json) =>
-      _$DGModelFromJson(json);
-  Map<String, dynamic> toJson() => _$DGModelToJson(this);
+  factory DGModelField.fromJson(Map<String, dynamic> json) =>
+      _$DGModelFieldFromJson(json);
+  Map<String, dynamic> toJson() => _$DGModelFieldToJson(this);
 }

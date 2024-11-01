@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/product.dart';
 import '../apis/product_api.dart';
 
-var productStoreProvider = StateNotifierProvider<
-    ProductStoreNotifier,
-    AsyncValue<Product>?>((ref) => ProductStoreNotifier());
+var productStoreProvider =
+    StateNotifierProvider<ProductStoreNotifier, AsyncValue<Product>?>(
+        (ref) => ProductStoreNotifier());
 
 class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
-   ProductStoreNotifier() : super(null);
-  
+  ProductStoreNotifier() : super(null);
+
   final _api = ProductApi();
 
   productStore({required FormData form}) {

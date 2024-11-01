@@ -10,7 +10,7 @@ import '../../models/dg_generator_config.dart';
 class DartModelGenerator {
   static Future<void> generate(
     String className,
-    List<DGModel> models,
+    List<DGModelField> models,
     DGGeneratorConfig config,
   ) async {
     final generator = await MasonGenerator.fromBundle(dartModelBundle);

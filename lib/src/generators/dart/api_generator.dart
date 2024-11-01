@@ -5,6 +5,7 @@ import 'package:dghub_generator/dghub_generator.dart';
 import 'package:dghub_generator/src/generators/dart/form_generator.dart';
 import 'package:dghub_generator/src/generators/dart/provider_generator.dart';
 import 'package:dghub_generator/src/generators/dart/pagination_model_generator.dart';
+import 'package:dghub_generator/src/generators/dart/provider_prerefresh_generator.dart';
 import 'package:dghub_generator/src/generators/dart/query_model_generator.dart';
 import 'package:dghub_generator/src/models/dg_generator_config.dart';
 import 'package:dghub_generator/src/tools/tools.dart';
@@ -15,7 +16,7 @@ import '../../bundles/module/dart/dart_module_bundle.dart';
 class DartApiGenerator {
   static Future<void> generate(
     String className,
-    List<DGModel> models,
+    List<DGModelField> models,
     DGGeneratorConfig config,
     List<DGApi> apis,
   ) async {
