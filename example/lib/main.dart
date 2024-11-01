@@ -18,9 +18,8 @@ class DGHubApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(child: Consumer(builder: (context, ref, child) {
-      final routes = Routes(ref: ref);
       return MaterialApp.router(
-        routerConfig: routes.config(),
+        routerConfig: routes,
         scrollBehavior: DGHubScrollBehavior.scrollBehavior(),
         builder: (context, child) {
           return DGHubScrollBehavior.scrollBuilderWidget(child: child);
