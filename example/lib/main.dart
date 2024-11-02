@@ -6,7 +6,9 @@ import 'system/services/dghub_services.dart';
 import 'system/widgets/scroll/scroll_behavior.dart';
 
 void main() async {
-  await DGHubServices.init();
+  await DGHubServices.init(onSplashing: () async {
+    //CALL YOUR AWAIT DATA
+  });
 
   runApp(
       UncontrolledProviderScope(container: globalRef, child: const DGHubApp()));

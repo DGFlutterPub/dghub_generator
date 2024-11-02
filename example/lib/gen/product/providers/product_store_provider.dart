@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/product.dart';
 import '../apis/product_api.dart';
+import '../sockets/product_socket.dart';
 
 var productStoreProvider =
     StateNotifierProvider<ProductStoreNotifier, AsyncValue<Product>?>(
@@ -11,6 +12,7 @@ class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
   ProductStoreNotifier() : super(null);
 
   final _api = ProductApi();
+  final _socket = ProductSocket();
 
   productStore({required FormData form}) {
     state = const AsyncLoading();
@@ -18,6 +20,12 @@ class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
+    });
+  }
+
+  productStoreRealTimeListening() {
+    _socket.store(result: (data) {
+      state = AsyncData(data);
     });
   }
 }

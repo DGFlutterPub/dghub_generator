@@ -5,7 +5,7 @@ final dartModelBundle = MasonBundle.fromJson(<String, dynamic>{
     {
       "path": "lib/gen/{{name.snakeCase()}}/models/{{name.snakeCase()}}.dart",
       "data":
-          "aW1wb3J0ICdwYWNrYWdlOmpzb25fYW5ub3RhdGlvbi9qc29uX2Fubm90YXRpb24uZGFydCc7CmltcG9ydCAncGFja2FnZTpyZWFsbS9yZWFsbS5kYXJ0JzsKLyppbXBvcnQqLwpwYXJ0ICd7e25hbWUuc25ha2VDYXNlKCl9fS5nLmRhcnQnOwoKQFJlYWxtTW9kZWwoKQpASnNvblNlcmlhbGl6YWJsZShpbmNsdWRlSWZOdWxsOiB0cnVlLCBleHBsaWNpdFRvSnNvbjogdHJ1ZSkKY2xhc3Mge3tuYW1lLnBhc2NhbENhc2UoKX19IHsKICB7e25hbWUucGFzY2FsQ2FzZSgpfX0oewogIC8qZm9ybVBhcmFtZXRlciovCiAgfSk7CgogICAvKmZvcm0qLwoKICBmYWN0b3J5ICB7e25hbWUucGFzY2FsQ2FzZSgpfX0uZnJvbUpzb24oTWFwPFN0cmluZywgZHluYW1pYz4ganNvbikgPT4KICAgICAgXyR7e25hbWUucGFzY2FsQ2FzZSgpfX1Gcm9tSnNvbihqc29uKTsgIAogIE1hcDxTdHJpbmcsIGR5bmFtaWM+IHRvSnNvbigpID0+IF8ke3tuYW1lLnBhc2NhbENhc2UoKX19VG9Kc29uKHRoaXMpOwp9Cg==",
+          "aW1wb3J0ICdwYWNrYWdlOmpzb25fYW5ub3RhdGlvbi9qc29uX2Fubm90YXRpb24uZGFydCc7Ci8qaW1wb3J0Ki8KcGFydCAne3tuYW1lLnNuYWtlQ2FzZSgpfX0uZy5kYXJ0JzsKCkBKc29uU2VyaWFsaXphYmxlKGluY2x1ZGVJZk51bGw6IHRydWUsIGV4cGxpY2l0VG9Kc29uOiB0cnVlKQpjbGFzcyB7e25hbWUucGFzY2FsQ2FzZSgpfX0gewogIHt7bmFtZS5wYXNjYWxDYXNlKCl9fSh7CiAgLypmb3JtUGFyYW1ldGVyKi8KICB9KTsKCiAgIC8qZm9ybSovCgogIGZhY3RvcnkgIHt7bmFtZS5wYXNjYWxDYXNlKCl9fS5mcm9tSnNvbihNYXA8U3RyaW5nLCBkeW5hbWljPiBqc29uKSA9PgogICAgICBfJHt7bmFtZS5wYXNjYWxDYXNlKCl9fUZyb21Kc29uKGpzb24pOyAgCiAgTWFwPFN0cmluZywgZHluYW1pYz4gdG9Kc29uKCkgPT4gXyR7e25hbWUucGFzY2FsQ2FzZSgpfX1Ub0pzb24odGhpcyk7Cn0K",
       "type": "text"
     }
   ],
@@ -112,6 +112,26 @@ final dartApiBundle = MasonBundle.fromJson(<String, dynamic>{
     }
   ],
   "name": "dart_api",
+  "version": "0.1.0+1",
+  "description": "A new brick created with the Mason CLI.",
+  "vars": {
+    "name": {
+      "type": "string",
+    },
+  }
+});
+
+final dartSocketBundle = MasonBundle.fromJson(<String, dynamic>{
+  "files": [
+    {
+      "path":
+          "lib/gen/{{name.snakeCase()}}/sockets/{{name.snakeCase()}}_socket.dart",
+      "data":
+          "aW1wb3J0ICcuLi8uLi8uLi9jb25maWcvZ2xvYmFsLmRhcnQnOwppbXBvcnQgJy4uLy4uLy4uL3N5c3RlbS9zZXJ2aWNlcy9zb2NrZXRfY2xpZW50X3NlcnZpY2VzLmRhcnQnOwppbXBvcnQgJy4uL21vZGVscy97e25hbWUuc25ha2VDYXNlKCl9fWRhcnQnOwoKY2xhc3Mge3tuYW1lLnBhc2NhbENhc2UoKX19U29ja2V0IHsKICBmaW5hbCBfc29ja2V0ID0gU29ja2V0Q2xpZW50U2VydmljZXMuc29ja2V0KCd7e25hbWUuc25ha2VDYXNlKCl9fScpOwoKLypib2R5Ki8KfQo=",
+      "type": "text"
+    }
+  ],
+  "name": "dart_socket",
   "version": "0.1.0+1",
   "description": "A new brick created with the Mason CLI.",
   "vars": {

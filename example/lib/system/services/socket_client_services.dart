@@ -8,7 +8,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 import '../../config/global.dart';
 import '../../gen/auth/models/auth.dart';
 
-class SocketClientService {
+class SocketClientServices {
   static io.Socket socket(String of) {
     final EncryptedSharedPreferences box =
         EncryptedSharedPreferences.getInstance();

@@ -9,36 +9,31 @@ createdAt: { type: Date, default: Date.now },
 updatedAt: { type: Date, default: null },
         title: {
           type: String, 
-          
           default: 'test',
           
         },
       
         price: {
           type: Number, 
-          
           default: null,
           
         },
       
         photo: {
           type: String, 
-          
           default: null,
           
         },
       
         enabled: {
           type: Boolean, 
-          
           default: null,
           
         },
       
         metaData: {
           type: [String], 
-          
-          default: const ["data4","data2"],
+          default: [],
           
         },
       

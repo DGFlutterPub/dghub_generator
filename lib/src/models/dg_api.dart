@@ -14,6 +14,7 @@ class DGApi {
   final List<String> roles;
   final List<Map<String, dynamic>>? headers;
   final bool enabledForm;
+  final bool saveToLocalStorage;
 
   const DGApi({
     this.url,
@@ -27,6 +28,7 @@ class DGApi {
     this.headers,
     this.path,
     this.enabledForm = true,
+    this.saveToLocalStorage = false,
   });
 
   factory DGApi.fromJson(Map<String, dynamic> json) => _$DGApiFromJson(json);

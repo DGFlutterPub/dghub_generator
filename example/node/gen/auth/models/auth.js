@@ -9,28 +9,24 @@ createdAt: { type: Date, default: Date.now },
 updatedAt: { type: Date, default: null },
         email: {
           type: String, 
-          
           default: null,
           
         },
       
         password: {
           type: String, 
-          
           default: null,
           
         },
       
         roles: {
           type: [String], 
-          
-          default: const null,
+          default: [],
           
         },
       
         token: {
           type: String, 
-          
           default: null,
           
         },

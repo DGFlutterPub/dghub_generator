@@ -128,6 +128,9 @@ var data = await new ${folder.toPascalCase()}({
     /*field*/
   }).save();
 
+ var io = req.app.get('io');
+ io.of('/${folder.toPascalCase()}').emit('store',data);
+
  return res.status(200).json(data);
  }catch(e){
  console.log(e);
@@ -143,7 +146,7 @@ var data = await new ${folder.toPascalCase()}({
 
           if (model.validate.isFile) {
             files.add('''
- var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
+ var { error, value } = await tools.fileToStorage(req.files.${model.key}, {
     name: id,
     supports: ${jsonEncode(model.validate.fileExtensions)},
     path: "${folder.toSnakeCase()}/${model.key}/",
@@ -181,6 +184,9 @@ var data = await ${folder.toPascalCase()}.findOneAndUpdate(
     {_id: id},
     {/*field*/}
   );
+ var io = req.app.get('io');
+ io.of('/${folder.toPascalCase()}').emit('update',data);
+
  return res.status(200).json(data);
  }catch(e){
   console.log(e);
@@ -195,7 +201,7 @@ var data = await ${folder.toPascalCase()}.findOneAndUpdate(
             files.add('''
 var ${model.key} = null;
 if(req.files.${model.key}){
- var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
+ var { error, value } = await tools.fileToStorage(req.files.${model.key}, {
     name: id,
     supports: ${jsonEncode(model.validate.fileExtensions)},
     path: "${folder.toSnakeCase()}/${model.key}/",
@@ -337,7 +343,7 @@ var data = await new Auth({
 
           if (model.validate.isFile) {
             files.add('''
- var { error, value } = await tools.fileToStroage(req.files.${model.key}, {
+ var { error, value } = await tools.fileToStorage(req.files.${model.key}, {
     name: id,
     supports: ${jsonEncode(model.validate.fileExtensions)},
     path: "${folder.toSnakeCase()}/${model.key}/",

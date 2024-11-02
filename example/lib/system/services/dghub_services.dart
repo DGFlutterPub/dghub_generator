@@ -6,7 +6,7 @@ import '../../config/global.dart';
 import '../widgets/splash/native_splash.dart';
 
 class DGHubServices {
-  static init() async {
+  static init({required Future<void> Function() onSplashing}) async {
     var wb = WidgetsFlutterBinding.ensureInitialized();
 
     NativeSplash.start(widgetsBinding: wb);
@@ -20,6 +20,7 @@ class DGHubServices {
     } else {
       // await BackgroundService.init();
     }
+    await onSplashing();
     NativeSplash.close();
   }
 }

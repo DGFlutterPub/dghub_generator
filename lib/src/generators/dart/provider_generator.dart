@@ -44,6 +44,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
    ${classPathName.toPascalCase()}Notifier() : super(null);
   
   final _api = ${className.toPascalCase()}Api();
+  final _socket = ${className.toPascalCase()}Socket();
 
   ${classPathName.toCamelCase()}({required FormData form}) {
     state = const AsyncLoading();
@@ -53,6 +54,13 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
       state = AsyncError(e!, s);
     });
   }
+
+  ${classPathName.toCamelCase()}RealTimeListening() {
+    _socket.store(result: (data) {
+      state = AsyncData(data);
+    });
+  }
+
 }''';
     }
 

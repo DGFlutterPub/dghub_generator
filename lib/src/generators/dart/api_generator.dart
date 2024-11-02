@@ -12,6 +12,7 @@ import 'package:dghub_generator/src/tools/tools.dart';
 import 'package:mason/mason.dart';
 
 import '../../bundles/module/dart/dart_module_bundle.dart';
+import 'socket_generator.dart';
 
 class DartApiGenerator {
   static Future<void> generate(
@@ -23,6 +24,8 @@ class DartApiGenerator {
     final generator = await MasonGenerator.fromBundle(dartApiBundle);
     var target = DirectoryGeneratorTarget(Directory.current);
     var generated = await generator.generate(target, vars: {'name': className});
+
+    await DartSocketGenerator.generate(className, models, config, apis);
 
     var file = File(generated.first.path);
 
