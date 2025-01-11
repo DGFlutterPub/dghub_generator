@@ -195,7 +195,7 @@ var ${classPathName.toCamelCase().toPlural()}Provider = StateNotifierProvider<Pr
 
 
 
-class ${classPathName.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
+class ${classPathName.toPascalCase().toPlural()}Notifier extends  StateNotifier<PaginationState<${classPathName.toPascalCase().toPlural()}>> {
  ${classPathName.toPascalCase().toPlural()}Notifier() : super(PaginationLoading());
   
   final _api = ${className.toPascalCase()}Api();

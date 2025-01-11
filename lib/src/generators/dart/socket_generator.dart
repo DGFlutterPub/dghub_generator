@@ -42,6 +42,60 @@ class DartSocketGenerator {
   }
 ''');
       }
+
+      ///
+      if (api.action == DGApiAction.update) {
+        body.add('''
+  update({required Function(${className.pascalCase}) result}) {
+    if (!_socket.hasListeners('update')) {
+      _socket.on('update', (response) {
+        try {
+          result(${className.pascalCase}.fromJson(response));
+        } catch (e) {
+          logger.e(e);
+          throw 'Update socket error';
+        }
+      });
+    }
+  }
+''');
+      }
+
+      ///
+      if (api.action == DGApiAction.login) {
+        body.add('''
+  login({required Function(${className.pascalCase}) result}) {
+    if (!_socket.hasListeners('login')) {
+      _socket.on('login', (response) {
+        try {
+          result(${className.pascalCase}.fromJson(response));
+        } catch (e) {
+          logger.e(e);
+          throw 'Login socket error';
+        }
+      });
+    }
+  }
+''');
+      }
+
+      ///
+      if (api.action == DGApiAction.register) {
+        body.add('''
+  register({required Function(${className.pascalCase}) result}) {
+    if (!_socket.hasListeners('register')) {
+      _socket.on('register', (response) {
+        try {
+          result(${className.pascalCase}.fromJson(response));
+        } catch (e) {
+          logger.e(e);
+          throw 'Register socket error';
+        }
+      });
+    }
+  }
+''');
+      }
     }
 
     var importResult = Tools.getNewLineString(import);

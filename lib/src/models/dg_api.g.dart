@@ -14,7 +14,6 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
       autoDispose: json['autoDispose'] as bool? ?? false,
       preRefresh: json['preRefresh'] as bool? ?? false,
       authenticated: json['authenticated'] as bool? ?? false,
-      saveToLocalStorage: json['saveToLocalStorage'] as bool? ?? false,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -23,6 +22,7 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
           .toList(),
       path: json['path'] as String?,
       enabledForm: json['enabledForm'] as bool? ?? true,
+      saveToLocalStorage: json['saveToLocalStorage'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
@@ -36,8 +36,8 @@ Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
       'authenticated': instance.authenticated,
       'roles': instance.roles,
       'headers': instance.headers,
-      'saveToLocalStorage': instance.saveToLocalStorage,
       'enabledForm': instance.enabledForm,
+      'saveToLocalStorage': instance.saveToLocalStorage,
     };
 
 const _$DGApiMethodEnumMap = {

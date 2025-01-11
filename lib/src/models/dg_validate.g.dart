@@ -7,7 +7,6 @@ part of 'dg_validate.dart';
 // **************************************************************************
 
 DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
-      isUnique: json['isUnique'] as bool? ?? false,
       isEmail: json['isEmail'] as bool? ?? false,
       isFile: json['isFile'] as bool? ?? false,
       isRequired: json['isRequired'] as bool? ?? false,
@@ -42,6 +41,7 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       fileSize: (json['fileSize'] as num?)?.toInt() ?? 1000000,
       isList: json['isList'] as bool? ?? false,
       isListString: json['isListString'] as bool? ?? false,
+      isUnique: json['isUnique'] as bool? ?? false,
       isToken: json['isToken'] as bool? ?? false,
       isString: json['isString'] as bool? ?? false,
     );

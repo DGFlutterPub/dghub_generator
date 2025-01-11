@@ -4,6 +4,4 @@ import '../models/auth.dart';
 
 class AuthSocket {
   final _socket = SocketClientServices.socket('auth');
-
-
 }

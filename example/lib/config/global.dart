@@ -17,13 +17,12 @@ const hostUrl = isProductionMode ? baseUrl : devUrl;
 
 const apiUrl = '$hostUrl/api/$apiVersion/';
 
-const secertKey =
-    'a5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpScJz9qz7ugG7YCQUcNGS29XRVLqHe';
-const publicKey =
-    'e5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpSMJz9qz7ugG7YCQUcNGS29XRVLqHa';
+const secertKey = 'a5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpScJz9qz7ugG7YCQUcNGS29XRVLqHe';
+const publicKey = 'e5HqSZZ3jYIuufrD3afk25exxS08YI3wBqpSMJz9qz7ugG7YCQUcNGS29XRVLqHa';
 
 var globalRef = ProviderContainer();
 
 Logger logger = Logger();
 
 Directory? globalDir;
+
