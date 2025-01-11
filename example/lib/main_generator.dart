@@ -10,13 +10,15 @@ import "package:dghub_generator/dghub_generator.dart";
         production: true,
         port: 6001),
     appConfig: DGAppConfig(
+      enabledGenerator: false,
       appName: 'Example (DG)',
       packageName: 'dev.dghub.example',
     ),
     iconConfig: DGIconConfig(
-        enabledGenerator: true,
+        enabledGenerator: false,
         android: true,
         allPath: 'assets/images/icon.png'),
     splashConfig: DGSplashConfig(
-        enabledGenerator: true, allIconPath: 'assets/images/icon.png'))
+        enabledGenerator: false, allIconPath: 'assets/images/icon.png'))
 class MainGenerator {}
+

@@ -32,13 +32,12 @@ metaData: req.body.metaData ,
 
   }).save();
 
+ var io = req.app.get('io');
+ io.of('/Product').emit('store',data);
+
  return res.status(200).json(data);
  }catch(e){
  console.log(e);
-
- var io = req.app.get('io');
- io.of('/auth').in(data.id).emit('store',{auth: data,token: tools.token(data.id)});
-
   return res.status(200).json('Store failed');
  }
 

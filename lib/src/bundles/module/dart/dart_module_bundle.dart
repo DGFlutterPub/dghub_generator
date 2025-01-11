@@ -127,7 +127,7 @@ final dartSocketBundle = MasonBundle.fromJson(<String, dynamic>{
       "path":
           "lib/gen/{{name.snakeCase()}}/sockets/{{name.snakeCase()}}_socket.dart",
       "data":
-          "aW1wb3J0ICcuLi8uLi8uLi9jb25maWcvZ2xvYmFsLmRhcnQnOwppbXBvcnQgJy4uLy4uLy4uL3N5c3RlbS9zZXJ2aWNlcy9zb2NrZXRfY2xpZW50X3NlcnZpY2VzLmRhcnQnOwppbXBvcnQgJy4uL21vZGVscy97e25hbWUuc25ha2VDYXNlKCl9fWRhcnQnOwoKY2xhc3Mge3tuYW1lLnBhc2NhbENhc2UoKX19U29ja2V0IHsKICBmaW5hbCBfc29ja2V0ID0gU29ja2V0Q2xpZW50U2VydmljZXMuc29ja2V0KCd7e25hbWUuc25ha2VDYXNlKCl9fScpOwoKLypib2R5Ki8KfQo=",
+          "aW1wb3J0ICcuLi8uLi8uLi9jb25maWcvZ2xvYmFsLmRhcnQnOwppbXBvcnQgJy4uLy4uLy4uL3N5c3RlbS9zZXJ2aWNlcy9zb2NrZXRfY2xpZW50X3NlcnZpY2VzLmRhcnQnOwppbXBvcnQgJy4uL21vZGVscy97e25hbWUuc25ha2VDYXNlKCl9fS5kYXJ0JzsKCmNsYXNzIHt7bmFtZS5wYXNjYWxDYXNlKCl9fVNvY2tldCB7CiAgZmluYWwgX3NvY2tldCA9IFNvY2tldENsaWVudFNlcnZpY2VzLnNvY2tldCgne3tuYW1lLnNuYWtlQ2FzZSgpfX0nKTsKCi8qYm9keSovCn0K",
       "type": "text"
     }
   ],

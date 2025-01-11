@@ -111,6 +111,7 @@ envGenerator(DGEnvConfig config, DGAppConfig appConfig) async {
   final file = File(path);
 
   await file.writeAsString('''
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
@@ -135,6 +136,8 @@ const publicKey = '${config.publicKey}';
 var globalRef = ProviderContainer();
 
 Logger logger = Logger();
+
+Directory? globalDir;
 
 ''');
 }

@@ -1,12 +1,16 @@
 import 'package:encrypt_shared_preferences/provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 import '../../config/global.dart';
 import '../widgets/splash/native_splash.dart';
 
 class DGHubServices {
   static init({required Future<void> Function() onSplashing}) async {
+    globalDir = await getApplicationDocumentsDirectory();
+    await globalDir?.create(recursive: true);
+
     var wb = WidgetsFlutterBinding.ensureInitialized();
 
     NativeSplash.start(widgetsBinding: wb);

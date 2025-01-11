@@ -7,7 +7,7 @@ export default async (req, res, next) => {
 
    var photo = null;
 if(req.files.photo){
- var { error, value } = await tools.fileToStroage(req.files.photo, {
+ var { error, value } = await tools.fileToStorage(req.files.photo, {
     name: id,
     supports: ["png","jpg","jpeg","gif","webp"],
     path: "product/photo/",
@@ -32,6 +32,9 @@ enabled: req.body.enabled,
 metaData: req.body.metaData,
 }
   );
+ var io = req.app.get('io');
+ io.of('/Product').emit('update',data);
+
  return res.status(200).json(data);
  }catch(e){
   console.log(e);

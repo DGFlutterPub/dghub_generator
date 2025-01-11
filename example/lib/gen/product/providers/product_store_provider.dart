@@ -1,3 +1,4 @@
+import 'package:dghub/gen/product/dababase/product_database.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/product.dart';
@@ -17,6 +18,7 @@ class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
   productStore({required FormData form}) {
     state = const AsyncLoading();
     _api.productStore(form: form).then((response) {
+      ProductDatabase.store(response);
       state = AsyncData(response);
     }).onError((e, s) {
       state = AsyncError(e!, s);
@@ -25,6 +27,7 @@ class ProductStoreNotifier extends StateNotifier<AsyncValue<Product>?> {
 
   productStoreRealTimeListening() {
     _socket.store(result: (data) {
+      ProductDatabase.store(data);
       state = AsyncData(data);
     });
   }

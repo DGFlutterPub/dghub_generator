@@ -35,6 +35,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/${className.toSnakeCase()}.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
+import '../sockets/${className.toSnakeCase()}_socket.dart';
 
 var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
     ${classPathName.toPascalCase()}Notifier,
@@ -56,7 +57,7 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
   }
 
   ${classPathName.toCamelCase()}RealTimeListening() {
-    _socket.store(result: (data) {
+    _socket.${api.action.name}(result: (data) {
       state = AsyncData(data);
     });
   }
@@ -187,62 +188,60 @@ import '../models/${className.toSnakeCase()}.dart';
 import '../models/${className.toSnakeCase().toPlural()}.dart';
 import '../models/${className.toSnakeCase()}_query.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
+import '../../../system/states/pagination_state.dart';
 
-var ${classPathName.toCamelCase().toPlural()}Provider = ChangeNotifierProvider<${classPathName.toPascalCase().toPlural()}Notifier>((ref) => ${classPathName.toPascalCase().toPlural()}Notifier());
+var ${classPathName.toCamelCase().toPlural()}Provider = StateNotifierProvider<ProductsNotifier, PaginationState<${classPathName.toPascalCase().toPlural()}>>(
+        (ref) => ${classPathName.toPascalCase().toPlural()}Notifier());
+
+
 
 class ${classPathName.toPascalCase().toPlural()}Notifier extends ChangeNotifier {
-  AsyncValue<${classPathName.toPascalCase().toPlural()}?> state = const AsyncLoading();
-  AsyncValue<bool> loadMoreState = const AsyncData(false);
+ ${classPathName.toPascalCase().toPlural()}Notifier() : super(PaginationLoading());
+  
   final _api = ${className.toPascalCase()}Api();
   ${className.toPascalCase()}Query query = ${className.toPascalCase()}Query();
   
   
   refresh() {
     query.page = 1;
-    state = const AsyncLoading();
+      state = PaginationLoading();
     _api.${classPathName.toCamelCase()}(query:query).then((response) {
-      state = AsyncData(response);
-      notifyListeners();
+     state = PaginationSuccess(response);
     }).onError((e, s) {
-      state = AsyncError(e!, s);
-      notifyListeners();
+     state = PaginationFailed(e.toString());
     });
   }
 
   loadMore() {
     query.page++;
-    loadMoreState = const AsyncLoading();
+    state = PaginationLoadMoreLoading();
     _api.${classPathName.toCamelCase()}(query:query).then((response) {
-      if (response.data.isNotEmpty) {
+   if (response.data.isNotEmpty) {
         state.value?.data = [...state.value?.data ?? [], ...response.data];
-        state = AsyncData(state.value);
-        loadMoreState = const AsyncData(true);
-      } else {
-        loadMoreState = const AsyncData(false);
+        state = PaginationSuccess(state.value);
       }
-      notifyListeners();
+      state = PaginationLoadMoreSuccess();
+     
     }).onError((e, s) {
-      loadMoreState = AsyncError(e!, s);
-      notifyListeners();
+      state = PaginationLoadMoreFailed(e.toString());
     });
   }
 
   destroy({required String id}) {
     state.value?.data.removeWhere((e) => e.id == id);
-    state = AsyncData(state.value);
-    notifyListeners();
+    state = PaginationSuccess(state.value);
+    
   }
 
   store({required ${className.toPascalCase()} data}) {
       state.value?.data = [data, ...state.value?.data ?? []];
-      state = AsyncData(state.value);
-    notifyListeners();
+      state = PaginationSuccess(state.value);
+
   }
 
   update({required ${className.toPascalCase()} data}) {
     state.value?.data[state.value!.data.indexWhere((e) => e.id == data.id)] = data;
-    state = AsyncData(state.value);
-    notifyListeners();
+   state = PaginationSuccess(state.value);
   }
 }
 ''';

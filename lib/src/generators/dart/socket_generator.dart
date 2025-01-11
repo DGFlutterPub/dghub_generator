@@ -5,6 +5,7 @@ import 'package:mason/mason.dart';
 
 import '../../../dghub_generator.dart';
 import '../../bundles/module/dart/dart_module_bundle.dart';
+import '../../tools/tools.dart';
 
 class DartSocketGenerator {
   static Future<void> generate(
@@ -42,5 +43,14 @@ class DartSocketGenerator {
 ''');
       }
     }
+
+    var importResult = Tools.getNewLineString(import);
+    var bodyParameterResult = Tools.getNewLineString(body);
+
+    read = read.replaceAll('/*import*/', importResult);
+
+    read = read.replaceAll('/*body*/', bodyParameterResult);
+
+    await file.writeAsString(read);
   }
 }

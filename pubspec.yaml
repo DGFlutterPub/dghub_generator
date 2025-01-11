@@ -1,6 +1,6 @@
 name: dghub_generator
 description: "Developed by DGHub Studio"
-version: 0.0.1-beta9.9.7
+version: 0.0.1-beta9.9.8
 homepage: https://pub.dghub.dev
 repository: https://github.com/DGFlutterPub/dghub_generator
 issue_tracker: https://github.com/DGFlutterPub/dghub_generator/issues
@@ -17,7 +17,7 @@ dependencies:
   analyzer: ^6.4.1
   build: ^2.4.1
   meta: ^1.15.0
-  source_gen: ^1.5.0
+  source_gen: ^2.0.0
   change_case: ^2.0.1
   mason: ^0.1.0-dev.60
   code_builder: ^4.10.0
@@ -44,10 +44,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  json_serializable: 
-      git:
-       url: https://github.com/google/json_serializable.dart.git
-       path: json_serializable
+  json_serializable: ^6.9.2
   build_runner: ^2.4.9
   mockito: ^5.4.4
 # For information on the generic Dart part of this file, see the

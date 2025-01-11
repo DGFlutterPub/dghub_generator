@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import '../../../config/global.dart';
 import '../../../system/services/socket_client_services.dart';
 import '../models/product.dart';
@@ -19,4 +17,6 @@ class ProductSocket {
       });
     }
   }
+
+
 }

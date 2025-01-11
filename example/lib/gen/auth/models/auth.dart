@@ -1,9 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:realm/realm.dart';
 
 part 'auth.g.dart';
 
-@RealmModel()
 @JsonSerializable(includeIfNull: true, explicitToJson: true)
 class Auth {
   Auth({
