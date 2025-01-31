@@ -32,6 +32,8 @@ class Tools {
 
     if (validate.isList) return '[Object]';
 
+    if (validate.isMap) return 'Object';
+
     if (validate.isListString) return '[String]';
 
     if (validate.isToken) return 'String';
@@ -42,6 +44,7 @@ class Tools {
   }
 
   static dartDefaultValue(DGModelField model) {
+    if (model.defaultValue == null) return 'null';
     if (model.validate.isString) return '\'${model.defaultValue}\'';
     if (model.validate.isListString) {
       return 'const ${jsonEncode(model.defaultValue).toString()}';
@@ -50,9 +53,10 @@ class Tools {
   }
 
   static nodeDefaultValue(DGModelField model) {
+    if (model.defaultValue == null) return 'null';
     if (model.validate.isString) return '\'${model.defaultValue}\'';
     if (model.validate.isListString) {
-      return [];
+      return jsonEncode(model.defaultValue).toString();
     }
     return model.defaultValue;
   }
@@ -72,9 +76,11 @@ class Tools {
 
     if (validate.isEmail) return 'String';
 
-    if (validate.isFile) return 'File';
+    if (validate.isFile) return 'XFile';
 
     if (validate.isList) return 'List<dynamic>';
+
+    if (validate.isMap) return 'Map<dynamic,dynamic>';
 
     if (validate.isListString) return 'List<String>';
 
@@ -95,6 +101,7 @@ class Tools {
 
     if (pathName == null) {
       return switch (api.action) {
+        DGApiAction.profile => '${className}_profile',
         DGApiAction.login => '${className}_login',
         DGApiAction.register => '${className}_register',
         DGApiAction.forgotPasswordSend => '${className}_forgot_password_send',

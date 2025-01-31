@@ -50,12 +50,26 @@ class DartModelFormGenerator {
           formParameter.add('this.${model.key},');
 
           form.add('${Tools.dartType(model.validate)}? ${model.key};');
-          formData.add(
-              '"${model.key}":  ${model.validate.isFile ? '${model.key} == null?null: await MultipartFile.fromFile(${model.key}!.path),' : '${model.key},'}');
+          var emptyCheck =
+              model.validate.isString ? ' && ${model.key} != ""' : '';
+
+          var fileTypes = model.validate.fileExtensions.join(',');
+
+          formData.add('''
+if(${model.key} != null$emptyCheck){
+ data.addEntries({"${model.key}": ${model.validate.isFile ? '''MultipartFile.fromBytes( 
+await ${model.key}!.readAsBytes(),
+  contentType: DioMediaType('file', ${model.key}!.mimeType ?? '$fileTypes'),
+  filename: ${model.key}!.name,
+)}.entries);
+''' : '${model.key}}.entries);'}
+}''');
         }
 
-        if (model.validate.isFile && !read.contains("import 'dart:io';")) {
-          read = read.replaceAll('/*import*/', "import 'dart:io';");
+        if (model.validate.isFile &&
+            !read.contains("import 'package:cross_file/cross_file.dart';")) {
+          read = read.replaceAll(
+              '/*import*/', "import 'package:cross_file/cross_file.dart';");
         }
       }
       var formResult = Tools.getNewLineString(form);
@@ -95,11 +109,24 @@ class DartApiFormGenerator {
       formParameter.add('this.${model.key},');
 
       forms.add('${Tools.dartType(model.validate)}? ${model.key};');
-      formData.add(
-          '"${model.key}":  ${model.validate.isFile ? '${model.key} == null?null: await MultipartFile.fromFile(${model.key}!.path),' : '${model.key},'}');
 
-      if (model.validate.isFile && !read.contains("import 'dart:io';")) {
-        read = read.replaceAll('/*import*/', "import 'dart:io';");
+      var emptyCheck = model.validate.isString ? ' && ${model.key} != ""' : '';
+
+      var fileTypes = model.validate.fileExtensions.join(',');
+
+      formData.add('''
+if(${model.key} != null$emptyCheck){
+ data.addEntries({"${model.key}": ${model.validate.isFile ? '''MultipartFile.fromBytes( 
+await ${model.key}!.readAsBytes(),
+  contentType: DioMediaType('file', ${model.key}!.mimeType ?? '$fileTypes'),
+  filename: ${model.key}!.name,
+)}.entries);''' : '${model.key}}.entries);'}
+}''');
+
+      if (model.validate.isFile &&
+          !read.contains("import 'package:cross_file/cross_file.dart';")) {
+        read = read.replaceAll(
+            '/*import*/', "import 'package:cross_file/cross_file.dart';");
       }
     }
     var formResult = Tools.getNewLineString(forms);

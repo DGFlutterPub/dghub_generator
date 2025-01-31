@@ -67,7 +67,7 @@ final dartFormBundle = MasonBundle.fromJson(<String, dynamic>{
       "path":
           "lib/gen/{{name.snakeCase()}}/forms/{{name.snakeCase()}}_{{form.snakeCase()}}_form.dart",
       "data":
-          "aW1wb3J0ICdwYWNrYWdlOmRpby9kaW8uZGFydCc7Ci8qaW1wb3J0Ki8KCmNsYXNzIHt7bmFtZS5wYXNjYWxDYXNlKCl9fXt7Zm9ybS5wYXNjYWxDYXNlKCl9fUZvcm17CiAge3tuYW1lLnBhc2NhbENhc2UoKX19e3tmb3JtLnBhc2NhbENhc2UoKX19Rm9ybSh7CiAgLypmb3JtUGFyYW1ldGVyKi8KICB9KTsKCiAgIC8qZm9ybSovCgogIEZ1dHVyZTxGb3JtRGF0YT4gdG9Gb3JtRGF0YSgpIGFzeW5jID0+IEZvcm1EYXRhLmZyb21NYXAoewogICAgLypmb3JtRGF0YSovCiAgfSk7Cn0K",
+          "aW1wb3J0ICdwYWNrYWdlOmRpby9kaW8uZGFydCc7Ci8qaW1wb3J0Ki8KCmNsYXNzIHt7bmFtZS5wYXNjYWxDYXNlKCl9fXt7Zm9ybS5wYXNjYWxDYXNlKCl9fUZvcm17CiAge3tuYW1lLnBhc2NhbENhc2UoKX19e3tmb3JtLnBhc2NhbENhc2UoKX19Rm9ybSh7CiAgLypmb3JtUGFyYW1ldGVyKi8KICB9KTsKCiAgIC8qZm9ybSovCl9nZXREYXRhKCkgYXN5bmMgeyAKTWFwPFN0cmluZywgZHluYW1pYz4gZGF0YSA9IHt9OwovKmZvcm1EYXRhKi8gCnJldHVybiBkYXRhOwp9CgpGdXR1cmU8Rm9ybURhdGE+IHRvRm9ybURhdGEoKSBhc3luYyA9PiBGb3JtRGF0YS5mcm9tTWFwKGF3YWl0IF9nZXREYXRhKCkpOwp9Cg==",
       "type": "text"
     }
   ],

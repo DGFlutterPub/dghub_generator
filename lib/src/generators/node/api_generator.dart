@@ -49,7 +49,7 @@ class NodeApiGenerator {
             '''import ${classPathName.toPascalCase()}Provider from '../providers/${className.toSnakeCase()}_provider.js';''');
 
         form.add(
-            '''router.${api.method.name}("/${classPathName.toSnakeCase()}" ,$authenticated $roles ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),'} ${className.toPascalCase()}Provider);''');
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}/:id" ,$authenticated $roles ${api.roles.isEmpty ? '' : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),'} ${className.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.store ||
@@ -83,6 +83,19 @@ class NodeApiGenerator {
             '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
         form.add(
             '''router.${api.method.name}("/${classPathName.toSnakeCase()}/:id", $authenticated $roles ${classPathName.toPascalCase()}Provider);''');
+      }
+
+      if (api.action == DGApiAction.profile) {
+        var authenticated = api.authenticated ? 'authenticated,' : '';
+        var roles = api.roles.isEmpty
+            ? ''
+            : '(req,res,next)=>roles(req,res,next,${jsonEncode(api.roles)}),';
+        await NodeProviderGenerator.generate(
+            className, classPathName, api, config, models);
+        import.add(
+            '''import ${classPathName.toPascalCase()}Provider from '../providers/${classPathName.toSnakeCase()}_provider.js';''');
+        form.add(
+            '''router.${api.method.name}("/${classPathName.toSnakeCase()}", $authenticated $roles ${classPathName.toPascalCase()}Provider);''');
       }
 
       if (api.action == DGApiAction.destroy) {

@@ -44,6 +44,8 @@ DGValidate _$DGValidateFromJson(Map<String, dynamic> json) => DGValidate(
       isUnique: json['isUnique'] as bool? ?? false,
       isToken: json['isToken'] as bool? ?? false,
       isString: json['isString'] as bool? ?? false,
+      isMap: json['isMap'] as bool? ?? false,
+      isAuthenticatedId: json['isAuthenticatedId'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
@@ -82,4 +84,6 @@ Map<String, dynamic> _$DGValidateToJson(DGValidate instance) =>
       'isToken': instance.isToken,
       'fileExtensions': instance.fileExtensions,
       'fileSize': instance.fileSize,
+      'isMap': instance.isMap,
+      'isAuthenticatedId': instance.isAuthenticatedId
     };

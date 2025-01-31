@@ -18,5 +18,18 @@ class ProductSocket {
     }
   }
 
+  update({required Function(Product) result}) {
+    if (!_socket.hasListeners('update')) {
+      _socket.on('update', (response) {
+        try {
+          result(Product.fromJson(response));
+        } catch (e) {
+          logger.e(e);
+          throw 'Update socket error';
+        }
+      });
+    }
+  }
+
 
 }

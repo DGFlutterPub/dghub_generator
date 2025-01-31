@@ -64,11 +64,40 @@ class DartApiGenerator {
 
         body.add('''
   Future<${api.action == DGApiAction.forgotPasswordSend ? 'bool' : className.toPascalCase()}> ${classPathName.toCamelCase()}({required FormData form}) async {
-    try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}' ,data: form);
+    var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}' ,data: form);
+    try {  
       return ${api.action == DGApiAction.forgotPasswordSend ? 'response.data;' : '${className.toPascalCase()}.fromJson(response.data);'}
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
+    }
+  }
+''');
+      }
+
+      if (api.action == DGApiAction.profile) {
+        await DartProviderGenerator.generate(className, api);
+        await DartApiFormGenerator.generate(
+            className, models, config, api.action.name, api);
+
+        if (!import
+            .contains("import '../models/${className.toSnakeCase()}.dart';")) {
+          import.add("import '../models/${className.toSnakeCase()}.dart';");
+        }
+        if (!import.contains("import 'package:dio/dio.dart';")) {
+          import.add("import 'package:dio/dio.dart';");
+        }
+
+        if (!import.contains("import 'package:dio/dio.dart';")) {
+          import.add("import 'package:dio/dio.dart';");
+        }
+
+        body.add('''
+  Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
+    var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}');
+    try {  
+      return ${api.action == DGApiAction.forgotPasswordSend ? 'response.data;' : '${className.toPascalCase()}.fromJson(response.data);'}
+    } catch (e, s) {
+      throw response.data.toString();
     }
   }
 ''');
@@ -91,11 +120,11 @@ class DartApiGenerator {
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id, required FormData form}) async {
+   var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id' ,data: form);
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id' ,data: form);
-      return ${className.toPascalCase()}.fromJson(response.data);
+       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -113,11 +142,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
+    var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -135,11 +164,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
+    var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -157,11 +186,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
+   var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -176,11 +205,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
+   var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -209,13 +238,13 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({${className.toPascalCase()}Query? query}) async {
-    try {
       var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
+    try {
       return ${className.toPascalCase().toPlural()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -244,13 +273,13 @@ Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({$
 
         body.add('''
 Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({${className.toPascalCase()}Query? query}) async {
-    try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.toSnakeCase().toPlural()}',
+     var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.toSnakeCase().toPlural()}',
       queryParameters: query?.toJson()
       );
+    try {
       return ${className.toPascalCase().toPlural()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -265,11 +294,11 @@ Future<${className.toPascalCase().toPlural()}> ${classPathName.toCamelCase()}({$
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
+     var response = await ApiService.request($baseOption).${api.method.name}( '/${classPathName.snakeCase}/\$id');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}( '/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -284,11 +313,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required String id}) async {
+   var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase}/\$id');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');
@@ -303,11 +332,11 @@ Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}({required Str
 
         body.add('''
 Future<${className.toPascalCase()}> ${classPathName.toCamelCase()}() async {
+   var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase.toPlural()}');
     try {
-      var response = await ApiService.request($baseOption).${api.method.name}('/${classPathName.snakeCase.toPlural()}');
       return ${className.toPascalCase()}.fromJson(response.data);
     } catch (e, s) {
-      throw e.toString();
+      throw response.data.toString();
     }
   }
 ''');

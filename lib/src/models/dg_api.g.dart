@@ -14,6 +14,8 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
       autoDispose: json['autoDispose'] as bool? ?? false,
       preRefresh: json['preRefresh'] as bool? ?? false,
       authenticated: json['authenticated'] as bool? ?? false,
+      controlAuthenticatedOnly:
+          json['controlAuthenticatedOnly'] as bool? ?? false,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               const [],
@@ -34,6 +36,7 @@ Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
       'autoDispose': instance.autoDispose,
       'preRefresh': instance.preRefresh,
       'authenticated': instance.authenticated,
+      'controlAuthenticatedOnly': instance.controlAuthenticatedOnly,
       'roles': instance.roles,
       'headers': instance.headers,
       'enabledForm': instance.enabledForm,
@@ -60,6 +63,7 @@ const _$DGApiActionEnumMap = {
   DGApiAction.store: 'store',
   DGApiAction.update: 'update',
   DGApiAction.login: 'login',
+  DGApiAction.profile: 'profile',
   DGApiAction.register: 'register',
   DGApiAction.forgotPasswordSend: 'forgotPasswordSend',
   DGApiAction.forgotPasswordUpdate: 'forgotPasswordUpdate',

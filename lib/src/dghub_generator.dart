@@ -79,7 +79,7 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
       }
 
       if (config.node) {
-        await NodeModelGenerator.generate(className, models, config);
+        await NodeModelGenerator.generate(apis, className, models, config);
       }
       if (config.python) {
         await PythonModelGenerator.generate(className, models, config);

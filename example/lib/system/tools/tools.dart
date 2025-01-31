@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+extension ToolColorExtention on Color {
+  bool get isColorDark =>
+      ThemeData.estimateBrightnessForColor(this) == Brightness.dark;
+}
+
 extension ToolExtension on BuildContext {
   ThemeData get theme => Theme.of(this);
 
@@ -42,4 +47,17 @@ extension ToolExtension on BuildContext {
   }
 }
 
-class Tools {}
+class Tools {
+  static LinearGradient gradient(List<Color> colors,
+      {AlignmentGeometry begin = Alignment.centerLeft,
+      AlignmentGeometry end = Alignment.centerRight}) {
+    if (colors.isEmpty) {
+      return LinearGradient(colors: [Colors.transparent, Colors.transparent]);
+    }
+    if (colors.length == 1) {
+      return LinearGradient(
+          begin: begin, end: end, colors: [colors[0], colors[0]]);
+    }
+    return LinearGradient(begin: begin, end: end, colors: colors);
+  }
+}

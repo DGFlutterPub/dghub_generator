@@ -11,25 +11,26 @@ class DGApi {
   final bool autoDispose;
   final bool preRefresh;
   final bool authenticated;
+  final bool controlAuthenticatedOnly;
   final List<String> roles;
   final List<Map<String, dynamic>>? headers;
   final bool enabledForm;
   final bool saveToLocalStorage;
 
-  const DGApi({
-    this.url,
-    required this.method,
-    required this.action,
-    this.realTime = false,
-    this.autoDispose = false,
-    this.preRefresh = false,
-    this.authenticated = false,
-    this.roles = const [],
-    this.headers,
-    this.path,
-    this.enabledForm = true,
-    this.saveToLocalStorage = false,
-  });
+  const DGApi(
+      {this.url,
+      required this.method,
+      required this.action,
+      this.realTime = false,
+      this.autoDispose = false,
+      this.preRefresh = false,
+      this.authenticated = false,
+      this.roles = const [],
+      this.headers,
+      this.path,
+      this.enabledForm = true,
+      this.saveToLocalStorage = false,
+      this.controlAuthenticatedOnly = false});
 
   factory DGApi.fromJson(Map<String, dynamic> json) => _$DGApiFromJson(json);
   Map<String, dynamic> toJson() => _$DGApiToJson(this);
@@ -51,6 +52,7 @@ enum DGApiAction {
   update,
   login,
   register,
+  profile,
   forgotPasswordSend,
   forgotPasswordUpdate,
   emailVerificationSend,

@@ -65,6 +65,33 @@ class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<$
 }''';
     }
 
+    if (api.action == DGApiAction.profile) {
+      result = '''
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/${className.toSnakeCase()}.dart';
+import '../apis/${className.toSnakeCase()}_api.dart';
+
+var ${classPathName.toCamelCase()}Provider = StateNotifierProvider<
+    ${classPathName.toPascalCase()}Notifier,
+    AsyncValue<${className.toPascalCase()}>>((ref) => ${classPathName.toPascalCase()}Notifier());
+
+class ${classPathName.toPascalCase()}Notifier extends StateNotifier<AsyncValue<${className.toPascalCase()}>> {
+   ${classPathName.toPascalCase()}Notifier() : super(const AsyncLoading());
+  
+  final _api = ${className.toPascalCase()}Api();
+
+  refresh() {
+    state = const AsyncLoading();
+    _api.${classPathName.toCamelCase()}().then((response) {
+      state = AsyncData(response);
+    }).onError((e, s) {
+      state = AsyncError(e!, s);
+    });
+  }
+}''';
+    }
+
     if (api.action == DGApiAction.update ||
         api.action == DGApiAction.forgotPasswordUpdate ||
         api.action == DGApiAction.emailVerificationUpdate) {
@@ -190,7 +217,7 @@ import '../models/${className.toSnakeCase()}_query.dart';
 import '../apis/${className.toSnakeCase()}_api.dart';
 import '../../../system/states/pagination_state.dart';
 
-var ${classPathName.toCamelCase().toPlural()}Provider = StateNotifierProvider<ProductsNotifier, PaginationState<${classPathName.toPascalCase().toPlural()}>>(
+var ${classPathName.toCamelCase().toPlural()}Provider = StateNotifierProvider<${classPathName.toPascalCase().toPlural()}Notifier, PaginationState<${classPathName.toPascalCase().toPlural()}>>(
         (ref) => ${classPathName.toPascalCase().toPlural()}Notifier());
 
 

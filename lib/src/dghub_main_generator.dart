@@ -112,8 +112,11 @@ envGenerator(DGEnvConfig config, DGAppConfig appConfig) async {
 
   await file.writeAsString('''
 import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:encrypt_shared_preferences/provider.dart';
 
 const appName = '${appConfig.appName}';
 const appPackageName = '${appConfig.packageName}';
@@ -121,14 +124,14 @@ const appPackageName = '${appConfig.packageName}';
 const isProductionMode = ${config.production};
 
 const devUrl = '${config.devUrl}';
-const baseUrl = '${config.baseUrl}';
+const proUrl = '${config.baseUrl}';
 
 const apiVersion = '${config.apiVersion}';
 const socketVersion = '${config.socketVersion}';
 
-const hostUrl = isProductionMode ? baseUrl : devUrl;
+const mainUrl = isProductionMode ? proUrl : devUrl;
 
-const apiUrl = '\$hostUrl/api/\$apiVersion/';
+const baseUrl = '\$mainUrl/api/\$apiVersion/';
 
 const secertKey = '${config.secertKey}';
 const publicKey = '${config.publicKey}';
@@ -138,6 +141,12 @@ var globalRef = ProviderContainer();
 Logger logger = Logger();
 
 Directory? globalDir;
+
+SharedPreferences? box;
+
+EncryptedSharedPreferences? encryptedBox;
+
+BuildContext? globalContext;
 
 ''');
 }
