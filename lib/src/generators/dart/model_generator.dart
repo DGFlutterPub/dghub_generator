@@ -69,18 +69,22 @@ class DartModelGenerator {
               '''import '../../${model.ref.toString().toSnakeCase()}/models/${model.ref.toString().toSnakeCase()}.dart';''');
         }
       }
-
-      if (model.ref == null) {
+      if (model.validate.isPassword) {
+      } else if (model.ref == null) {
         formParameter.add(model.validate.isRequired == true
             ? 'required this.${model.key},'
             : model.defaultValue == null
                 ? 'this.${model.key},'
                 : 'this.${model.key} = ${Tools.dartDefaultValue(model)},');
       } else {
-        formParameter.add('this.${model.key},');
+        if (model.validate.isListString) {
+          formParameter.add('this.${model.key} = const [],');
+        } else {
+          formParameter.add('this.${model.key},');
+        }
       }
-
-      if (model.validate.isFile) {
+      if (model.validate.isPassword) {
+      } else if (model.validate.isFile) {
         form.add('String? ${model.key};');
       } else if (model.ref == null) {
         form.add(model.validate.isRequired == true
@@ -89,18 +93,21 @@ class DartModelGenerator {
                 ? '${Tools.dartType(model.validate)}? ${model.key};'
                 : '${Tools.dartType(model.validate)} ${model.key};');
       } else {
-        form.add('${model.ref}? ${model.key};');
+        if (model.validate.isListString) {
+          form.add('${model.ref} ${model.key};');
+        } else {
+          form.add('${model.ref}? ${model.key};');
+        }
       }
     }
     var importsResult = Tools.getNewLineString(imports);
     var formResult = Tools.getNewLineString(form);
     var formParameterResult = Tools.getNewLineString(formParameter);
 
-    read = read.replaceAll('/*import*/', importsResult);
-
-    read = read.replaceAll('/*form*/', formResult);
-
-    read = read.replaceAll('/*formParameter*/', formParameterResult);
+    read = read
+        .replaceAll('/*import*/', importsResult)
+        .replaceAll('/*form*/', formResult)
+        .replaceAll('/*formParameter*/', formParameterResult);
 
     await file.writeAsString(read);
   }

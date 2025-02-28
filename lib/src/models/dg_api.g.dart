@@ -25,6 +25,11 @@ DGApi _$DGApiFromJson(Map<String, dynamic> json) => DGApi(
       path: json['path'] as String?,
       enabledForm: json['enabledForm'] as bool? ?? true,
       saveToLocalStorage: json['saveToLocalStorage'] as bool? ?? false,
+      getOneKey: json['getOneKey'] as String? ?? 'id',
+      scripts: (json['scriptss'] as List<dynamic>?)
+              ?.map((e) => DGScript.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
@@ -41,6 +46,8 @@ Map<String, dynamic> _$DGApiToJson(DGApi instance) => <String, dynamic>{
       'headers': instance.headers,
       'enabledForm': instance.enabledForm,
       'saveToLocalStorage': instance.saveToLocalStorage,
+      'getOneKey': instance.getOneKey,
+      'scripts': instance.scripts
     };
 
 const _$DGApiMethodEnumMap = {
@@ -59,6 +66,7 @@ const _$DGApiActionEnumMap = {
   DGApiAction.recoverAll: 'recoverAll',
   DGApiAction.destroyForever: 'destroyForever',
   DGApiAction.destroyAll: 'destroyAll',
+  DGApiAction.destroyAllForever: 'destroyAllForever',
   DGApiAction.destroy: 'destroy',
   DGApiAction.store: 'store',
   DGApiAction.update: 'update',

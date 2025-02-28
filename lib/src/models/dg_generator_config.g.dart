@@ -18,6 +18,9 @@ DGGeneratorConfig _$DGGeneratorConfigFromJson(Map<String, dynamic> json) =>
       id: json['id'] as bool? ?? true,
       autoIncrement: json['autoIncrement'] as bool? ?? false,
       enabledGenerator: json['enabledGenerator'] as bool? ?? true,
+      saveLocalDatabase: json['saveLocalDatabase'] as bool? ?? true,
+      paginationSize: json['paginationSize'] as int? ?? 20,
+      itemLimit: json['itemLimit'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$DGGeneratorConfigToJson(DGGeneratorConfig instance) =>
@@ -32,4 +35,7 @@ Map<String, dynamic> _$DGGeneratorConfigToJson(DGGeneratorConfig instance) =>
       'language': instance.language,
       'autoIncrement': instance.autoIncrement,
       'enabledGenerator': instance.enabledGenerator,
+      'saveLocalDatabase': instance.saveLocalDatabase,
+      'paginationSize': instance.paginationSize,
+      'itemLimit': instance.itemLimit
     };

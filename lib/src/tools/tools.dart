@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
+import 'package:dghub_generator/src/models/script_model.dart';
 import 'package:pluralize/pluralize.dart';
 
 extension StringExtension on String {
@@ -9,6 +10,18 @@ extension StringExtension on String {
 }
 
 class Tools {
+  static String editScript(
+      {required String script, required List<ScriptModel> replaces}) {
+    for (var r in replaces) {
+      script = script.replaceAll(r.key, '''
+${r.replace}
+${r.key}
+''');
+    }
+
+    return script;
+  }
+
   static String getNewLineString(readLines) {
     StringBuffer sb = StringBuffer();
     for (String line in readLines) {
@@ -116,6 +129,8 @@ class Tools {
         DGApiAction.store => '${className}_store',
         DGApiAction.update => '${className}_update',
         DGApiAction.destroy => '${className}_destroy',
+        DGApiAction.destroyAllForever =>
+          '${className.toPlural()}_destroy_forever',
         DGApiAction.destroyAll => '${className.toPlural()}_destroy',
         DGApiAction.destroyForever => '${className}_destroy_forever',
         DGApiAction.recoverOne => '${className}_recover',

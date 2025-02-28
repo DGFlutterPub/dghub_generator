@@ -114,10 +114,20 @@ schema.index(
           type: [{
           $validate
           type: String,
-          ref: '${model.ref.toString().replaceFirst('List<', '').replaceFirst('>', '')}'}], 
+          ref: '${model.ref.toString().replaceFirst('List<', '').replaceFirst('>', '')}',
+          autopopulate: true
+          }], 
           default: ${Tools.nodeDefaultValue(model)},
           trim: true,
-          
+        },
+      ''');
+      } else if (model.findToGetValueToJson) {
+        form.add('''
+        ${model.key}: {
+          type: String, 
+          default: ${Tools.dartDefaultValue(model)},
+          trim: true,
+          $validate 
         },
       ''');
       } else {
@@ -127,7 +137,9 @@ schema.index(
           ${model.ref == null ? '' : 'ref: "${model.ref}",'}
           default: ${Tools.dartDefaultValue(model)},
           trim: true,
+          autopopulate: true 
           $validate
+          
         },
       ''');
       }
@@ -139,13 +151,14 @@ schema.index(
     var hiddenResult = Tools.getNewLineString(hidden);
     var preSaveResult = Tools.getNewLineString(preSave);
     var hideResult = Tools.getNewLineString(hide);
-    read = read.replaceAll('/*unique*/', uniqueResult);
-    read = read.replaceAll('/*form*/', formResult);
-    read = read.replaceAll('/*import*/', importResult);
-    read = read.replaceAll('/*plugin*/', pluginResult);
-    read = read.replaceAll('/*hidden*/', hiddenResult);
-    read = read.replaceAll('/*preSave*/', preSaveResult);
-    read = read.replaceAll('/*hide*/', hideResult);
+    read = read
+        .replaceAll('/*unique*/', uniqueResult)
+        .replaceAll('/*form*/', formResult)
+        .replaceAll('/*import*/', importResult)
+        .replaceAll('/*plugin*/', pluginResult)
+        .replaceAll('/*hidden*/', hiddenResult)
+        .replaceAll('/*preSave*/', preSaveResult)
+        .replaceAll('/*hide*/', hideResult);
 
     await file.writeAsString(read);
   }

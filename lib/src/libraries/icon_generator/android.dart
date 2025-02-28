@@ -10,6 +10,7 @@ import 'utils.dart' as utils;
 import 'xml_templates.dart' as xml_template;
 import 'package:image/image.dart';
 import 'package:path/path.dart' as path;
+// ignore_for_file: public_member_api_docs
 
 class AndroidIconTemplate {
   AndroidIconTemplate({required this.size, required this.directoryName});
@@ -158,6 +159,15 @@ void createMipmapXmlFile(
   Config config,
   String? flavor,
 ) {
+  // Note: Adaptive Icons will only be used when both
+  // `adaptive_icon_background` and `adaptive_icon_foreground` or
+  // `adaptive_icon_monochrome` are specified (The `image_path` is not
+  // automatically taken as foreground)
+  if (!config.hasAndroidAdaptiveConfig &&
+      !config.hasAndroidAdaptiveMonochromeConfig) {
+    return;
+  }
+
   utils.printStatus('Creating mipmap xml file Android');
 
   String xmlContent = '';

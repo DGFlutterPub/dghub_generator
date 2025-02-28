@@ -11,3 +11,4 @@ export 'src/models/dg_generator_config.dart';
 export 'src/models/dg_splash_config.dart';
 export 'src/models/dg_icon_config.dart';
 export 'src/models/dg_env_config.dart';
+export 'src/models/dg_script.dart';

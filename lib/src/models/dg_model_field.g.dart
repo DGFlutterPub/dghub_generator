@@ -18,6 +18,18 @@ DGModelField _$DGModelFieldFromJson(Map<String, dynamic> json) => DGModelField(
       ref: json['ref'],
       store: json['store'] as bool? ?? true,
       update: json['update'] as bool? ?? true,
+      loginForm: json['loginForm'] as bool? ?? true,
+      findWithSearch: json['findWithSearch'] as bool? ?? true,
+      findToGetValue: json['findToGetValue'] as bool? ?? true,
+      findToGetValueToJson: json['findToGetValueToJson'] as bool? ?? true,
+      scripts: (json['scripts'] as List<dynamic>?)
+              ?.map((e) => DGScript.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      findQuery: (json['findQuery'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$DGModelFieldToJson(DGModelField instance) =>
@@ -29,4 +41,10 @@ Map<String, dynamic> _$DGModelFieldToJson(DGModelField instance) =>
       'ref': instance.ref,
       'store': instance.store,
       'update': instance.update,
+      'loginForm': instance.loginForm,
+      'findWithSearch': instance.findWithSearch,
+      'scripts': instance.scripts,
+      'findToGetValueToJson': instance.findToGetValueToJson,
+      'findToGetValue': instance.findToGetValue,
+      'findQuery': instance.findQuery
     };

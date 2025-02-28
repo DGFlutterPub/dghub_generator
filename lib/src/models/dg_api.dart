@@ -1,3 +1,4 @@
+import 'package:dghub_generator/src/models/dg_script.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'dg_api.g.dart';
 
@@ -16,21 +17,25 @@ class DGApi {
   final List<Map<String, dynamic>>? headers;
   final bool enabledForm;
   final bool saveToLocalStorage;
-
-  const DGApi(
-      {this.url,
-      required this.method,
-      required this.action,
-      this.realTime = false,
-      this.autoDispose = false,
-      this.preRefresh = false,
-      this.authenticated = false,
-      this.roles = const [],
-      this.headers,
-      this.path,
-      this.enabledForm = true,
-      this.saveToLocalStorage = false,
-      this.controlAuthenticatedOnly = false});
+  final String getOneKey;
+  final List<DGScript> scripts;
+  const DGApi({
+    this.url,
+    required this.method,
+    required this.action,
+    this.realTime = false,
+    this.autoDispose = false,
+    this.preRefresh = false,
+    this.authenticated = false,
+    this.roles = const [],
+    this.headers,
+    this.path,
+    this.enabledForm = true,
+    this.saveToLocalStorage = false,
+    this.getOneKey = 'id',
+    this.controlAuthenticatedOnly = false,
+    this.scripts = const [],
+  });
 
   factory DGApi.fromJson(Map<String, dynamic> json) => _$DGApiFromJson(json);
   Map<String, dynamic> toJson() => _$DGApiToJson(this);
@@ -46,6 +51,7 @@ enum DGApiAction {
   recoverOne,
   recoverAll,
   destroyForever,
+  destroyAllForever,
   destroyAll,
   destroy,
   store,

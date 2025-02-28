@@ -1,3 +1,4 @@
+import 'dg_script.dart';
 import 'dg_validate.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -12,6 +13,12 @@ class DGModelField {
   final dynamic ref;
   final bool store;
   final bool update;
+  final bool loginForm;
+  final bool findWithSearch;
+  final List<DGScript> scripts;
+  final bool findToGetValue;
+  final bool findToGetValueToJson;
+  final List<String> findQuery;
   const DGModelField(
       {required this.key,
       this.defaultValue,
@@ -19,7 +26,13 @@ class DGModelField {
       this.forms = const [],
       this.ref,
       this.store = true,
-      this.update = true});
+      this.loginForm = false,
+      this.update = true,
+      this.findWithSearch = false,
+      this.findToGetValue = false,
+      this.findToGetValueToJson = false,
+      this.findQuery = const [],
+      this.scripts = const []});
   factory DGModelField.fromJson(Map<String, dynamic> json) =>
       _$DGModelFieldFromJson(json);
   Map<String, dynamic> toJson() => _$DGModelFieldToJson(this);

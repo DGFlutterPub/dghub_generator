@@ -2,23 +2,26 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:change_case/change_case.dart';
 import 'package:dghub_generator/dghub_generator.dart';
+import 'package:dghub_generator/src/generators/dart/database/database_generator.dart';
 import 'package:dghub_generator/src/tools/auto_convert.dart';
+import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
 import 'package:source_gen/source_gen.dart';
-import 'generators/dart/api_generator.dart';
-import 'generators/dart/form_generator.dart';
+import 'generators/dart/api/api_generator.dart';
+import 'generators/dart/form/form_generator.dart';
 import 'generators/dart/model_generator.dart';
 import 'generators/dart/validator_generator.dart';
-import 'generators/node/api_generator.dart';
+import 'generators/node/api/api_generator.dart';
 import 'generators/node/model_generator.dart';
 import 'generators/python/model_generator.dart';
 
 class DGHubGenerator {
+  final List<Map<String, dynamic>>? seeders;
   final List<DGModelField>? model;
   final List<DGApi>? apis;
   final DGGeneratorConfig? config;
 
-  const DGHubGenerator({this.config, this.model, this.apis});
+  const DGHubGenerator({this.seeders, this.config, this.model, this.apis});
 }
 
 Builder generator(BuilderOptions options) => SharedPartBuilder(
@@ -44,8 +47,6 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
       variables: variables,
       object: annotation.objectValue,
     );
-
-    print(anotations);
 
     var config = anotations.containsKey('config')
         ? DGGeneratorConfig.fromJson(anotations['config'])
@@ -76,6 +77,9 @@ class _DGHUBGenerator extends GeneratorForAnnotation<DGHubGenerator> {
         );
         await DartValidatorGenerator.generate(className, models);
         await DartModelFormGenerator.generate(className, models, config);
+        if (config.saveLocalDatabase) {
+          await DartDatabaseGenerator.generate(className, models, config);
+        }
       }
 
       if (config.node) {
